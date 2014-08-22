@@ -60,8 +60,13 @@ table.nml-table {
     width: 175px;
   }
 
+  .col-actual,
+  .col-nominal {
+    text-align: center;
+  }
+
   .col-comment {
-    text-align: left;
+    text-align: center;
 
     > input {
       text-align: left;
