@@ -1,13 +1,32 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1394117739" format="1.1" version="2"}%
 %META:TOPICPARENT{name="Plugins"}%
----+ KPIPlugin
+---+ NominalPlugin
 
 %SHORTDESCRIPTION%
 
 ---++ Installation
 
+   1 Copy the following files from _Sandbox/_app web_ to a web of your choice:
+      * NominalForm
+      * NominalEditTemplate
+      * NominalViewTemplate
+      * NominalTemplate
+      * NominalWebHomeTemplate
+      * NominalWebHome
+   1 Rename *NominalWebHome* to *WebHome*.
+   1 Edit the _WebPreferences_ of your destination web and add the following settings:
+      * <verbatim>   * Set WEBMETADATA = NominalForm</verbatim>
+      * <verbatim>   * Set CKE_CONFIG_TOPIC = System.NominalPlugin</verbatim>
+   1 Switch to _/bin/configure_ and 
+      * set the starting month of a fiscal year (defaults to 1)
+      * modify the Solr query to match your setup (optional)
+
+
 
 ---++ CKEditor Form Field Configuration
+
+The below CKEditor configuration is used by the NominalPlugin's edit template.
+
 %TWISTY{showlink="Show configuration" hidelink="Hide configuration" start="hide"}%
 <verbatim class="js">
 %STARTSECTION{"CKE_CONFIG_FORMFIELD"}%
