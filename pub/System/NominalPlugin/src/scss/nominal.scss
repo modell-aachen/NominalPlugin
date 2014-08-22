@@ -1,0 +1,166 @@
+.right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.transparent {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+a.nml-link, a.nml-link:hover {
+  text-decoration: none !important;
+}
+
+a.nml-button {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-color: transparent;
+  border-radius: 4px;
+  transition: background 0.1s ease-in-out,
+              border-color 0.1s ease-in-out,
+              color 0.1s ease-in-out;
+
+  &:hover {
+    text-decoration: none;
+    background: #6494c9;
+    color: #fff;
+    border-color: lighten(#6494c9, 5%);
+  }
+
+  &:active {
+    background: darken(#6494c9, 10%);
+    color: #fff;
+  }
+
+  &.dialog-button {
+    background: #f0f0f0;
+    color: #333;
+
+    &:hover, &:active {
+      background: darken(#f0f0f0, 10%);
+      border-color: darken(#f0f0f0, 20%);
+      text-decoration: none;
+    }
+  }
+}
+
+
+table.nml-table {
+  width: 100%;
+  border-spacing: 0;
+
+  .col-month,
+  .col-actual,
+  .col-nominal {
+    width: 175px;
+  }
+
+  .col-comment {
+    text-align: left;
+
+    > input {
+      text-align: left;
+    }
+  }
+
+  thead th {
+    text-align: left;
+    padding: 15px 10px;
+    color: #555;
+    font-size: 1.1em;
+  }
+
+  tbody {
+    background: #f8fcff;
+
+    tr {
+      transition: background 0.1s ease-in-out,
+                  color 0.1s ease-in-out;
+
+      &:nth-child(even) { background: #fff; }
+      &:hover {
+        background: #6494c9;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      &:hover > td > input[disabled] {
+        color: #fff;
+      }
+    }
+
+    td {
+      padding: 3px 10px;
+    }
+  }
+}
+
+input.nml-input {
+  width: 100%;
+  text-align: right;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 4px;
+  transition: background-color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out,
+              color 0.1s ease-in-out;
+
+  &[disabled] {
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &:invalid,
+  &.invalid {
+    border-color: #a20000;
+    color: #a20000;
+  }
+
+  &.small {
+    width: 125px;
+  }
+}
+
+div.nml-container {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+  background: #fefefe;
+  border: 1px solid #ccc;
+  min-width: 350px;
+  min-height: 200px;
+  max-width: 350px;
+  max-height: 200px;
+  margin: 10px;
+  cursor: pointer;
+
+  > .nml {
+    min-width: inherit;
+    min-height: inherit;
+  }
+}
+
+select.nml-select {
+  background: #6494c9;
+  border: none;
+  color: white;
+  line-height: 1;
+}
+
+.cke_chrome {
+  box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.title-col {
+  font-weight: bold;
+  color: #999;
+}

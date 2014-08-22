@@ -1,0 +1,52 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1394117739" format="1.1" version="2"}%
+%META:TOPICPARENT{name="Plugins"}%
+---+ KPIPlugin
+
+%SHORTDESCRIPTION%
+
+---++ Installation
+
+
+---++ CKEditor Form Field Configuration
+%TWISTY{showlink="Show configuration" hidelink="Hide configuration" start="hide"}%
+<verbatim class="js">
+%STARTSECTION{"CKE_CONFIG_FORMFIELD"}%
+uiColor: '#f8fcff',
+skin: 'moono',
+toolbar: 'FORMFIELD',
+height: 125,
+width: '100%',
+allowedContent: true,
+resize_enabled: true,
+toolbarCanCollapse: false,
+enterMode: CKEDITOR.ENTER_P,
+shiftEnterMode: CKEDITOR.ENTER_BR,
+extraPlugins: 'divarea,link,qwiki,qwikiautosuggest,qwikifilebrowser',
+removePlugins: 'autosave,filebrowser,table,tabletools,wordcount,magicline,qwikisave,qwikitable,qwikitabletools,qwikitoolbar,elementspath',
+language: '%LANGUAGE%',
+forcePasteAsPlainText: false,
+filebrowserUploadUrl: '%SCRIPTURLPATH{"rest"}%/WysiwygPlugin/upload?noredirect',
+linkShowAdvancedTab: false,
+linkShowTargetTab: false,
+contentsCss: [ '%PUBURLPATH%/%SYSTEMWEB%/CKEditorPlugin/styles/cke_qwiki.css'],
+toolbar_FORMFIELD: [
+    { name: '', items: [ 'Undo', 'Redo' ] },
+    { name: '', items: [ 'Link','Unlink' ] },
+    { name: '', items: [ 'Bold','Italic','Underline' ] },
+    { name: '', items: [ 'NumberedList','BulletedList' ] }
+]
+%ENDSECTION{"CKE_CONFIG_FORMFIELD"}%
+</verbatim>
+%ENDTWISTY%
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.SvenMeyer |
+|  Copyright: | &copy; 2013, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | |
+|  20 Aug 2013 (1.0.2) | Initial release |
+|  Home: | http://www.modell-aachen.de |
+|  Support: | http://www.modell-aachen.de |

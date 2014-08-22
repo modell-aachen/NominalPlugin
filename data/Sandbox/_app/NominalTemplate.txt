@@ -1,0 +1,7 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1376986928" format="1.1" version="1"}%
+%STARTSECTION{type="templateonly"}%
+   * Set ALLOWTOPICCHANGE = AdminUser
+%ENDSECTION{type="templateonly"}%
+
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Set" value="NominalView"}%
+%META:PREFERENCE{name="EDIT_TEMPLATE" title="EDIT_TEMPLATE" type="Set" value="NominalEdit"}%

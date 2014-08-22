@@ -1,0 +1,5 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1404724093" format="1.1" reprev="2" version="2"}%
+   * <a href="%SCRIPTURL{edit}%/%WEB%/NMLAUTOINC0000?template=%WEB%.NominalEdit;templatetopic=%WEB%.NominalTemplate;formtemplate=NominalForm;t=%GMTIME{$epoch}%;">%MAKETEXT{"Create new KPI"}%</a>
+
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminGroup"}%
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%
