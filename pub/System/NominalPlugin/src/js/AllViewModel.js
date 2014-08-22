@@ -125,11 +125,13 @@
       } else {
         showPlot( id );
       }
-
-      return;
     }
 
     // select KPI according to var self.selectedYear
+    if ( !self.selectedYear() ) {
+      self.selectedYear( (new Date()).getFullYear() );
+    }
+
     var data = _.where( nml.data, {name: self.selectedYear().toString()});
     if ( data.length === 0 ) {
       if ( self.hideEmpty() ) {
@@ -145,16 +147,17 @@
     var s1 = [], s2 = [];
     var max = 0, min = 0;
     if ( data ) {
-    for( var i = 0; i < self.months().length; ++i ) {
-      var month = self.months()[i];
+      for( var i = 0; i < self.months().length; ++i ) {
+        var month = self.months()[i];
 
-      var val1 = data['ACT_' + month.index];
-      var val2 = data['NML_' + month.index];
-      max = Math.max( max, Math.max( val1, val2 ) );
-      min = Math.min( min, Math.min( val1, val2 ) );
-      s1.push( [month.name.substring( 0, 3 ), val1] );
-      s2.push( [month.name.substring( 0, 3 ), val2] );
-    }}
+        var val1 = data['ACT_' + month.index];
+        var val2 = data['NML_' + month.index];
+        max = Math.max( max, Math.max( val1, val2 ) );
+        min = Math.min( min, Math.min( val1, val2 ) );
+        s1.push( [month.name.substring( 0, 3 ), val1] );
+        s2.push( [month.name.substring( 0, 3 ), val2] );
+      }
+    }
 
     var plot = window[plotId];
     if ( plot ) {

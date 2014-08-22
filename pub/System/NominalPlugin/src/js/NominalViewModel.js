@@ -171,9 +171,13 @@
 
         if ( index >= self.nominals().length ) {
           index = 0;
-          self.selectedNominal(null);
-        } else {
+        }
+
+        if ( index < self.nominals().length ) {
           self.selectedNominal( self.nominals()[index] );
+        } else {
+          self.selectedNominal( {name: ''} );
+          self.showNewYearLink( true );
         }
 
         $('#nml-delete-dialog').dialog('close');
