@@ -3,6 +3,7 @@
 
 %TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
 %TMPL:P{"formstart"}%%TMPL:P{"formtop"}%
+%JQREQUIRE{"ui::dialog, ui::button,ui::tabs,blockui,textboxlist"}%
 <div class="widgetBlockTitle">%MAKETEXT{"Details"}%</div>
 <div class="widgetBlockContent">
   <table class="metaDataHead">

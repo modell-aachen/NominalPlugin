@@ -2,6 +2,7 @@
 %TMPL:INCLUDE{"view"}%
 
 %TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
+%JQREQUIRE{"ui::dialog, ui::button,ui::tabs,blockui,textboxlist"}%
 %SETVAR{var="ALLOWTOPICVIEW" value="$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
 %SETVAR{var="ALLOWTOPICVIEW" value="" field="Private" type="Set" matches="^$"}%
 %SETVAR{var="ALLOWTOPICCHANGE" value="$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
@@ -131,7 +132,6 @@
     </table>
   </div>
 </div>
-%JQREQUIRE{"ui::tabs, blockui"}%
 %NOMINALVIEWMODEL%
 %TMPL:END%
 
