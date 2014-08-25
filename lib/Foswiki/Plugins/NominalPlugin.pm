@@ -124,7 +124,6 @@ sub _restPOST {
 sub _handleVM {
   my( $session, $params, $topic, $web, $topicObject ) = @_;
 
-  my $viewmodel = 'ViewModel';
   my $type = $params->{_DEFAULT} || '';
   my $viewmodel = $type eq 'list' ? 'AllViewModel' : 'NominalViewModel';
   my $yearOffset = $Foswiki::cfg{Plugins}{NominalPlugin}{FiscalYearStart} || '1';
