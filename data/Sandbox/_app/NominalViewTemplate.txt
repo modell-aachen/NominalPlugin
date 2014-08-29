@@ -35,14 +35,19 @@
   </table>
 </div>
 
-<div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: '(' + selectedNominal().name + ')'"></small></div>
+<div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: '(' + selectedNominalText() + ')'"></small></div>
 <div class="widgetBlockContent">
+<div class="right" data-bind="visible: canCompareYears">
+  <a class="nml-button" href="#" title="%MAKETEXT{"Compare fiscal years"}%" data-bind="click: showCompareDialog">
+    <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/chart_curve.png" /> %MAKETEXT{"Compare fiscal years"}%
+  </a>
+</div>
 <div id="nml-graph"></div>
 </div>
 
 <div class="widgetBlockTitle">%MAKETEXT{"Key data"}% <small>(%MAKETEXT{"by fiscal year"}%)</small></div>
 <div class="widgetBlockContent">
-  <div data-bind="visible: showNewYearLink">
+  <div class="right">
     <a class="nml-button" href="#" title="%MAKETEXT{"Add fiscal year"}%" data-bind="click: showNewYearDialog">
       <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/add.png" /> %MAKETEXT{"Add fiscal year"}%
     </a>
@@ -56,11 +61,6 @@
     <!-- ko foreach: {data: nominals, as: 'nml'} -->
     <div data-bind="attr: {id: name}">
       <div>
-        <div class="right">
-          <a class="nml-button" href="#" title="%MAKETEXT{"Add fiscal year"}%" data-bind="click: $parent.showNewYearDialog">
-            <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/add.png" /> %MAKETEXT{"Add fiscal year"}%
-          </a>
-        </div>
         <a class="nml-button" href="#" title="%MAKETEXT{"Edit"}%" data-bind="click: $parent.editNominal, visible: nml.disabled() == true">
           <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/pencil.png" /> %MAKETEXT{"Edit"}%
         </a>
@@ -84,11 +84,17 @@
           </tr>
         </thead>
         <tbody data-bind="foreach: {data: $parent.months, as: 'month'}">
-          <tr>
+          <tr data-bind="click: $root.clickToEdit">
             <td class="col-month" data-bind="text: month.name"></td>
-            <td class="col-actual"><input class="nml-input" type="number" data-bind="textInput: nml['ACT_' + month.index], disable: nml.disabled" required></td>
-            <td class="col-nominal"><input class="nml-input" type="number" data-bind="textInput: nml['NML_' + month.index], disable: nml.disabled" required></td>
-            <td class="col-comment"><input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + month.index], disable: nml.disabled"></td>
+            <td class="col-actual">
+              <input class="nml-input" type="number" data-bind="textInput: nml['ACT_' + month.index], disable: nml.disabled" required>
+            </td>
+            <td class="col-nominal">
+              <input class="nml-input" type="number" data-bind="textInput: nml['NML_' + month.index], disable: nml.disabled" required>
+            </td>
+            <td class="col-comment">
+              <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + month.index], disable: nml.disabled">
+            </td>
           </tr>
         </tbody>
       </table>
@@ -130,6 +136,17 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div id="nml-compare-dialog" title="%MAKETEXT{"Select fiscal years"}%">
+    <table>
+      <tbody data-bind="foreach: {data: nominals}">
+        <tr>
+          <td style="width: 50px;"><input type="checkbox" data-bind="checkedValue: $data, checked: $parent.yearsToCompare"></td>
+          <td><span data-bind="text: name"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="nml-button dialog-button right" href="#" title="%MAKETEXT{"Compare"}%" data-bind="click: compareYears">%MAKETEXT{"Compare"}%</a>
   </div>
 </div>
 %NOMINALVIEWMODEL%

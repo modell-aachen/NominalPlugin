@@ -127,6 +127,10 @@ sub _handleVM {
   my $type = $params->{_DEFAULT} || '';
   my $viewmodel = $type eq 'list' ? 'AllViewModel' : 'NominalViewModel';
   my $yearOffset = $Foswiki::cfg{Plugins}{NominalPlugin}{FiscalYearStart} || '1';
+  $yearOffset = 1 if $yearOffset !~ m/^\d+$/;
+  $yearOffset = 1 if $yearOffset < 1;
+  $yearOffset = 12 if $yearOffset > 12;
+
   my $debug = $Foswiki::cfg{Plugins}{NominalPlugin}{Debug} || 0;
   my $suffix = $debug ? '' : '.min';
 

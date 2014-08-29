@@ -208,11 +208,8 @@
       },
       highlighter: {
         show: true,
-        sizeAdjust: 7.5
-      },
-      cursor: {
-        show: false,
-        tooltipLocation: 'ne'
+        sizeAdjust: 7.5,
+        tooltipAxes: 'y',
       }
     });
   };

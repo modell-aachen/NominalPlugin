@@ -187,10 +187,12 @@ module.exports = function(grunt) {
           '<%= pkg.pubDir %>/js/jqplot.js': [
             '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
+            '<%= pkg.bower %>/jqplot/plugins/jqplot.cursor.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasTextRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.categoryAxisRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.dateAxisRenderer.js',
+            '<%= pkg.bower %>/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.highlighter.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.pointLabels.js'
           ]
@@ -213,10 +215,12 @@ module.exports = function(grunt) {
           '<%= pkg.pubDir %>/js/jqplot.min.js': [
             '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
+            '<%= pkg.bower %>/jqplot/plugins/jqplot.cursor.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasTextRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.categoryAxisRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.dateAxisRenderer.js',
+            '<%= pkg.bower %>/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.highlighter.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.pointLabels.js'
           ]

@@ -162,6 +162,18 @@ msgid "Visible to eligible persons only"
 msgstr "Nur sichtbar für berechtigte Personen"
 
 #: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Compare fiscal years"
+msgstr "Geschäftsjahre vergleichen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Select fiscal years"
+msgstr "Geschäftsjahre auswählen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Compare"
+msgstr "Vergleichen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
 msgid "Year"
 msgstr "Jahr"
 
