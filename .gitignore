@@ -1,5 +1,5 @@
-/data/Sandbox/_app/.changes
-/data/Sandbox/_app/NML*
+/data/Sandbox/_app/Nominal/changes
+/data/Sandbox/_app/Nominal/NML*
 /data/Sandbox/Nominal
 /lib/Foswiki/Plugins/NominalPlugin/MANIFEST
 /pub/System/NominalPlugin/css/*
