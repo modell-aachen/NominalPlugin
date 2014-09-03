@@ -231,7 +231,7 @@
       self.selectedNominal( nml );
       updateNominal( self, 'save', source ).done( function() {
         $.unblockUI();
-      }).fail(function(){console.log('failed');});
+      });
     };
  
     this.deleteNominal = function() {
