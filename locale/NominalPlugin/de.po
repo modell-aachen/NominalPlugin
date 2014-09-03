@@ -88,6 +88,10 @@ msgstr "Juni"
 msgid "Key data"
 msgstr "Kennzahlen"
 
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Reset"
+msgstr "Zurücksetzen"
+
 #: data/Sandbox/Nominal/NominalWebHomeTemplate.txt
 msgid "Key figures"
 msgstr "Kennzahlen"

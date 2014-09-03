@@ -41,6 +41,7 @@
     this.showNewYearLink = ko.observable( true );
     this.canCompareYears = ko.observable( false );
     this.yearsToCompare = ko.observableArray();
+    this.isComparing = ko.observable( false );
     this.newFiscalYear = ko.observable( (new Date()).getFullYear() );
     this.selectedNominal = ko.observable({name: ''});
     this.selectedNominalText = ko.observable('');
@@ -182,6 +183,20 @@
       nml.disabled( true );
     };
 
+    this.resetComparison = function() {
+      var selectedYear = self.selectedNominal().name;
+      $('ul.ui-tabs-nav li.ui-state-default a').each( function() {
+        if ( $(this).text() === selectedYear ) {
+          $(this).click();
+          self.isComparing( false );
+          plot( self );
+          self.yearsToCompare([]);
+          self.selectedNominalText( selectedYear );
+          return;
+        }
+      });
+    };
+
     this.compareYears = function() {
       $('#nml-compare-dialog').dialog('close');
 
@@ -208,6 +223,7 @@
 
       self.selectedNominalText( years.join(', ') );
       plotMulti( self );
+      self.isComparing( true );
     };
 
     this.saveNominal = function( nml ) {

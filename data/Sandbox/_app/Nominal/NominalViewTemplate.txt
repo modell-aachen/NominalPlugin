@@ -41,6 +41,9 @@
   <a class="nml-button" href="#" title="%MAKETEXT{"Compare fiscal years"}%" data-bind="click: showCompareDialog">
     <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/chart_curve.png" /> %MAKETEXT{"Compare fiscal years"}%
   </a>
+  <a class="nml-button" href="#" title="%MAKETEXT{"Reset"}%" data-bind="click: resetComparison, visible: isComparing">
+    <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/chart_curve_delete.png" /> %MAKETEXT{"Reset"}%
+  </a>
 </div>
 <div id="nml-graph"></div>
 </div>
