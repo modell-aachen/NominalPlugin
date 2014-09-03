@@ -203,6 +203,9 @@
       }
 
       var years = _.map( self.yearsToCompare(), function( y ) { return y.name; });
+      var sort = function( y ) { return Math.min( parseInt( y ) ); };
+      years = _.sortBy( years, sort );
+
       self.selectedNominalText( years.join(', ') );
       plotMulti( self );
     };
@@ -388,15 +391,15 @@
         }
       },
       highlighter: {
-        show: false,
+        show: true,
         sizeAdjust: 7.5,
         tooltipAxes: 'y'
       },
       cursor: {
         show: true,
         tooltipLocation:'nw',
-        showVerticalLine: true,
-        showHorizontalLine: true
+        showVerticalLine: false,
+        showHorizontalLine: false
       }
     });
   };
@@ -410,6 +413,9 @@
 
       return;
     }
+
+    var sort = function( n ) { return Math.min( parseInt( n.name ) ); };
+    nmls = _.sortBy( nmls, sort );
 
     var barWidth = 50/nmls.length;
     var barColors = ['#6494c9', '#81bcff', '#3d98ff', '#204d80', '#0078ff'];
@@ -510,8 +516,8 @@
       cursor: {
         show: true,
         tooltipLocation:'nw',
-        showVerticalLine: true,
-        showHorizontalLine: true
+        showVerticalLine: false,
+        showHorizontalLine: false
       }
     });
   };
