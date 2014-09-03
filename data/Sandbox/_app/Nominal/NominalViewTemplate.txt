@@ -90,10 +90,10 @@
           <tr data-bind="click: $root.clickToEdit">
             <td class="col-month" data-bind="text: month.name"></td>
             <td class="col-actual">
-              <input class="nml-input" type="number" data-bind="textInput: nml['ACT_' + month.index], disable: nml.disabled" required>
+              <input class="nml-input" type="text" data-bind="textInput: nml['ACT_' + month.index], disable: nml.disabled" required data-required>
             </td>
             <td class="col-nominal">
-              <input class="nml-input" type="number" data-bind="textInput: nml['NML_' + month.index], disable: nml.disabled" required>
+              <input class="nml-input" type="text" data-bind="textInput: nml['NML_' + month.index], disable: nml.disabled" required data-required>
             </td>
             <td class="col-comment">
               <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + month.index], disable: nml.disabled">

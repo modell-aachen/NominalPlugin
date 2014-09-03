@@ -231,7 +231,7 @@
       self.selectedNominal( nml );
       updateNominal( self, 'save', source ).done( function() {
         $.unblockUI();
-      });
+      }).fail(function(){console.log('failed');});
     };
  
     this.deleteNominal = function() {
@@ -275,33 +275,51 @@
     var deferred = $.Deferred();
 
     // input validation
-    var inputs = $('.nml-table input:invalid');
-    if ( inputs.length > 0 ) {
+    if ( $('.nml-table input:invalid').length > 0 ) {
       deferred.reject();
       return deferred.promise();
     }
 
-    $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
-    var nml  = self.selectedNominal();
-    nml.disabled( true );
+    $('.nml-table input[data-required]').each( function() {
+      var $this = $(this);
+      var val = $this.val();
 
-    var url = baseUri() + '/' + action;
-    var payload = {
-      data: JSON.stringify( nml ),
-      source: source
-    };
+      var isEmpty = val && val.trim() !== '';
+      var valid = /^\d+(\.\d+)?$/.test( val );
 
-    $.post( url, payload, function( response ) {
-      if ( $.parseJSON( response ).status === 'ok' ) {
-        if ( action === 'save' ) {
-          plot( self );
-        }
-
-        deferred.resolve();
+      if ( isEmpty && valid ) {
+        $this.removeClass('invalid');
       } else {
-        deferred.reject();
+        $this.addClass('invalid');
       }
     });
+
+    var nml  = self.selectedNominal();
+    if ( $('.nml-table input.invalid').length > 0 ) {
+      deferred.reject();
+      nml.disabled( false );
+    } else {
+      $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
+      nml.disabled( true );
+
+      var url = baseUri() + '/' + action;
+      var payload = {
+        data: JSON.stringify( nml ),
+        source: source
+      };
+
+      $.post( url, payload, function( response ) {
+        if ( $.parseJSON( response ).status === 'ok' ) {
+          if ( action === 'save' ) {
+            plot( self );
+          }
+
+          deferred.resolve();
+        } else {
+          deferred.reject();
+        }
+      });
+    }
 
     return deferred.promise();
   };
