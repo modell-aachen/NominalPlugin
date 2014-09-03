@@ -1,6 +1,7 @@
 ;(function ($, _, document, window, undefined) {
-  window.NominalViewModel = function( source, offset, lang ) {
+  window.NominalViewModel = function( source, offset, lang, animate ) {
     var self = this;
+    self.animate = animate;
     offset = offset - 1 || 0;
 
     var langList = lang.split("\t");
@@ -359,7 +360,7 @@
     }
 
     window.nmlplot = $.jqplot('nml-graph', [s1, s2], {
-      animate: !$.jqplot.use_excanvas,
+      animate: !$.jqplot.use_excanvas && self.animate,
       grid: {
         drawBorder: false,
         shadow: false,

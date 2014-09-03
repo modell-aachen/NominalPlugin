@@ -1,6 +1,7 @@
 ;(function ($, _, document, window, undefined) {
-  window.AllViewModel = function( source, offset, lang ) {
+  window.AllViewModel = function( source, offset, lang, animate ) {
     var self = this;
+    self.animate = animate;
     offset = offset - 1 || 0;
 
     var langList = lang.split("\t");
@@ -165,7 +166,7 @@
     }
 
     window[plotId] = $.jqplot(id, [s1, s2], {
-      animate: !$.jqplot.use_excanvas,
+      animate: !$.jqplot.use_excanvas && self.animate,
       title: nml.title,
       grid: {
         drawBorder: false,

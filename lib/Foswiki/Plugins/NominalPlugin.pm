@@ -170,10 +170,14 @@ SCRIPTS
   $lang =~ s/\\/\\\\/g;
   $lang =~ s/'/\\'/g;
 
+  my $animate = $Foswiki::cfg{Plugins}{NominalPlugin}{AnimatePlots};
+  $animate = 1 if ( !defined $animate );
+  $animate = $animate ? 'true' : 'false';
+
   my $script = <<"SCRIPT";
 (function(\$) {
   \$(document).ready( function() {
-    ko.applyBindings( new $viewmodel( '$web.$topic', $yearOffset, '$lang' ) );
+    ko.applyBindings( new $viewmodel( '$web.$topic', $yearOffset, '$lang', $animate ) );
   });
 })(jQuery);
 SCRIPT
