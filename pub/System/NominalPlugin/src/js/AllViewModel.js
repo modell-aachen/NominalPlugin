@@ -45,7 +45,7 @@
     this.selectedYear.subscribe( function( val ) { plot( self ); });
     this.availableYears = ko.observableArray();
 
-    $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
+    $.blockUI();
     load( self ).done( function() {
       $.unblockUI();
       plot( self );
