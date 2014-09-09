@@ -1,0 +1,206 @@
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "Actual"
+msgstr "Ist"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Add fiscal year"
+msgstr "Geschäftsjahr hinzufügen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Add year"
+msgstr "Jahr hinzufügen"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "April"
+msgstr "April"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "August"
+msgstr "August"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Chart"
+msgstr "Verlauf"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Comment"
+msgstr "Kommentar"
+
+#: data/Sandbox/Nominal/WebActions.txt
+msgid "Create new KPI"
+msgstr "Neue Kennzahl anlegen"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "December"
+msgstr "Dezember"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Delete"
+msgstr "Löschen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Delete selected year"
+msgstr "Das ausgewählte Jahr löschen"
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Description"
+msgstr "Beschreibung"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Details"
+msgstr "Details"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Do you really want to delete the selected year?"
+msgstr "Möchten Sie das ausgewählte Jahr wirklich löschen?"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Edit"
+msgstr "Editieren"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "February"
+msgstr "Februar"
+
+#: data/Sandbox/Nominal/NominalWebHomeTemplate.txt
+msgid "Hide empty charts"
+msgstr "Leere Charts verbergen"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "January"
+msgstr "Januar"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "July"
+msgstr "Juli"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "June"
+msgstr "Juni"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Key data"
+msgstr "Kennzahlen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: data/Sandbox/Nominal/NominalWebHomeTemplate.txt
+msgid "Key figures"
+msgstr "Kennzahlen"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "March"
+msgstr "März"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "May"
+msgstr "Mai"
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Measurement"
+msgstr "Erhebung"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Month"
+msgstr "Monat"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "Nominal"
+msgstr "Soll"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "November"
+msgstr "November"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "October"
+msgstr "Oktober"
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Persons eligible for viewing"
+msgstr "Ansichtsberechtigte Personen"
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Responsible"
+msgstr "Verantwortlich"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Save"
+msgstr "Speichern"
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "September"
+msgstr "September"
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+msgid "TBD. Title"
+msgstr ""
+
+#: data/Sandbox/Nominal/WebAtom.txt data/Sandbox/Nominal/WebRss.txt
+msgid "The %1 web of %2."
+msgstr ""
+
+#: data/Sandbox/Nominal/WebNotify.txt
+msgid "This is a subscription service to be automatically notified by e-mail when topics change in this %1 web. This is a convenient service, so you do not have to come back and check all the time if something has changed. To subscribe, please add a bullet with your %2 in alphabetical order to this list:"
+msgstr ""
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+msgid "Title"
+msgstr "Titel"
+
+#: data/Sandbox/Nominal/NominalEditTemplate.txt
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Visible to eligible persons only"
+msgstr "Nur sichtbar für berechtigte Personen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Compare fiscal years"
+msgstr "Geschäftsjahre vergleichen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Select fiscal years"
+msgstr "Geschäftsjahre auswählen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Compare"
+msgstr "Vergleichen"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "Year"
+msgstr "Jahr"
+
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "by fiscal year"
+msgstr "nach Geschäftsjahr"
+
+#: data/Sandbox/Nominal/NominalForm.txt
+#: data/Sandbox/Nominal/NominalViewTemplate.txt
+msgid "protected"
+msgstr "geschützt"
+
+#~ msgid "Data"
+#~ msgstr "Daten"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#~ msgid "Frequency"
+#~ msgstr "Frequenz"
+
+#~ msgid "Method"
+#~ msgstr "Methode"
+
+#~ msgid "Private"
+#~ msgstr "Privat"
