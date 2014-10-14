@@ -64,10 +64,11 @@ sub _restGET {
 sub _restLIST {
   my ( $session, $subject, $verb, $response ) = @_;
   my $solr = Foswiki::Plugins::SolrPlugin->getSearcher();
-  my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:*Form web:Nominal';
+  my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:Web* -topic:*Form web:Nominal';
   $query = $solr->entityDecode( $query, 1 );
   
-  my $raw = $solr->solrSearch( $query )->{raw_response};
+  my %params = ( rows => 9999 );
+  my $raw = $solr->solrSearch( $query, \%params )->{raw_response};
   my $content = decode_json( $raw->{_content} );
   
   my $r = $content->{response};
