@@ -178,9 +178,8 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/js/nominal.js': [
-            '<%= pkg.bower %>/knockout/dist/knockout.debug.js',
-            '<%= pkg.bower %>/knockout-mapping/knockout.mapping.js',
             '<%= pkg.bower %>/underscore/underscore.js',
+            '<%= pkg.bower %>/knockout/dist/knockout.debug.js',
             '<%= pkg.pubDir %>/src/js/**/*.js'
           ],
           '<%= pkg.pubDir %>/js/excanvas.js': ['<%= pkg.bower %>/jqplot/excanvas.js'],
@@ -206,9 +205,8 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/js/nominal.min.js': [
-            '<%= pkg.bower %>/knockout/dist/knockout.js',
-            '<%= pkg.bower %>/knockout-mapping/knockout.mapping.js',
             '<%= pkg.bower %>/underscore/underscore.js',
+            '<%= pkg.bower %>/knockout/dist/knockout.js',
             '<%= pkg.pubDir %>/src/js/**/*.js'
           ],
           '<%= pkg.pubDir %>/js/excanvas.min.js': ['<%= pkg.bower %>/jqplot/excanvas.js'],
