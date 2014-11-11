@@ -11,9 +11,9 @@
 
 ---++ Modell Aachen Settings
 
-   * Set CONTENTTEMPLATEWEB = 
-   
-   * Set WORKFLOW = 
+   * Set CONTENTTEMPLATEWEB =
+
+   * Set WORKFLOW =
 
    * Set NO_MODAC_HEAD = 1
 
@@ -28,7 +28,7 @@
    * Set SITEMAPLIST = on
       * set to =off= to hide this web from the [[%SYSTEMWEB%.SiteMap][SiteMap]]
 
-   * Set WEBSUMMARY = 
+   * Set WEBSUMMARY =
       * description what this web is used for
 
    * Set NOSEARCHALL = off
@@ -39,7 +39,7 @@
    * WebTopicEditTemplate
       * default template for new topics in this web, if this topic does not exist,  [[%SYSTEMWEB%.WebTopicEditTemplate][site-level default template]] will be used
 
-   * Set WEBFORMS = 
+   * Set WEBFORMS =
       * Comma separated list of forms that can be attached to topics in this web. See [[%SYSTEMWEB%.DataForms][DataForms]] for more information.
 
    * Set Glossar = 1
@@ -49,17 +49,17 @@
 Users or groups who are allowed to view, change and rename topics in the <nop>%WEB% web.
 Remember that an empty setting is a valid setting; setting DENYWEBVIEW to nothing means that anyone can view the web.
 
-   * Set DENYWEBVIEW = WikiGuest
+   * Set DENYWEBVIEW =
    * Set ALLOWWEBVIEW =
-   * Set DENYWEBCHANGE = WikiGuest
+   * Set DENYWEBCHANGE =
    * Set ALLOWWEBCHANGE =
-   * Set DENYWEBRENAME = WikiGuest
-   * Set ALLOWWEBRENAME = %USERSWEB%.AdminUser
+   * Set DENYWEBRENAME =
+   * Set ALLOWWEBRENAME = AdminUser
 
 Users or groups allowed to change or rename this <nop>%TOPIC% topic: (e.g., [[%USERSWEB%.AdminGroup][AdminGroup]])
 
-   * Set ALLOWTOPICCHANGE = %USERSWEB%.AdminUser
-   * Set ALLOWTOPICRENAME = %USERSWEB%.AdminUser
+   * Set ALLOWTOPICCHANGE = AdminUser
+   * Set ALLOWTOPICRENAME = AdminUser
 
 ---
 %INCLUDE{"%SYSTEMWEB%.WebPreferencesHelp"}%
