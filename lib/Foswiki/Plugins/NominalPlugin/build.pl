@@ -75,8 +75,7 @@ sub _installDeps {
   print $this->sys_action( qw(grunt clean) ) . "\n";
 
   print "Building...\n";
-  print $this->sys_action( qw(grunt build), "--target=dev" ) . "\n";
-  print $this->sys_action( qw(grunt build), "--target=dist" ) . "\n";
+  print $this->sys_action( qw(grunt build), "--target=$type" ) . "\n";
 }
 
 sub _createManifest {

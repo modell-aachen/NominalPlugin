@@ -57,7 +57,7 @@
     });
 
     // load stored KPIs
-    $.blockUI();
+    $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
     var url = baseUri() + '/get?source=' + source;
     $.getJSON( url, function( response ) {
       if ( response.status === 'ok' ) {
@@ -299,7 +299,7 @@
       deferred.reject();
       nml.disabled( false );
     } else {
-      $.blockUI();
+      $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
       nml.disabled( true );
 
       var url = baseUri() + '/' + action;
