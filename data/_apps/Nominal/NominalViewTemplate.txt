@@ -70,7 +70,7 @@
         <a class="nml-button" href="#" title="%MAKETEXT{"Delete"}%" data-bind="click: $parent.showDeleteDialog, visible: nml.disabled() == true">
           <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/delete.png" /> %MAKETEXT{"Delete"}%
         </a>
-        <a class="nml-button" href="#" title="%MAKETEXT{"Save"}%" data-bind="click: $parent.saveNominal, visible: nml.disabled() == false">
+        <a id="nml-btn-save" class="nml-button" href="#" title="%MAKETEXT{"Save"}%" data-bind="click: $parent.saveNominal, visible: nml.disabled() == false">
           <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/disk.png" /> %MAKETEXT{"Save"}%
         </a>
         <a class="nml-button" href="#" title="%MAKETEXT{"Cancel"}%" data-bind="click: $parent.cancelEditNominal, visible: nml.disabled() == false">
@@ -145,7 +145,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <a class="nml-button dialog-button right" href="#" title="%MAKETEXT{"OK"}%" data-bind="click: setNominalBatch">%MAKETEXT{"OK"}%</a>
+            <a class="nml-button dialog-button right" href="#" title="%MAKETEXT{"Save"}%" data-bind="click: setNominalBatch">%MAKETEXT{"Save"}%</a>
           </td>
         </tr>
       </tbody>

@@ -177,6 +177,8 @@
           }
         }
       }
+
+      $('#nml-btn-save').click();
     };
 
     this.addFiscalYear = function() {
