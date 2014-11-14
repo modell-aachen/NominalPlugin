@@ -76,6 +76,9 @@
         <a class="nml-button" href="#" title="%MAKETEXT{"Cancel"}%" data-bind="click: $parent.cancelEditNominal, visible: nml.disabled() == false">
           <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/cancel.png" /> %MAKETEXT{"Cancel"}%
         </a>
+        <a class="nml-button" href="#" title="%MAKETEXT{"Batch processing"}%" data-bind="click: $parent.showBatchDialog, visible: nml.disabled() == false">
+          <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/cog.png" /> %MAKETEXT{"Batch processing"}%
+        </a>
       </div>
       <table class="nml-table">
         <thead>
@@ -119,6 +122,30 @@
         <tr>
           <td colspan="2">
             <a class="nml-button dialog-button right" href="#" title="%MAKETEXT{"Add year"}%" data-bind="click: addFiscalYear">%MAKETEXT{"Add year"}%</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="nml-batch-dialog" title="%MAKETEXT{"Batch processing"}%">
+    <table>
+      <tbody>
+        <tr>
+          <td style="width: 50px;">%MAKETEXT{"Nominal"}%</td>
+          <td>
+            <input type="number" id="nml-nominal-batch" class="nml-input right" required />
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 50px;"></td>
+          <td>
+            <label for="nml-sum-batch">%MAKETEXT{"Add together"}%</label>
+            <input type="checkbox" id="nml-sum-batch" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <a class="nml-button dialog-button right" href="#" title="%MAKETEXT{"OK"}%" data-bind="click: setNominalBatch">%MAKETEXT{"OK"}%</a>
           </td>
         </tr>
       </tbody>

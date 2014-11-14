@@ -57,7 +57,7 @@
     });
 
     // load stored KPIs
-    $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
+    $.blockUI();
     var url = baseUri() + '/get?source=' + source;
     $.getJSON( url, function( response ) {
       if ( response.status === 'ok' ) {
@@ -129,6 +129,10 @@
       $('#nml-add-dialog').dialog();
     };
 
+    this.showBatchDialog = function() {
+      $('#nml-batch-dialog').dialog();
+    };
+
     this.showCompareDialog = function() {
       $('#nml-compare-dialog').dialog();
     };
@@ -136,6 +140,43 @@
     this.showDeleteDialog = function( nml ) {
       self.selectedNominal( nml );
       $('#nml-delete-dialog').dialog();
+    };
+
+    this.setNominalBatch = function() {
+      var $input = $('#nml-nominal-batch');
+      var val = $input.val();
+      if ( !/\d+/.test( val ) || val < 0 ) {
+        $input.addClass('invalid');
+        return;
+      }
+
+      val = parseInt( val );
+      $('#nml-batch-dialog').dialog('close');
+      $input.removeClass('invalid');
+      $input.val(0);
+
+      var addUp = $('#nml-sum-batch').prop('checked');
+      if ( !addUp ) {
+        $('.col-nominal input').val( val );
+        for( var p in self.selectedNominal() ) {
+          if ( /^NML/.test( p ) ) {
+            self.selectedNominal()[p] = val;
+          }
+        }
+      } else {
+        var sum = val;
+        $('.col-nominal input').each( function() {
+          $(this).val( sum );
+          sum += val;
+        });
+
+        for( var prop in self.selectedNominal() ) {
+          if ( /^NML_/.test( prop ) ) {
+            var i = parseInt( prop.match(/^NML_(\d+)$/)[1] );
+            self.selectedNominal()[prop] = i * val;
+          }
+        }
+      }
     };
 
     this.addFiscalYear = function() {
@@ -169,6 +210,8 @@
         select: self.nmlTabChanged
       });
       $tabs.tabs( 'select', index );
+
+      self.selectedNominal( nml );
     };
 
     this.editNominal = function( nml ) {
@@ -299,7 +342,7 @@
       deferred.reject();
       nml.disabled( false );
     } else {
-      $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
+      $.blockUI();
       nml.disabled( true );
 
       var url = baseUri() + '/' + action;
