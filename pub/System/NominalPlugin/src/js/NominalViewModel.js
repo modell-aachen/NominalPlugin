@@ -16,6 +16,13 @@
       return retval === 0 ? 12 : retval;
     };
 
+    var quarter = [
+      {index: 1, name: 1},
+      {index: 2, name: 2},
+      {index: 3, name: 3},
+      {index: 4, name: 4}
+    ];
+
     var months = [
       {index: getIndex( 1 ), name: lang.jan},
       {index: getIndex( 2 ), name: lang.feb},
@@ -38,6 +45,7 @@
     this.lang = lang;
 
     this.months = ko.observableArray( months );
+    this.quarter = ko.observableArray( quarter );
     this.nominals = ko.observableArray();
     this.showNewYearLink = ko.observable( true );
     this.canCompareYears = ko.observable( false );
@@ -46,6 +54,7 @@
     this.newFiscalYear = ko.observable( (new Date()).getFullYear() );
     this.selectedNominal = ko.observable({name: ''});
     this.selectedNominalText = ko.observable('');
+    this.isMonthly = ko.observable( true );
 
     this.selectedNominal.subscribe( function( nml ) {
       self.selectedNominalText( nml.name );
@@ -65,6 +74,9 @@
           nml.disabled = ko.observable( true );
           return Math.max( parseInt( nml.name ) );
         };
+
+        var isMonthly = response.monthly === 1 ? true : false;
+        self.isMonthly( isMonthly );
 
         var nmls = _.sortBy( response.data, extsort );
         if ( nmls.length > 0 ) {
@@ -194,7 +206,7 @@
       $('#nml-add-dialog').dialog('close');
       $tabs.tabs( 'destroy' );
 
-      var nml = createEntryObject();
+      var nml = createEntryObject( self );
       nml.name = year;
 
       self.nominals.push( nml );
@@ -369,10 +381,11 @@
     return deferred.promise();
   };
 
-  var createEntryObject = function() {
+  var createEntryObject = function( self ) {
     var obj = {
       name: ko.observable(),
-      disabled: ko.observable( true )
+      disabled: ko.observable( true ),
+      monthly: ko.observable( self.isMonthly() )
     };
 
     for ( var i = 1; i <= 12; ++i ) {
@@ -407,15 +420,28 @@
 
     var s1 = [], s2 = [];
     var max = 0, min = 0;
-    for( var i = 0; i < self.months().length; ++i ) {
-      var month = self.months()[i];
+    if ( self.isMonthly() ) {
+      for( var i = 0; i < self.months().length; ++i ) {
+        var month = self.months()[i];
 
-      var val1 = nml['ACT_' + month.index];
-      var val2 = nml['NML_' + month.index];
-      max = Math.max( max, Math.max( val1, val2 ) );
-      min = Math.min( min, Math.min( val1, val2 ) );
-      s1.push( [month.name, val1] );
-      s2.push( [month.name, val2] );
+        var val1 = nml['ACT_' + month.index];
+        var val2 = nml['NML_' + month.index];
+        max = Math.max( max, Math.max( val1, val2 ) );
+        min = Math.min( min, Math.min( val1, val2 ) );
+        s1.push( [month.name, val1] );
+        s2.push( [month.name, val2] );
+      }
+    } else {
+      for( var j = 0; j < self.quarter().length; ++j ) {
+        var q = self.quarter()[j];
+
+        var qa = nml['ACT_' + q.index];
+        var qn = nml['NML_' + q.index];
+        max = Math.max( max, Math.max( qa, qn ) );
+        min = Math.min( min, Math.min( qa, qn ) );
+        s1.push( [q.name, qa] );
+        s2.push( [q.name, qn] );
+      }
     }
 
     if ( window.nmlplot )  {
@@ -511,15 +537,28 @@
       labels.push( labelNominal );
 
       var s1 = [], s2 = [];
-      for( var i = 0; i < self.months().length; ++i ) {
-        var month = self.months()[i];
+      if ( self.isMonthly() ) {
+        for( var i = 0; i < self.months().length; ++i ) {
+          var month = self.months()[i];
 
-        var val1 = nml['ACT_' + month.index];
-        var val2 = nml['NML_' + month.index];
-        max = Math.max( max, Math.max( val1, val2 ) );
-        min = Math.min( min, Math.min( val1, val2 ) );
-        s1.push( [month.name, val1] );
-        s2.push( [month.name, val2] );
+          var val1 = nml['ACT_' + month.index];
+          var val2 = nml['NML_' + month.index];
+          max = Math.max( max, Math.max( val1, val2 ) );
+          min = Math.min( min, Math.min( val1, val2 ) );
+          s1.push( [month.name, val1] );
+          s2.push( [month.name, val2] );
+        }
+      } else {
+        for( var j = 0; j < self.quarter().length; ++j ) {
+          var q = self.quarter()[j];
+
+          var qa = nml['ACT_' + q.index];
+          var qn = nml['NML_' + q.index];
+          max = Math.max( max, Math.max( qa, qn ) );
+          min = Math.min( min, Math.min( qa, qn ) );
+          s1.push( [q.name, qa] );
+          s2.push( [q.name, qn] );
+        }
       }
 
       series.push( s1 );

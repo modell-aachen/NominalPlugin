@@ -20,11 +20,15 @@
       <tr>
         <td>%MAKETEXT{"Responsible for measurement"}%:</td>
         <td>%RENDERFORDISPLAY{field="MeasurementWho" format="$value"}%</td>
-        <td rowspan="5">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+        <td rowspan="6">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
       </tr>
       <tr>
         <td>%MAKETEXT{"Measurement"}%:</td>
         <td>%RENDERFORDISPLAY{field="MeasurementHow" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td>%MAKETEXT{"Cycle"}%:</td>
+        <td>%RENDERFORDISPLAY{field="Cycle" format="$value"}%</td>
       </tr>
       <tr>
         <td colspan="2"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
@@ -84,7 +88,7 @@
           <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/cog.png" /> %MAKETEXT{"Batch processing"}%
         </a>
       </div>
-      <table class="nml-table">
+      <table class="nml-table" data-bind="visible: $parent.isMonthly">
         <thead>
           <tr>
             <th class="col-month">%MAKETEXT{"Month"}%</th>
@@ -104,6 +108,30 @@
             </td>
             <td class="col-comment">
               <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + month.index], disable: nml.disabled">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="nml-table" data-bind="visible: $parent.isMonthly() == false">
+        <thead>
+          <tr>
+            <th class="col-month">%MAKETEXT{"Quarter"}%</th>
+            <th class="col-actual">%MAKETEXT{"Actual"}%</th>
+            <th class="col-nominal">%MAKETEXT{"Nominal"}%</th>
+            <th class="col-comment">%MAKETEXT{"Comment"}%</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: {data: $parent.quarter, as: 'q'}">
+          <tr data-bind="click: $root.clickToEdit">
+            <td class="col-month" data-bind="text: q.name"></td>
+            <td class="col-actual">
+              <input class="nml-input" type="text" data-bind="textInput: nml['ACT_' + q.index], disable: nml.disabled" required data-required>
+            </td>
+            <td class="col-nominal">
+              <input class="nml-input" type="text" data-bind="textInput: nml['NML_' + q.index], disable: nml.disabled" required data-required>
+            </td>
+            <td class="col-comment">
+              <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + q.index], disable: nml.disabled">
             </td>
           </tr>
         </tbody>

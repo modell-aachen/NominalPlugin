@@ -31,6 +31,10 @@ msgstr "Verlauf"
 msgid "Comment"
 msgstr "Kommentar"
 
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Quarter"
+msgstr "Quartal"
+
 #: data/_apps/Nominal/WebActions.txt
 msgid "Create new KPI"
 msgstr "Neue Kennzahl anlegen"

@@ -55,7 +55,13 @@ sub _restGET {
   my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
 
   my @nmls = $meta->find( 'NOMINAL' );
-  my %retval = (status => 'ok', data => \@nmls);
+  my $cycle = $meta->get( 'FIELD', 'Cycle' );
+  my $monthly = 1;
+  if ( $cycle && $cycle->{value} ne 'monthly') {
+    $monthly = 0;
+  }
+
+  my %retval = (status => 'ok', data => \@nmls, monthly => $monthly);
   my $json = encode_json( \%retval );
 
   return $json;
@@ -80,12 +86,17 @@ sub _restLIST {
     my $wt = $hit->{webtopic};
     my $url = $hit->{url};
     my $title = $hit->{field_Title_s};
+    my $cycle = $hit->{field_Cycle_s};
+    my $monthly = 1;
+    if ( $cycle && $cycle ne 'monthly') {
+      $monthly = 0;
+    }
 
     my ($web, $topic) = Foswiki::Func::normalizeWebTopicName( undef, $wt );
     my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
 
     my @nmls = $meta->find( 'NOMINAL' );
-    my %item = (data => \@nmls, title => "$title", url => "$url");
+    my %item = (data => \@nmls, title => "$title", url => "$url", monthly => $monthly);
     push( @list, \%item );
   }
 
@@ -165,6 +176,7 @@ SCRIPTS
     oct => '%MAKETEXT{"October"}%',
     nov => '%MAKETEXT{"November"}%',
     dec => '%MAKETEXT{"December"}%',
+    quarter => '%MAKETEXT{"Quarter"}%'
   );
 
   my $lang = join( "\t", %lang );

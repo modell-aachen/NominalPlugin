@@ -16,6 +16,13 @@
       return retval === 0 ? 12 : retval;
     };
 
+    var quarter = [
+      {index: 1, name: 'Q1'},
+      {index: 2, name: 'Q2'},
+      {index: 3, name: 'Q3'},
+      {index: 4, name: 'Q4'}
+    ];
+
     var months = [
       {index: getIndex( 1 ), name: lang.jan},
       {index: getIndex( 2 ), name: lang.feb},
@@ -37,6 +44,7 @@
     });
 
     this.months = ko.observableArray( months );
+    this.quarter = ko.observableArray( quarter );
     this.nominals = ko.observableArray();
     this.hideEmpty = ko.observable( false );
     this.hideEmpty.subscribe( function( val ) { plot( self ); });
@@ -45,7 +53,7 @@
     this.selectedYear.subscribe( function( val ) { plot( self ); });
     this.availableYears = ko.observableArray();
 
-    $.blockUI( foswiki.ModacSkin.blockDefaultOptions );
+    $.blockUI();
     load( self ).done( function() {
       $.unblockUI();
       plot( self );
@@ -148,15 +156,28 @@
     var s1 = [], s2 = [];
     var max = 0, min = 0;
     if ( data ) {
-      for( var i = 0; i < self.months().length; ++i ) {
-        var month = self.months()[i];
+      if ( nml.monthly ) {
+        for( var i = 0; i < self.months().length; ++i ) {
+          var month = self.months()[i];
 
-        var val1 = data['ACT_' + month.index];
-        var val2 = data['NML_' + month.index];
-        max = Math.max( max, Math.max( val1, val2 ) );
-        min = Math.min( min, Math.min( val1, val2 ) );
-        s1.push( [month.name.substring( 0, 3 ), val1] );
-        s2.push( [month.name.substring( 0, 3 ), val2] );
+          var val1 = data['ACT_' + month.index];
+          var val2 = data['NML_' + month.index];
+          max = Math.max( max, Math.max( val1, val2 ) );
+          min = Math.min( min, Math.min( val1, val2 ) );
+          s1.push( [month.name.substring( 0, 3 ), val1] );
+          s2.push( [month.name.substring( 0, 3 ), val2] );
+        }
+      } else {
+        for( var j = 0; j < self.quarter().length; ++j ) {
+          var q = self.quarter()[j];
+
+          var qa = data['ACT_' + q.index];
+          var qn = data['NML_' + q.index];
+          max = Math.max( max, Math.max( qa, qn ) );
+          min = Math.min( min, Math.min( qa, qn ) );
+          s1.push( [q.name.substring( 0, 3 ), qa] );
+          s2.push( [q.name.substring( 0, 3 ), qn] );
+        }
       }
     }
 
