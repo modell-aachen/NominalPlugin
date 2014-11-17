@@ -13,13 +13,21 @@
       <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
     </tr>
     <tr>
-      <td>%MAKETEXT{"Responsible"}%:</td>
+      <td>%MAKETEXT{"Responsible for key figure"}%:</td>
       <td>%RENDERFOREDIT{field="Responsible" format="$edit"}%</td>
-      <td rowspan="3">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
+      <td rowspan="5">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td>%MAKETEXT{"Responsible for measurement"}%:</td>
+      <td>%RENDERFOREDIT{field="MeasurementWho" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%MAKETEXT{"Measurement"}%:</td>
       <td>%RENDERFOREDIT{field="MeasurementHow" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td>%MAKETEXT{"Cycle"}%:</td>
+      <td>%RENDERFOREDIT{field="Cycle" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%RENDERFOREDIT{fields="Private" format="$percntMAKETEXT{$edit}$percnt"}%</td>

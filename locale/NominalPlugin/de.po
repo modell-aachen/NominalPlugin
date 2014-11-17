@@ -113,6 +113,11 @@ msgstr "Mai"
 msgid "Measurement"
 msgstr "Erhebung"
 
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Responsible for measurement"
+msgstr "Verantwortlich für Erhebung"
+
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Month"
 msgstr "Monat"
@@ -136,9 +141,21 @@ msgid "Persons eligible for viewing"
 msgstr "Ansichtsberechtigte Personen"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
+msgid "Cycle"
+msgstr "Turnus"
+
+#: data/_apps/Nominal/NominalEditTemplate.txt
+msgid "monthly"
+msgstr "monatlich"
+
+#: data/_apps/Nominal/NominalEditTemplate.txt
+msgid "quarterly"
+msgstr "vierteljährlich"
+
+#: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Responsible"
-msgstr "Verantwortlich"
+msgid "Responsible for key figure"
+msgstr "Verantwortlich für Kennzahl"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Save"

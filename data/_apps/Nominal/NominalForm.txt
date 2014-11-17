@@ -1,9 +1,12 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1398843678" format="1.1" reprev="1" version="1"}%
 | *Name* | *Type* | *Size* | *Values* | *Tool Message* | *Attritbutes* |
 | Title | text | 50 | | | M |
+| Unit | text | 50 | | | |
 | Description | editor | | | | |
 | Responsible | textboxlist | 50 mustMatch limit="1" | %USERAUTOCOMPLETE% | | |
+| MeasurementWho | textboxlist | 50 mustMatch limit="1" | %USERAUTOCOMPLETE% | | |
 | MeasurementHow | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=topic;skin=text;limit=20 | | |
+| Cycle | select+values | 1 | %MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"quarterly"}%=quarterly | Cycle | |
 | EligibleViewer | textboxlist | 50 mustMatch  | %USERAUTOCOMPLETE% | | |
 | Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
 
