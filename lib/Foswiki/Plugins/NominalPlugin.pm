@@ -2,6 +2,7 @@ package Foswiki::Plugins::NominalPlugin;
 
 use strict;
 use warnings;
+use Error qw( :try );
 use Foswiki::Func;
 use JSON;
 
@@ -34,6 +35,7 @@ STYLES
   Foswiki::Meta::registerMETA( 'NOMINAL', many => 1, require => ['name'] );
 
   my %getOpts = ( http_allow => 'GET', validate => 0, authenticate => 0 );
+  Foswiki::Func::registerRESTHandler( 'actions', \&_restACTIONS, %getOpts );
   Foswiki::Func::registerRESTHandler( 'get', \&_restGET, %getOpts );
   Foswiki::Func::registerRESTHandler( 'list', \&_restLIST, %getOpts );
 
@@ -65,6 +67,43 @@ sub _restGET {
   my $json = encode_json( \%retval );
 
   return $json;
+}
+
+sub _restACTIONS {
+  my ( $session, $subject, $verb, $response ) = @_;
+
+  my $query = $session->{request};
+  my $src = $query->{param}->{source}[0];
+
+  my ($web, $topic) = Foswiki::Func::normalizeWebTopicName( undef, $src );
+  my $newTopic = $topic . "Actions";
+  my %retval = (status => 'ok', location => "$web.$newTopic");
+  my $json = encode_json( \%retval );
+
+  my $exists = Foswiki::Func::topicExists( $web, $newTopic );
+  return $json if $exists;
+
+  my $template = <<TEMPLATE;
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Set" value="NominalActionsView"}%
+%META:PREFERENCE{name="EDIT_TEMPLATE" title="EDIT_TEMPLATE" type="Set" value="NominalActionsEdit"}%
+TEMPLATE
+
+  try {
+    my $meta = Foswiki::Meta->new( $session, $web, $newTopic, $template );
+    Foswiki::Func::saveTopic( $web, $newTopic, $meta, "" );
+    return $json;
+  } catch Foswiki::AccessControlException with {
+    my $e = shift;
+    %retval = (status => 'error', msg => "$e");
+    return encode_json( \%retval );
+  } catch Error::Simple with {
+    my $e = shift;
+    %retval = (status => 'error', msg => "$e");
+    return encode_json( \%retval );
+  } otherwise {
+    %retval = (status => 'error', msg => "Unknown");
+    return encode_json( \%retval );
+  };
 }
 
 sub _restLIST {

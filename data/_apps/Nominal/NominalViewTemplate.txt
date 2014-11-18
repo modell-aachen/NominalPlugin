@@ -20,7 +20,7 @@
       <tr>
         <td>%MAKETEXT{"Responsible for measurement"}%:</td>
         <td>%RENDERFORDISPLAY{field="MeasurementWho" format="$value"}%</td>
-        <td rowspan="6">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+        <td rowspan="7">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
       </tr>
       <tr>
         <td>%MAKETEXT{"Measurement"}%:</td>
@@ -38,6 +38,11 @@
       </tr>
       <tr>
         <td colspan="2">%RENDERFORDISPLAY{field="EligibleViewer" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <a id="nml-actions" href="#" data-bind="click: nmlActions">%IF{"istopic %TOPIC%Actions" then="%MAKETEXT{"Go to actions"}%" else="%MAKETEXT{"Create actions"}%"}%</a>
+        </td>
       </tr>
     </tbody>
   </table>

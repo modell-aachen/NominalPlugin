@@ -1,0 +1,11 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1375881472" format="1.1" version="4"}%
+<form method="post" action="%SCRIPTURLPATH{"%SUBMITCOMMAND%"}%/%WEB%/%TOPIC%%SUBMITCMDOPT%" type="POST" enctype="application/x-www-form-urlencoded">
+  %EDITFIELDS%
+  <textarea name="text" wrap="virtual" rows="%EBH%" cols="%EBW%" style="width:99%" class="foswikiTextarea foswikiEditboxStyleProportional">%TEXT%</textarea>
+  %HIDDENFIELDS%
+  <br />
+  <input type="submit" value="%MAKETEXT{"Save"}%" />
+</form>
+
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%

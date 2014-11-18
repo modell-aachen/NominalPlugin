@@ -1,0 +1,12 @@
+%META:TOPICPARENT{name="WebHome"}%
+%TMPL:INCLUDE{edit}%
+
+%TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
+%TMPL:P{"formstart"}%%TMPL:P{"formtop"}%
+%INCLUDE{"%SYSTEMWEB%/JSCalendarContribInline"}%
+%TMPL:P{"topicinfo"}%
+%TMPL:P{"formend"}%
+%TMPL:END%
+
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%

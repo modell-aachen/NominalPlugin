@@ -107,6 +107,33 @@
       }
     });
 
+    this.nmlActions = function( evt ) {
+      $.blockUI();
+      $.ajax({
+        cache: false,
+        type: 'GET',
+        url: baseUri() + '/actions?source=' + source
+      }).success( function( data, status, xhr ) {
+        var json = $.parseJSON( data );
+        if ( json.status === 'ok' ) {
+          var p = foswiki.preferences;
+          var url = [
+            p.SCRIPTURLPATH,
+            '/view',
+            p.SCRIPTSUFFIX,
+            '/',
+            json.location
+          ];
+
+          window.location = url.join('');
+        }
+      }).error( function( xhr, status, err ) {
+        if ( window.console && console.error ) {
+          console.error( err );
+        }
+      }).always( $.unblockUI );
+    };
+
     this.nmlTabChanged = function( evt, ui ) {
       var year = ui.panel.id;
       for( var i = 0; i < self.nominals().length; ++i ) {

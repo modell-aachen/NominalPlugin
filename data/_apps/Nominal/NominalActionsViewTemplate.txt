@@ -1,0 +1,162 @@
+
+%TMPL:INCLUDE{"view"}%
+
+%{
+ This will generate a tab for a JQuery TABPANE.
+ If there are multiple ways available to generate this tab, here would be the appropriate place to decide which one to use.
+ By default it will create a tab that fetches its contents via ajax but not if this the print cover is being used.
+
+ Parameters:
+   * section: Template definition to appear in the tab (like TMPL:P{%section%}).
+   * label: Label for the tab.
+   * id: Id-parameter for the tab.
+   * noprint: If this section should be printed by default, you can issue it to be printed with the url-parameter printTab=%section%.
+}%
+%TMPL:DEF{"modacTab"}%%IF{"$'URLPARAM{cover}' = 'print' and ('%noprint%' != '1' and $'URLPARAM{printTab}'='' or $'URLPARAM{printTab}'='%section%')"
+then="$percntTMPL:P{\"modacNoAjaxTab\" label=\"%label%\" id=\"%id%\" section=\"%section%\"}$percent"
+else="$percentIF{\"$'URLPARAM{cover}' != 'print'\" then=\"$dollarpercntTMPL:P{\\"modacAjaxTab\\" label=\\"%label%\\" id=\\"%id%\\" section=\\"%section%\\"}$dollarpercent\" else=\"<!-- not selected -->\"}$percent"
+}% %TMPL:END%
+
+%{
+ This will generate a tab without the need to fetch contents per ajax. This tab can be printed.
+
+ Parameters: section, label and id like modacTab
+}%
+%TMPL:DEF{"modacNoAjaxTab"}%%TAB{"%label%" id="%id%"}%
+%TMPL:P{"%section%"}%
+%ENDTAB%%TMPL:END%
+
+%{
+ This will generate a tab that will fetch its contents via ajax. This tab can not be printed.
+
+ Parameters: section, label and id like modacTab
+}%
+%TMPL:DEF{"modacAjaxTab"}%%TAB{"%label%" id="%id%" url="%SCRIPTURLPATH{rest}%/RenderPlugin/template?topic=%WEB%.%TOPIC%;expand=%section%;render=on;name=NominalActionsView"}%
+<span class="jqAjaxLoader">&nbsp;</span>
+%ENDTAB%%TMPL:END%
+
+%{ Unfortunately I need these definitions because TMPL:P parameters must not contain quotes. }%
+%TMPL:DEF{"open_label"}%%MAKETEXT{"List of open points (LoP)"}%%TMPL:END%
+%TMPL:DEF{"closed_label"}%%MAKETEXT{"Closed points"}%%TMPL:END%
+%TMPL:DEF{"mine_label"}%%MAKETEXT{"My tasks"}%%TMPL:END%
+
+%TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
+%JQREQUIRE{"ui::dialog, ui::button, textboxlist, blockui"}%
+%INCLUDE{"%SYSTEMWEB%/JSCalendarContribInline"}%
+
+
+%SETVAR{var="ALLOWTOPICVIEW" value="$percntURLPARAM{\"Participants\" default=\"$percntQUERY{\"Participants\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
+%SETVAR{var="ALLOWTOPICVIEW" value="" field="Private" type="Set" matches="^$"}%
+%SETVAR{var="ALLOWTOPICCHANGE" value="$percntURLPARAM{\"Participants\" default=\"$percntQUERY{\"Participants\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
+%SETVAR{var="ALLOWTOPICCHANGE" value="" field="Private" type="Set" matches="^$"}%
+
+<div style="display:none;">This should be unique text AIVOqxWgyT%ACTIONSEARCH{web="%WEB%" topic="DummyTopic"}%</div>
+
+<div class="widgetBlockTitle">%MAKETEXT{"Details"}%</div>
+<div class="widgetBlockContent">
+  <table class="metaDataHead">
+    <tbody>
+      <tr>
+        <td>%MAKETEXT{"Responsible for key figure"}%:</td>
+        <td style="min-width: 200px;">%RENDERFORDISPLAY{field="Responsible" format="$value"}%</td>
+        <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
+      </tr>
+      <tr>
+        <td>%MAKETEXT{"Responsible for measurement"}%:</td>
+        <td>%RENDERFORDISPLAY{field="MeasurementWho" format="$value"}%</td>
+        <td rowspan="7">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td>%MAKETEXT{"Measurement"}%:</td>
+        <td>%RENDERFORDISPLAY{field="MeasurementHow" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td>%MAKETEXT{"Cycle"}%:</td>
+        <td>%RENDERFORDISPLAY{field="Cycle" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
+      </tr>
+      <tr>
+        <td colspan="2">%MAKETEXT{"Persons eligible for viewing"}%:</td>
+      </tr>
+      <tr>
+        <td colspan="2">%RENDERFORDISPLAY{field="EligibleViewer" format="$value"}%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="widgetBlockTitle">%MAKETEXT{"Tasks"}%</div>
+<div class="widgetBlockContent">
+<div class="modacPrintHide">
+%BUTTON{"%MAKETEXT{"Create new action"}%" href="#actiondialog" class="jqUIDialogLink {cache:'false'}"}%
+%CLEAR%
+%STARTSECTION{"actiondialog"}%
+<div id="actiondialog" title="%MAKETEXT{"Create new action"}%" class="jqUIDialog {draggable:true, resizable: true, height:400, width:600}">
+%COMMENT{type="action3"  location="This should be unique text AIVOqxWgyT"}%
+</div>
+%ENDSECTION{"actiondialog"}%
+</div>
+
+%TABPANE{select="%URLPARAM{"tab"}%" class="simple"}%
+%TMPL:P{"modacTab" label="$percentTMPL:P{open_label}$percent" id="tasks_open" section="tasks_open"}%
+%TMPL:P{"modacTab" label="$percentTMPL:P{closed_label}$percent" id="tasks_closed" section="tasks_closed" noprint="1"}%
+%TMPL:P{"modacTab" label="$percentTMPL:P{mine_label}$percent" id="tasks_mine" section="tasks_mine" noprint="1"}%
+%AMPEL{"SignalOpenPoints" WARN="%SIGNAL_PREWARNTIME{default="7"}%" DATE="$percntMAKETEXT{\"Due date\"}$percnt" DST="$percntMAKETEXT{\"Signal\"}$percnt" DONE="Status" COND="closed" LIVEQUERY="1"}%
+%AMPEL{"SignalClosedPoints" WARN="%SIGNAL_PREWARNTIME{default="7"}%" DATE="$percntMAKETEXT{\"Due date\"}$percnt" DST="$percntMAKETEXT{\"Signal\"}$percnt" DONE="Status" COND="closed" LIVEQUERY="1"}%
+%AMPEL{"SignalMyTasks" WARN="%SIGNAL_PREWARNTIME{default="7"}%" DATE="$percntMAKETEXT{\"Due date\"}$percnt" DST="$percntMAKETEXT{\"Signal\"}$percnt" DONE="Status" COND="closed" LIVEQUERY="1"}%
+%ENDTABPANE%
+</div>
+%TMPL:END%
+
+%{ Generates a form in which you can select a time-range for the closed points. }%
+%TMPL:DEF{"tasks_filter"}%<form class="tasksfilter"><input type="hidden" name="param" value="%WEB%.%TOPIC%"/><input type="hidden" name="expand" value="%tasks_section%"/><input type="hidden" name="targetcontainer" value="%tasks_container%"/>
+<span class="%IF{"'%tasks_days%'!=''" else="foswikiHidden"}%">%MAKETEXT{"Closed points in the last"}% <select name="DaysClosed"><option value="">(%MAKETEXT{"all"}%)</option><option value="7" %IF{"'%URLPARAM{"DaysClosed"}%'='7'" then="selected"}%>%MAKETEXT{"week"}%</option><option value="14" %IF{"'%URLPARAM{"DaysClosed"}%'='14'" then="selected"}%>2 %MAKETEXT{"weeks"}%</option><option value="21" %IF{"'%URLPARAM{"DaysClosed"}%'='21'" then="selected"}%>3 %MAKETEXT{"weeks"}%</option><option value="28" %IF{"'%URLPARAM{"DaysClosed"}%'='28'" then="selected"}%>4 %MAKETEXT{"weeks"}%</option></select></span>
+</form>%TMPL:END%
+
+%{ Contents for the 'closed tasks' tab. }%
+%TMPL:DEF{"tasks_closed"}%
+%TMPL:P{"printButton" section="tasks_closed"}%
+%TMPL:P{"tasks_filter" tasks_section="tasks_closed" tasks_container="tasks_closed" tasks_days="1"}%
+<div id="SignalClosedPoints">%ACTIONSEARCH{web="%WEB%" topic="%BASETOPIC%" state="closed" closed="> %URLPARAM{"DaysClosed" default="-1"}% days ago" sort="$createdate,$who,$due" jqsortable="1" jqsortopts="widgets: ['zebra'], sortList: [[0,1],[0,1]], headers: { 0: { sorter: 'qwikiDate' }, 6: { sorter: 'qwikiDate' }, 7: { sorter: 'qwikiDate' }, 8: { sorter: false }, 9: { sorter: false }, 10: { sorter: false } }"}%</div>
+%TMPL:END%
+
+%{ Contents for the 'my tasks' tab. }%
+%TMPL:DEF{"tasks_mine"}%
+%TMPL:P{"printButton" section="tasks_mine"}%
+<div id="SignalMyTasks">%ACTIONSEARCH{web="%WEB%" topic="%BASETOPIC%" who="%WIKINAME%" sort="$createdate,$who,$due" jqsortable="1" jqsortopts="widgets: ['zebra'], sortList: [[0,1],[0,1]], headers: { 0: { sorter: 'qwikiDate' }, 6: { sorter: 'qwikiDate' }, 7: { sorter: 'qwikiDate' }, 8: { sorter: false }, 9: { sorter: false }, 10: { sorter: false } }"}%</div>
+%TMPL:END%
+
+%{ Contents for the 'open tasks' tab. }%
+%TMPL:DEF{"tasks_open"}%
+%TMPL:P{"printButton" section="tasks_open"}%
+<div id="SignalOpenPoints">%ACTIONSEARCH{web="%WEB%" topic="%BASETOPIC%" state="open" sort="$createdate,$who,$due" jqsortable="1" jqsortopts="widgets: ['zebra'], sortList: [[0,1],[0,1]], headers: { 0: { sorter: 'qwikiDate' }, 6: { sorter: 'qwikiDate' }, 7: { sorter: 'qwikiDate' }, 8: { sorter: false }, 9: { sorter: false }, 10: { sorter: false } }"}%</div>
+%TMPL:END%
+
+%{ Renders a floating button on the top-right for printing the page }%
+%TMPL:DEF{"printButton"}%%IF{"context MAPrinceModPluginEnabled"
+then="<div class='atpExportFrame'><a href=\"%SCRIPTURL{"view"}%/%SYSTEMWEB%/MAPrinceModPrintDialog?skin=text&section=dialog&pweb=%ENCODE{"%INCLUDINGWEB%" type="url"}%&ptopic=%ENCODE{"%INCLUDINGTOPIC%" type="url"}%&landscape=%LANDSCAPE{default="0"}%&printParams=printTab,DaysClosed&printTab=%section%&DaysClosed=%URLPARAM{"DaysClosed"}%\" class=\"jqUIDialogLink {cache:false} modacPrintHide atpExportButton\" title='%MAKETEXT{"Export these tasks to PDF"}%'>$percentICON{pdf}$percent</a></div>" else="<!-- no print -->"}%%TMPL:END%
+
+%TMPL:DEF{"policymananegment"}%
+%STARTSECTION{type="templateonly"}%
+   * Set ALLOWTOPICCHANGE = AdminUser
+%ENDSECTION{type="templateonly"}%
+%TMPL:END%
+
+%{
+ This will render a traffic and should be invoked by the format string for the actions.
+
+ Parameters:
+   * due: due date
+   * cond: condition for deactivating the light
+ Take care to escape quotes (see contrib documentation).
+}%
+%TMPL:DEF{"ampel"}%%IF{"not '%due%' =~ 'atpError' and '%cond%' != 'closed'" then="$percentTMPL:P{\"ampel_img\" days=\"$percentCALC{\"$TIMEDIFF($TODAY(), $TIME($percentSUBST{text=\"%due%\" pattern=\"[^0-9]*(\d+ .* \d+).*\" format=\"$1\"}$percent), day)\"}$percent\"}$percent" else="$percentIF{\"'%cond%' = 'closed'\" then=\"<img src='%PUBURLPATH%/%WEB%/WebPreferences/closed.png' title='%MAKETEXT{"closed"}%' style='width: 40px;' />\"}$percent"}%%TMPL:END%
+
+%{ Will render the actual traffic light image. Called from 'ampel'. }%
+%TMPL:DEF{"ampel_img"}%<img src="%PUBURLPATH%/%WEB%/WebPreferences/%IF{"%days% > 7" then="green" else="$percentIF{\"%days% < 0\" then=\"red\" else=\"yellow\"}$percent"}%.png" title="%MAKETEXT{"[_1] day(s)" args="%days%"}%" style="width: 40px;" />%TMPL:END%
+
+%META:TOPICMOVED{by="BaseUserMapping_333" date="1372940592" from="VorlageWiki/Protocols.ProtokollViewTemplate" to="VorlageWiki/Protocols.ProtocolViewTemplate"}%
+%META:PREFERENCE{name="ALLOWTOPICVIEW" title="ALLOWTOPICVIEW" type="Local" value="%25QUERY%7b"}%
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Local" value="%25QUERY%7b"}%
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%

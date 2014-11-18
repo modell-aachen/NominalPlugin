@@ -1,0 +1,24 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1387368337" format="1.1" reprev="21" version="2"}%
+%TMPL:INCLUDE{"CommentPlugin"}%
+%TMPL:DEF{PROMPT:action3}%
+
+%JQREQUIRE{"textboxlist"}%
+%ADDTOZONE{"script" id="ModacSkin::AtpComment" requires="JQUERYPLUGIN::FOSWIKI::PREFERENCES"
+  text="<script type=\"text/javascript\" src=\"%PUBURLPATH%/%SYSTEMWEB%/ModacSkin/atp_comment.js\"></script>"
+}%
+%TABLE{databg="#ffffff" tableborder="0" cellborder="0"}%
+| <label for="action_creator">%MAKETEXT{"Creator"}%</label>|<input class="foswikiInputField" name="action_creator" id="action_creator" type="text" size="50" value="%WIKINAME%" /> |
+| <label for="action_result">%MAKETEXT{"Type"}%</label> | <select size="1" name="action_result" id="action_result" class="foswikiInputField" onchange="if ($(this).val()=='Task') { $('#action_who').parents('tr').first().show(); var tbl = $('#action_who')[0].textboxList; tbl.clear(); } else { var tbl = $('#action_who')[0].textboxList; tbl.clear(); tbl.select('Team'); tbl.input.parents('tr').first().hide();  }"><option value="Task">%MAKETEXT{"Task"}%</option><option value="Decision">%MAKETEXT{"Decision"}%</option><option value="Information">%MAKETEXT{"Information"}%</option></select> |
+| <label for="action_who">%MAKETEXT{"Task to"}%</label>| <input class="foswikiInputField jqTextboxList {limit:1,useHidden:1,mustMatch:1}" autocomplete="%USERAUTOCOMPLETE%" name="action_who" id="action_who" type="text" size="50" value="%URLPARAM{"who" multiple="on" separator=", "}%"/> |
+| <label for="action_due">%MAKETEXT{"Due date"}%</label>| <input id="action_due" type="text" readonly="readonly" size="10" name="action_due" class="foswikiInputField" value="%URLPARAM{"due"}%"><input type="image" title="Calendar" id="action_due_calendar" alt="Calendar" src="/pub/System/JSCalendarContrib/img.gif" name="calendar">|
+| <label for="action_task">%MAKETEXT{"Task/Information"}%</label>| <input type="text" %DISABLED% size="50" name="action_task" id="action_task" class="foswikiInputField" onfocus="if(this.value=='%MESSAGE%')this.value=''" onblur="if(this.value=='')this.value='%MESSAGE%'">%MESSAGE% |
+| <label for="action_comment">%MAKETEXT{"Details"}%</label>| <textarea %DISABLED% rows="%rows|3%" cols="%cols|50%" name="action_comment" id="action_comment" class="foswikiInputField" onfocus="if(this.value=='%MESSAGE%')this.value=''" onblur="if(this.value=='')this.value='%MESSAGE%'">%MESSAGE%</textarea> |
+| <label for="action_state">%MAKETEXT{"Status"}%</label>|<select class="foswikiInputField" name="action_state" id="action_state" size="1"><option value="open" selected>%MAKETEXT{"open"}%</option><option value="closed">%MAKETEXT{"closed"}%</option></select> |
+|| <input %DISABLED% type="submit" class="foswikiButton" onClick="convertTextboxlist()" value="%MAKETEXT{"Add task"}%" /> |
+%TMPL:END%
+
+%TMPL:DEF{OUTPUT:action3}%%POS:AFTER%%AC%NOP%TION{who="%URLPARAM{"action_who" encode="quote"}%" due="%URLPARAM{"action_due" encode="off"}%" createdate="%DATE%" creator="%URLPARAM{"action_creator" encode="quote"}%" zeit="%URLPARAM{"action_zeit" encode="off"}%" state="%URLPARAM{"action_state" encode="quote"}%" task="%URLPARAM{"action_task" encode="quote"}%" result="%URLPARAM{"action_result" encode="off"}%"}% %URLPARAM{"action_comment" encode="off"}%%ENDACTION%
+%TMPL:END%
+
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%
