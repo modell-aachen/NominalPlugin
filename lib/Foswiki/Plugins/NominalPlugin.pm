@@ -109,7 +109,7 @@ TEMPLATE
 sub _restLIST {
   my ( $session, $subject, $verb, $response ) = @_;
   my $solr = Foswiki::Plugins::SolrPlugin->getSearcher();
-  my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:Web* -topic:*Form web:Nominal';
+  my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:Web* -topic:*Actions -topic:*Form web:Nominal';
   $query = $solr->entityDecode( $query, 1 );
   
   my %params = ( rows => 9999 );
@@ -120,8 +120,28 @@ sub _restLIST {
   my $count = $r->{numFound};
 
   my @list = ();
+  my $skipped = 0;
+  my $curUser = Foswiki::Func::getCanonicalUserID( $session->{user} );
   for (my $i = 0; $i < $count; $i++) {
     my $hit = $r->{docs}[$i];
+
+    my $private = $hit->{field_Private_lst};
+    if ( defined $private ) {
+      my $viewer = $hit->{field_EligibleViewer_lst};
+
+      my @cuids = ();
+      foreach (@$viewer) {
+        my $cuid = Foswiki::Func::getCanonicalUserID( $_ );
+        push( @cuids, $cuid );
+      }
+
+      my $isAllowed = grep( /\Q$curUser\E/, @cuids );
+      if ( !$isAllowed && !Foswiki::Func::isAnAdmin( $session->{user} ) ) {
+        $skipped++;
+        next;
+      }
+    }
+
     my $wt = $hit->{webtopic};
     my $url = $hit->{url};
     my $title = $hit->{field_Title_s};
@@ -139,7 +159,7 @@ sub _restLIST {
     push( @list, \%item );
   }
 
-  my %retval = (status => 'ok', count => $count, data => \@list);
+  my %retval = (status => 'ok', count => $count - $skipped, data => \@list);
   return encode_json( \%retval );
 }
 
