@@ -24,6 +24,14 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Create actions"
+msgstr "Aktionen anlegen"
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Go to actions"
+msgstr "Zu Aktionen wechseln"
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Chart"
 msgstr "Verlauf"
 
