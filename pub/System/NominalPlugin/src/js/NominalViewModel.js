@@ -194,9 +194,11 @@
       $input.removeClass('invalid');
       $input.val(0);
 
+      var $id = $('#' + self.selectedNominal().name);
+      var $base = $id.find('.col-nominal > .nml-input');
       var addUp = $('#nml-sum-batch').prop('checked');
       if ( !addUp ) {
-        $('.col-nominal input').val( val );
+        $base.val( val );
         for( var p in self.selectedNominal() ) {
           if ( /^NML/.test( p ) ) {
             self.selectedNominal()[p] = val;
@@ -204,7 +206,8 @@
         }
       } else {
         var sum = val;
-        $('.col-nominal input').each( function() {
+        var $col = self.isMonthly() ? $base : $id.find('[data-quarter]');
+        $col.each( function() {
           $(this).val( sum );
           sum += val;
         });
@@ -312,7 +315,6 @@
     };
 
     this.saveNominal = function( nml ) {
-      self.selectedNominal( nml );
       updateNominal( self, 'save', source ).done( function() {
         $.unblockUI();
       });
