@@ -20,7 +20,7 @@
       <tr>
         <td>%MAKETEXT{"Responsible for measurement"}%:</td>
         <td>%RENDERFORDISPLAY{field="MeasurementWho" format="$value"}%</td>
-        <td rowspan="8">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+        <td rowspan="8" style="vertical-align: top;">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
       </tr>
       <tr>
         <td>%MAKETEXT{"Measurement"}%:</td>
