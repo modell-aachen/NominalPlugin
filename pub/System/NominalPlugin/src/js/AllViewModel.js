@@ -224,7 +224,7 @@
           max: 1.1 * max,
           tickOptions: {
             angle: 0,
-            formatString: '%.1f'
+            formatString: '%#.2f'
           }
         }
       },
