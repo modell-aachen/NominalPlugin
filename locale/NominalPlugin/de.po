@@ -101,8 +101,8 @@ msgid "Key data"
 msgstr "Kennzahlen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Batch processing"
-msgstr "Stapelverarbeitung"
+msgid "Set continuous nominal value"
+msgstr "Durchgängigen SOLL-Wert festlegen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Reset"

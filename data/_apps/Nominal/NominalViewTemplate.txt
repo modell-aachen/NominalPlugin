@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1398844296" format="1.1" reprev="2" version="2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1416319146" format="1.1" reprev="2" version="2"}%
 %TMPL:INCLUDE{"view"}%
 
 %TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
@@ -89,8 +89,8 @@
         <a class="nml-button" href="#" title="%MAKETEXT{"Cancel"}%" data-bind="click: $parent.cancelEditNominal, visible: nml.disabled() == false">
           <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/cancel.png" /> %MAKETEXT{"Cancel"}%
         </a>
-        <a class="nml-button" href="#" title="%MAKETEXT{"Batch processing"}%" data-bind="click: $parent.showBatchDialog, visible: nml.disabled() == false">
-          <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/cog.png" /> %MAKETEXT{"Batch processing"}%
+        <a class="nml-button" href="#" title="%MAKETEXT{"Set continuous nominal value"}%" data-bind="click: $parent.showBatchDialog, visible: nml.disabled() == false">
+          <img src="%PUBURLPATH%/System/FamFamFamSilkIcons/cog.png" /> %MAKETEXT{"Set continuous nominal value"}%
         </a>
       </div>
       <table class="nml-table" data-bind="visible: $parent.isMonthly">
@@ -164,7 +164,7 @@
       </tbody>
     </table>
   </div>
-  <div id="nml-batch-dialog" title="%MAKETEXT{"Batch processing"}%">
+  <div id="nml-batch-dialog" title="%MAKETEXT{"Set continuous nominal value"}%">
     <table>
       <tbody>
         <tr>
