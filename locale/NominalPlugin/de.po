@@ -32,6 +32,11 @@ msgid "Go to actions"
 msgstr "Zu Aktionen wechseln"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
+#: data/_apps/Nominal/NominalEditTemplate.txt
+msgid "Unit"
+msgstr "Einheit"
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Chart"
 msgstr "Verlauf"
 

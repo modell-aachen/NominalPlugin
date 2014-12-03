@@ -15,7 +15,7 @@
     <tr>
       <td>%MAKETEXT{"Responsible for key figure"}%:</td>
       <td>%RENDERFOREDIT{field="Responsible" format="$edit"}%</td>
-      <td rowspan="5">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
+      <td rowspan="6">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%MAKETEXT{"Responsible for measurement"}%:</td>
@@ -24,6 +24,10 @@
     <tr>
       <td>%MAKETEXT{"Measurement"}%:</td>
       <td>%RENDERFOREDIT{field="MeasurementHow" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td>%MAKETEXT{"Unit"}%:</td>
+      <td>%RENDERFOREDIT{field="Unit" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%MAKETEXT{"Cycle"}%:</td>
