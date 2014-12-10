@@ -157,7 +157,7 @@
         <tr>
           <td style="width: 50px;">%MAKETEXT{"Year"}%</td>
           <td>
-            <input type="number" id="nml-select-year" class="nml-input right" data-bind="value: newFiscalYear, event: {focus: removeInvalidMarker}" required />
+            <input type="text" id="nml-select-year" class="nml-input right" data-bind="value: newFiscalYear, event: {focus: removeInvalidMarker}" required />
           </td>
         </tr>
         <tr>
@@ -174,7 +174,7 @@
         <tr>
           <td style="width: 50px;">%MAKETEXT{"Nominal"}%</td>
           <td>
-            <input type="number" id="nml-nominal-batch" class="nml-input right" required />
+            <input type="text" id="nml-nominal-batch" class="nml-input right" required />
           </td>
         </tr>
         <tr>

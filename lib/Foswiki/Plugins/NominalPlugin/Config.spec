@@ -6,7 +6,7 @@
 $Foswiki::cfg{Plugins}{NominalPlugin}{Debug} = 0;
 
 # **STRING**
-$Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} = 'topic:NML* -topic:*Template -topic:*Form web:Nominal';
+$Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} = 'topic:NML* -topic:*Template -topic:*Form -topic:*Actions -topic:Web*  web:Nominal';
 
 # **STRING**
 # The starting month of a fiscal year (as integer, 1-12).

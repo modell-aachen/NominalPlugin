@@ -184,12 +184,16 @@
     this.setNominalBatch = function() {
       var $input = $('#nml-nominal-batch');
       var val = $input.val();
-      if ( !/\d+/.test( val ) || val < 0 ) {
+      if ( val ) {
+        val = val.replace(',', '.');
+      }
+
+      if ( !/\d+(\.\d+)?/.test( val ) || val < 0 ) {
         $input.addClass('invalid');
         return;
       }
 
-      val = parseInt( val );
+      val = parseFloat( val );
       $('#nml-batch-dialog').dialog('close');
       $input.removeClass('invalid');
       $input.val(0);
@@ -208,7 +212,7 @@
         var sum = val;
         var $col = self.isMonthly() ? $base : $id.find('[data-quarter]');
         $col.each( function() {
-          $(this).val( sum );
+          $(this).val( Math.round( sum * 1000 ) / 1000 );
           sum += val;
         });
 
@@ -225,6 +229,11 @@
 
     this.addFiscalYear = function() {
       var year = $('#nml-select-year').val();
+      if ( !/[0-9]{4}/.test(year) ) {
+        $('#nml-select-year').addClass('invalid');
+        return;
+      }
+
       for( var i = 0; i < self.nominals().length; ++i ) {
         if ( self.nominals()[i].name === year ) {
           $('#nml-select-year').addClass('invalid');
@@ -363,10 +372,14 @@
       var $this = $(this);
       var val = $this.val();
 
-      var isEmpty = val && val.trim() !== '';
+      var isNotEmpty = val && val.trim() !== '';
+      if ( isNotEmpty ) {
+        val = val.replace( ',', '.' );
+      }
+
       var valid = /^\d+(\.\d+)?$/.test( val );
 
-      if ( isEmpty && valid ) {
+      if ( isNotEmpty && valid ) {
         $this.removeClass('invalid');
       } else {
         $this.addClass('invalid');
@@ -380,6 +393,12 @@
     } else {
       $.blockUI();
       nml.disabled( true );
+
+      for( var prop in nml ) {
+        if ( /^(NML|ACT)/.test( prop ) && typeof nml[prop] === 'string' ) {
+          nml[prop] = nml[prop].replace( ',', '.' );
+        }
+      }
 
       var url = baseUri() + '/' + action;
       var payload = {
