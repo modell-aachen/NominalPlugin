@@ -94,7 +94,7 @@
           var year = query && query.length > 0 ? query[0] : (new Date()).getFullYear();
           var hasYear = _.where( nmls, {name: year.toString()} );
           if ( hasYear && hasYear.length > 0 ) {
-            var index = nmls.indexOf( hasYear[0] );
+            var index = _.indexOf( nmls, hasYear[0] );
             self.selectedNominal( hasYear[0] );
             $('#tabs').tabs( 'select', index );
           } else {
@@ -247,7 +247,7 @@
       };
 
       self.nominals( _.sortBy( self.nominals(), sort ) );
-      var index = self.nominals().indexOf( nml );
+      var index = self.nominals.indexOf( nml );
 
       $tabs.tabs({
         fx: {opacity: 'toggle', duration: 150},
@@ -264,7 +264,7 @@
 
     this.cancelEditNominal = function( nml ) {
       // reset invalid inputs
-      $('.nml-table input:invalid').each( function( i, input ) {
+      $('.nml-table input.invalid').each( function( i, input ) {
         $(input).val(0);
       });
 
@@ -359,13 +359,6 @@
 
   var updateNominal = function( self, action, source ) {
     var deferred = $.Deferred();
-
-    // input validation
-    if ( $('.nml-table input:invalid').length > 0 ) {
-      deferred.reject();
-      return deferred.promise();
-    }
-
     $('.nml-table input[data-required]').each( function() {
       var $this = $(this);
       var val = $this.val();

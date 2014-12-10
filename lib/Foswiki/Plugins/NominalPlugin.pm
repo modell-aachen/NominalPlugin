@@ -212,7 +212,7 @@ sub _handleVM {
 STYLES
 
   my $scripts = <<SCRIPTS;
-<!--[if lt IE 9]><script type="text/javascript" src="$path/js/excanvas$suffix.js"></script><![endif]-->
+<literal><!--[if lt IE 9]><script type="text/javascript" src="$path/js/excanvas$suffix.js"></script><![endif]--></literal>
 <script type="text/javascript" src="$path/js/jqplot$suffix.js"></script>
 <script type="text/javascript" src="$path/js/nominal$suffix.js"></script>
 SCRIPTS

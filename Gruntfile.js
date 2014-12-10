@@ -108,11 +108,11 @@ module.exports = function(grunt) {
         curly: true,
         eqeqeq: true,
         eqnull: true,
-        // laxbreak: true,
         reporter: require('jshint-stylish'),
         globals: {
           jQuery: true
         },
+        ignores: ['<%= pkg.pubDir %>/src/js/excanvas.js']
       },
       beforeconcat: ['<%= pkg.pubDir %>/src/js/**/*.js']
     },
@@ -179,11 +179,10 @@ module.exports = function(grunt) {
         files: {
           '<%= pkg.pubDir %>/js/nominal.js': [
             '<%= pkg.bower %>/knockout/dist/knockout.debug.js',
-            '<%= pkg.bower %>/knockout-mapping/knockout.mapping.js',
             '<%= pkg.bower %>/underscore/underscore.js',
-            '<%= pkg.pubDir %>/src/js/**/*.js'
+            '<%= pkg.pubDir %>/src/js/**/!(excanvas).js'
           ],
-          '<%= pkg.pubDir %>/js/excanvas.js': ['<%= pkg.bower %>/jqplot/excanvas.js'],
+          '<%= pkg.pubDir %>/js/excanvas.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
           '<%= pkg.pubDir %>/js/jqplot.js': [
             '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
@@ -207,11 +206,10 @@ module.exports = function(grunt) {
         files: {
           '<%= pkg.pubDir %>/js/nominal.min.js': [
             '<%= pkg.bower %>/knockout/dist/knockout.js',
-            '<%= pkg.bower %>/knockout-mapping/knockout.mapping.js',
             '<%= pkg.bower %>/underscore/underscore.js',
-            '<%= pkg.pubDir %>/src/js/**/*.js'
+            '<%= pkg.pubDir %>/src/js/**/!(excanvas).js'
           ],
-          '<%= pkg.pubDir %>/js/excanvas.min.js': ['<%= pkg.bower %>/jqplot/excanvas.js'],
+          '<%= pkg.pubDir %>/js/excanvas.min.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
           '<%= pkg.pubDir %>/js/jqplot.min.js': [
             '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
             '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
@@ -262,8 +260,8 @@ module.exports = function(grunt) {
   grunt.registerTask('manifest', ['prepare-manifest', 'copy:manifest', 'clean:manifest']);
   grunt.registerTask('pseudo-install', ['exec:install']);
   grunt.registerTask('build', [
-    'sass:' + target,
+    'sass',
     'jshint',
-    'uglify:' + target
+    'uglify'
   ]);
 }
