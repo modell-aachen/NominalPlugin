@@ -5,6 +5,10 @@
 # Enable debug output
 $Foswiki::cfg{Plugins}{NominalPlugin}{Debug} = 0;
 
+# **BOOLEAN**
+# Enable Tasks integration
+$Foswiki::cfg{Plugins}{NominalPlugin}{EnableTasks} = 0;
+
 # **STRING**
 $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} = 'topic:NML* -topic:*Template -topic:*Form -topic:*Actions -topic:Web*  web:Nominal';
 

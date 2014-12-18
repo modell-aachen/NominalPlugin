@@ -31,6 +31,7 @@ STYLES
     return 1;
   }
 
+  Foswiki::Func::registerTagHandler( 'NOMINALTASKS', \&_handleTasks );
   Foswiki::Func::registerTagHandler( 'NOMINALVIEWMODEL', \&_handleVM );
   Foswiki::Meta::registerMETA( 'NOMINAL', many => 1, require => ['name'] );
 
@@ -190,6 +191,19 @@ sub _restPOST {
 
   my %retval = (status => 'ok');
   return encode_json( \%retval );
+}
+
+sub _handleTasks {
+  my( $session, $params, $topic, $web, $topicObject ) = @_;
+
+  my $enabled = $Foswiki::cfg{Plugins}{NominalPlugin}{EnableTasks} || 0;
+  return '' unless $enabled;
+
+  my $link = <<LINK;
+<a id="nml-actions" href="#" data-bind="click: nmlActions">%IF{"istopic %TOPIC%Actions" then="%MAKETEXT{"Go to actions"}%" else="%MAKETEXT{"Create actions"}%"}%</a>
+LINK
+
+  return $link;
 }
 
 sub _handleVM {

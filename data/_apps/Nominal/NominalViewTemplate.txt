@@ -45,7 +45,7 @@
       </tr>
       <tr>
         <td colspan="2">
-          <a id="nml-actions" href="#" data-bind="click: nmlActions">%IF{"istopic %TOPIC%Actions" then="%MAKETEXT{"Go to actions"}%" else="%MAKETEXT{"Create actions"}%"}%</a>
+          %NOMINALTASKS%
         </td>
       </tr>
     </tbody>
