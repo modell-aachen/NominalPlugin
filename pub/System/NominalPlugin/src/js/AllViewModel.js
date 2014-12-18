@@ -186,9 +186,14 @@
       plot.destroy();
     }
 
+    var title = nml.title;
+    if ( nml.unit ) {
+      title += ' [' + nml.unit + ']';
+    }
+
     window[plotId] = $.jqplot(id, [s1, s2], {
       animate: !$.jqplot.use_excanvas && self.animate,
-      title: nml.title,
+      title: title,
       grid: {
         drawBorder: false,
         shadow: false,

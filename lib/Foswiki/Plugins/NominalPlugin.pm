@@ -147,6 +147,7 @@ sub _restLIST {
     my $url = $hit->{url};
     my $title = $hit->{field_Title_s};
     my $cycle = $hit->{field_Cycle_s};
+    my $unit = $hit->{field_Unit_s};
     my $monthly = 1;
     if ( $cycle && $cycle ne 'monthly') {
       $monthly = 0;
@@ -156,7 +157,7 @@ sub _restLIST {
     my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
 
     my @nmls = $meta->find( 'NOMINAL' );
-    my %item = (data => \@nmls, title => "$title", url => "$url", monthly => $monthly);
+    my %item = (data => \@nmls, title => "$title", url => "$url", monthly => $monthly, unit => "$unit");
     push( @list, \%item );
   }
 
