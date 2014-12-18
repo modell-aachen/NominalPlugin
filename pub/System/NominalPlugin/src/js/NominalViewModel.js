@@ -566,7 +566,7 @@
 
     var barWidth = 50/nmls.length;
     var barColors = ['#6494c9', '#81bcff', '#3d98ff', '#204d80', '#0078ff'];
-    var lineColors = ['#a90000', '#ae4646', '#ff3d3d', '#c9394d', '#ff0024'];
+    var lineColors = ['#a90000', '#fe5c5c', '#530000', '#fe3939', '#db0000'];
 
     var labels = [], series = [], seriesPlotOpts = [];
     var max = 0, min = 0;
