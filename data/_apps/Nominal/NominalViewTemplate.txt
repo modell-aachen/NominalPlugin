@@ -18,9 +18,15 @@
         <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
       </tr>
       <tr>
-        <td>%MAKETEXT{"Measurement"}%:</td>
-        <td>%RENDERFORDISPLAY{field="MeasurementHow" format="$value"}%</td>
-        <td rowspan="4">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+        <td rowspan="3">%MAKETEXT{"Measurement"}%:</td>
+        <td>%RENDERFORDISPLAY{field="MeasurementWho" format="$value"}%</td>
+        <td rowspan="6">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td style="font-weight:normal; color: black;">%RENDERFORDISPLAY{field="MeasurementWhen" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td style="font-weight:normal; color: black;">%FORMAT{"%RENDERFORDISPLAY{field="MeasurementHow" format="$value"}%" type="string" format="$item" header="[[" footer="]]"separator="]], [["}%</td>
       </tr>
       <tr>
         <td colspan="2">%MAKETEXT{"Persons eligible for viewing"}%:</td>

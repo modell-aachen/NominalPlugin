@@ -3,6 +3,8 @@
 | Title | text | 50 | | | M |
 | Description | editor | | | | |
 | Responsible | textboxlist | 50 mustMatch limit="1" | %USERAUTOCOMPLETE% | | |
+| MeasurementWho | textboxlist | 50 mustMatch limit="1" | %USERAUTOCOMPLETE% | | |
+| MeasurementWhen | select+values | 1  | %MAKETEXT{"Monthly"}%=MONTHLY,%MAKETEXT{"Quarterly"}%=QUARTERLY  | | |
 | MeasurementHow | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=topic;skin=text;limit=20 | | |
 | EligibleViewer | textboxlist | 50 mustMatch  | %USERAUTOCOMPLETE% | | |
 | Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
