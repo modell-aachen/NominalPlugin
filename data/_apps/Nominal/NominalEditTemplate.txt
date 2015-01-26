@@ -15,7 +15,7 @@
     <tr>
       <td>%MAKETEXT{"Responsible"}%:</td>
       <td>%RENDERFOREDIT{field="Responsible" format="$edit"}%</td>
-      <td rowspan="3">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
+      <td rowspan="4">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%MAKETEXT{"Measurement"}%:</td>
@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <td>%MAKETEXT{"Persons eligible for viewing"}%:</td>
-      <td colspan="2">%RENDERFOREDIT{field="EligibleViewer" format="$edit"}%</td>
+      <td colspan="1">%RENDERFOREDIT{field="EligibleViewer" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%RENDERFOREDIT{fields="Private" format="$percntMAKETEXT{$edit}$percnt"}%</td>
