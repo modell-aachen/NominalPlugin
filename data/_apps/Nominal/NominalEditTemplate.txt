@@ -22,12 +22,12 @@
       <td>%RENDERFOREDIT{field="MeasurementHow" format="$edit"}%</td>
     </tr>
     <tr>
-      <td>%RENDERFOREDIT{fields="Private" format="$percntMAKETEXT{$edit}$percnt"}%</td>
-      <td><i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
-    </tr>
-    <tr>
       <td>%MAKETEXT{"Persons eligible for viewing"}%:</td>
       <td colspan="2">%RENDERFOREDIT{field="EligibleViewer" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td>%RENDERFOREDIT{fields="Private" format="$percntMAKETEXT{$edit}$percnt"}%</td>
+      <td><i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
     </tr>
   </table>
 </div>
