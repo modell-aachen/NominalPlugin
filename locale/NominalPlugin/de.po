@@ -130,10 +130,8 @@ msgstr "Mai"
 msgid "Measurement"
 msgstr "Erhebung"
 
-#: data/_apps/Nominal/NominalEditTemplate.txt
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Responsible for measurement"
-msgstr "Verantwortlich für Erhebung"
+msgid "Responsible"
+msgstr "Verantwortlich"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Month"
@@ -168,11 +166,6 @@ msgstr "monatlich"
 #: data/_apps/Nominal/NominalEditTemplate.txt
 msgid "quarterly"
 msgstr "vierteljährlich"
-
-#: data/_apps/Nominal/NominalEditTemplate.txt
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Responsible for key figure"
-msgstr "Verantwortlich für Kennzahl"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Save"
@@ -231,6 +224,21 @@ msgstr "nach Geschäftsjahr"
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "protected"
 msgstr "geschützt"
+
+msgid "Process KPI"
+msgstr "Prozesskennzahl"
+
+msgid "Corporate KPI"
+msgstr "Unternehmenskennzahl"
+
+msgid "Relevant process KPI"
+msgstr "Relevante Prozesskennzahl"
+
+msgid "Relevant process"
+msgstr "Relevanter Prozess"
+
+msgid "Measurement"
+msgstr "Erhebung"
 
 #~ msgid "Data"
 #~ msgstr "Daten"

@@ -13,38 +13,43 @@
   <table class="metaDataHead">
     <tbody>
       <tr>
-        <td>%MAKETEXT{"Responsible for key figure"}%:</td>
-        <td style="min-width: 200px;">%RENDERFORDISPLAY{field="Responsible" format="$value"}%</td>
+        <td colspan="2">%MAKETEXT{"Type"}%:</td>
+        <td>%RENDERFORDISPLAY{field="Type" format="$value"}%</td>
         <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
       </tr>
       <tr>
-        <td>%MAKETEXT{"Responsible for measurement"}%:</td>
+        <td colspan="2">%MAKETEXT{"Responsible"}%:</td>
+        <td style="min-width: 200px;">%RENDERFORDISPLAY{field="Responsible" format="$value"}%</td>
+        <td rowspan="9" style="vertical-align: top;">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td rowspan="3">%MAKETEXT{"Measurement"}%:</td>
+        <td style="font-weight: bold; color: #999;">%MAKETEXT{"Responsible"}%:</td>
         <td>%RENDERFORDISPLAY{field="MeasurementWho" format="$value"}%</td>
-        <td rowspan="8" style="vertical-align: top;">%RENDERFORDISPLAY{field="Description" format="$value"}%</td>
-      </tr>
-      <tr>
-        <td>%MAKETEXT{"Measurement"}%:</td>
-        <td>%RENDERFORDISPLAY{field="MeasurementHow" format="$value"}%</td>
-      </tr>
-      <tr>
-        <td>%MAKETEXT{"Unit"}%:</td>
-        <td>%RENDERFORDISPLAY{field="Unit" format="$value"}%</td>
       </tr>
       <tr>
         <td>%MAKETEXT{"Cycle"}%:</td>
         <td>%RENDERFORDISPLAY{field="Cycle" format="$value"}%</td>
       </tr>
       <tr>
-        <td colspan="2"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
+        <td>%IF{"'%TOPIC%'/Type='ckpi'" then="%MAKETEXT{"Relevant process KPI"}%" else="%MAKETEXT{"Relevant process"}%"}%:</td>
+        <td>%RENDERFORDISPLAY{field="%IF{"'%TOPIC%'/Type='ckpi'" then="RelatedKPI" else="RelatedProcess"}%" format="$percntIF{\"'$value'\" then=\"[[$value]]\"}$percnt"}%</td>
       </tr>
       <tr>
-        <td colspan="2">%MAKETEXT{"Persons eligible for viewing"}%:</td>
+        <td colspan="2">%MAKETEXT{"Unit"}%:</td>
+        <td>%RENDERFORDISPLAY{field="Unit" format="$value"}%</td>
       </tr>
       <tr>
-        <td colspan="2">%RENDERFORDISPLAY{field="EligibleViewer" format="$value"}%</td>
+        <td colspan="3"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
       </tr>
       <tr>
-        <td colspan="2">
+        <td colspan="3">%MAKETEXT{"Persons eligible for viewing"}%:</td>
+      </tr>
+      <tr>
+        <td colspan="3">%RENDERFORDISPLAY{field="EligibleViewer" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td colspan="3">
           %NOMINALTASKS%
         </td>
       </tr>

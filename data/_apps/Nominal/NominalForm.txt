@@ -1,11 +1,13 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1398843678" format="1.1" reprev="1" version="1"}%
 | *Name* | *Type* | *Size* | *Values* | *Tool Message* | *Attritbutes* |
 | Title | text | 50 | | | M |
+| Type | select+values | 1 | %MAKETEXT{"Process KPI"}%=pkpi,%MAKETEXT{"Corporate KPI"}%=ckpi | Type | |
 | Unit | text | 50 | | | |
 | Description | editor | | | | |
 | Responsible | textboxlist | 50 mustMatch limit="1" | %USERAUTOCOMPLETE% | | |
 | MeasurementWho | textboxlist | 50 mustMatch limit="1" | %USERAUTOCOMPLETE% | | |
-| MeasurementHow | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=topic;skin=text;limit=20 | | |
+| RelatedProcess | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=processes;skin=text;limit=20 | | |
+| RelatedKPI | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=kpis;skin=text;limit=20 | | |
 | Cycle | select+values | 1 | %MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"quarterly"}%=quarterly | Cycle | |
 | EligibleViewer | textboxlist | 50 mustMatch  | %USERAUTOCOMPLETE% | | |
 | Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
@@ -14,7 +16,13 @@
    * Set NOWYSIWYG = 1
 
 <verbatim>
-%STARTSECTION{"topic"}%[%SOLRSEARCH{
+%STARTSECTION{"processes"}%[%SOLRSEARCH{
   "web:Processes type:topic title_search:?* -topic:*%WORKFLOWSUFFIX% (webtopic_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%) OR title_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%))" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$percntENCODE{\\"$title\\" type=\\"safe\\"}$percnt\\",\\"sublabel\\":\\"$web.$topic\\",\\"value\\":\\"$web.$topic\\"}"}%" separator="," limit="%URLPARAM{"limit" default="10"}%"
-}%]%ENDSECTION{"topic"}%
+}%]%ENDSECTION{"processes"}%
+</verbatim>
+
+<verbatim>
+%STARTSECTION{"kpis"}%[%SOLRSEARCH{
+  "web:Processes type:topic title_search:?* -topic:*%WORKFLOWSUFFIX% (webtopic_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%) OR title_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%))" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$percntENCODE{\\"$title\\" type=\\"safe\\"}$percnt\\",\\"sublabel\\":\\"$web.$topic\\",\\"value\\":\\"$web.$topic\\"}"}%" separator="," limit="%URLPARAM{"limit" default="10"}%"
+}%]%ENDSECTION{"kpis"}%
 </verbatim>

@@ -35,7 +35,7 @@ STYLES
   Foswiki::Func::registerTagHandler( 'NOMINALVIEWMODEL', \&_handleVM );
   Foswiki::Meta::registerMETA( 'NOMINAL', many => 1, require => ['name'] );
 
-  my %getOpts = ( http_allow => 'GET', validate => 0, authenticate => 0 );
+  my %getOpts = ( http_allow => 'GET', validate => 0, authenticate => 1 );
   Foswiki::Func::registerRESTHandler( 'actions', \&_restACTIONS, %getOpts );
   Foswiki::Func::registerRESTHandler( 'get', \&_restGET, %getOpts );
   Foswiki::Func::registerRESTHandler( 'list', \&_restLIST, %getOpts );
@@ -66,6 +66,9 @@ sub _restGET {
 
   my %retval = (status => 'ok', data => \@nmls, monthly => $monthly);
   my $json = encode_json( \%retval );
+
+  $response->header( -type => 'application/json' );
+  $response->status( 200 );
 
   return $json;
 }
@@ -148,6 +151,7 @@ sub _restLIST {
     my $title = $hit->{field_Title_s};
     my $cycle = $hit->{field_Cycle_s};
     my $unit = $hit->{field_Unit_s};
+    my $type = $hit->{field_Type_s};
     my $monthly = 1;
     if ( $cycle && $cycle ne 'monthly') {
       $monthly = 0;
@@ -157,7 +161,15 @@ sub _restLIST {
     my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
 
     my @nmls = $meta->find( 'NOMINAL' );
-    my %item = (data => \@nmls, title => "$title", url => "$url", monthly => $monthly, unit => "$unit");
+    my %item = (
+      data => \@nmls,
+      title => "$title",
+      url => "$url",
+      monthly => $monthly,
+      unit => "$unit",
+      type => "$type"
+    );
+
     push( @list, \%item );
   }
 

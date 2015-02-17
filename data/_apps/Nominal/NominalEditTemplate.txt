@@ -8,43 +8,83 @@
 <div class="widgetBlockContent">
   <table class="metaDataHead">
     <tr>
-      <td>%MAKETEXT{"Title"}%:</td>
+      <td colspan="2">%MAKETEXT{"Title"}%:</td>
       <td>%RENDERFOREDIT{field="Title" format="$edit"}%</td>
       <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
     </tr>
     <tr>
-      <td>%MAKETEXT{"Responsible for key figure"}%:</td>
+      <td colspan="2">%MAKETEXT{"Type"}%:</td>
+      <td>%RENDERFOREDIT{field="Type" format="$edit" value="%IF{"'%TOPIC%'/Type='ckpi' or $'URLPARAM{type}'='ckpi'" then="ckpi" else="pkpi"}%"}%</td>
+      <td rowspan="7">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td colspan="2">%MAKETEXT{"Responsible"}%:</td>
       <td>%RENDERFOREDIT{field="Responsible" format="$edit"}%</td>
-      <td rowspan="6">%RENDERFOREDIT{field="Description" format="$edit"}%</td>
     </tr>
     <tr>
-      <td>%MAKETEXT{"Responsible for measurement"}%:</td>
+      <td rowspan="3">%MAKETEXT{"Measurement"}%:</td>
+      <td style="font-weight: bold; color: #999;">%MAKETEXT{"Responsible"}%:</td>
       <td>%RENDERFOREDIT{field="MeasurementWho" format="$edit"}%</td>
-    </tr>
-    <tr>
-      <td>%MAKETEXT{"Measurement"}%:</td>
-      <td>%RENDERFOREDIT{field="MeasurementHow" format="$edit"}%</td>
-    </tr>
-    <tr>
-      <td>%MAKETEXT{"Unit"}%:</td>
-      <td>%RENDERFOREDIT{field="Unit" format="$edit"}%</td>
     </tr>
     <tr>
       <td>%MAKETEXT{"Cycle"}%:</td>
       <td>%RENDERFOREDIT{field="Cycle" format="$edit"}%</td>
     </tr>
-    <tr>
-      <td>%RENDERFOREDIT{fields="Private" format="$percntMAKETEXT{$edit}$percnt"}%</td>
-      <td><i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
+    <tr id="row-ckpi">
+      <td>%MAKETEXT{"Relevant process KPI"}%:</td>
+      <td>%RENDERFOREDIT{field="RelatedKPI" format="$edit"}%</td>
+    </tr>
+    <tr id="row-pkpi">
+      <td>%MAKETEXT{"Relevant process"}%:</td>
+      <td>%RENDERFOREDIT{field="RelatedProcess" format="$edit"}%</td>
     </tr>
     <tr>
-      <td>%MAKETEXT{"Persons eligible for viewing"}%:</td>
-      <td colspan="2">%RENDERFOREDIT{field="EligibleViewer" format="$edit"}%</td>
+      <td colspan="2">%MAKETEXT{"Unit"}%:</td>
+      <td>%RENDERFOREDIT{field="Unit" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td colspan="2">%MAKETEXT{"Persons eligible for viewing"}%:</td>
+      <td>%RENDERFOREDIT{field="EligibleViewer" format="$edit"}%</td>
+    </tr>
+    <tr>
+      <td colspan="2">%RENDERFOREDIT{fields="Private" format="$percntMAKETEXT{$edit}$percnt"}%</td>
+      <td colspan="2"><i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
     </tr>
   </table>
 </div>
 %TMPL:P{"topicinfo"}%
 %TMPL:P{"formend"}%
+<script>
+(function($) {
+  $(document).ready( function() {
+    var $select = $('select[name="Type"]');
+    var $selected = $select.find('option:selected');
+    if ( $selected.val() === "ckpi" ) {
+      $('#row-pkpi').css('display', 'none');
+    } else {
+      $('#row-ckpi').css('display', 'none');
+    }
+
+    $select.on( 'change', function() {
+      var value = $(this).find('option:selected').val();
+      if ( value === "ckpi" ) {
+        $('#row-pkpi').css('display', 'none');
+        $('#row-ckpi').css('display', 'table-row');
+      } else {
+        $('#row-ckpi').css('display', 'none');
+        $('#row-pkpi').css('display', 'table-row');
+      }
+    });
+  });
+})(jQuery);
+</script>
 %TMPL:END%
 
 %META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
+
+<!-- %{
+  <tr>
+      <td>%IF{"'%TOPIC%'/Type='ckpi' or $'URLPARAM{type}'='ckpi'" then="%MAKETEXT{"Related process KPI"}%" else="%MAKETEXT{"Related process"}%"}%:</td>
+      <td>%RENDERFOREDIT{field="%IF{"'%TOPIC%'/Type='ckpi'" then="RelatedKPI" else="RelatedProcess"}%" format="$edit"}%</td>
+    </tr>
+}% -->

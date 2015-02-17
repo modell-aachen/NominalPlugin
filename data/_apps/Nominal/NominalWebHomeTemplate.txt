@@ -2,17 +2,34 @@
 %TMPL:INCLUDE{"SystemTabs"}%
 
 %TMPL:DEF{"content"}%
-<div class="widgetBlockTitle">
-  %MAKETEXT{"Key figures"}% <small>(<select class="nml-select" data-bind="options: availableYears, valueAllowUnset: false, value: selectedYear"></select>)</small>
-  <small class="right">(<label style="font-size: 14px;">
-    <input type="checkbox" data-bind="checked: hideEmpty">
-    %MAKETEXT{"Hide empty charts"}%
-  </label>)</small>
+<div class="widgetBlockTitle">%MAKETEXT{"Filter"}%</div>
+<div class="widgetBlockContent">
+  <div>
+    <label>%MAKETEXT{"Displayed year"}%
+      <select data-bind="options: availableYears, valueAllowUnset: false, value: selectedYear"></select>
+    </label>
+  </div>
+  <div>
+    <label>%MAKETEXT{"Hide empty charts"}%
+      <input type="checkbox" data-bind="checked: hideEmpty">
+    </label>
+  </div>
 </div>
-<div class="widgetBlockContent" data-bind="foreach: nominals">
+
+<div class="widgetBlockTitle">%MAKETEXT{"Corporate KPIs"}%</div>
+<div class="widgetBlockContent" data-bind="foreach: ckpis">
   <a class="nml-link" data-bind="attr: {href: url + '?year=' + $parent.selectedYear()}">
     <div class="nml-container">
-      <div class="nml" data-bind="attr: {id: $index}"></div>
+      <div class="nml" data-bind="attr: {id: id}"></div>
+    </div>
+  </a>
+</div>
+
+<div class="widgetBlockTitle">%MAKETEXT{"Process KPIs"}%</div>
+<div class="widgetBlockContent" data-bind="foreach: pkpis">
+  <a class="nml-link" data-bind="attr: {href: url + '?year=' + $parent.selectedYear()}">
+    <div class="nml-container">
+      <div class="nml" data-bind="attr: {id: id}"></div>
     </div>
   </a>
 </div>

@@ -45,7 +45,8 @@
 
     this.months = ko.observableArray( months );
     this.quarter = ko.observableArray( quarter );
-    this.nominals = ko.observableArray();
+    this.ckpis = ko.observableArray();
+    this.pkpis = ko.observableArray();
     this.hideEmpty = ko.observable( false );
     this.hideEmpty.subscribe( function( val ) { plot( self ); });
 
@@ -82,7 +83,9 @@
               return parseInt( d.name );
             }));
 
-            self.nominals.push( e );
+            e.id = _.uniqueId();
+            self[e.type + 's'].push( e );
+
             if ( i + 1 === response.count ) {
               var sorted = _.sortBy( _.uniq( years ), function( year ) {
                 return Math.min( year );
@@ -106,24 +109,28 @@
 
   var sortNominals = function( self ) {
     // sort by title, ascending
-    var sorted = _.sortBy( self.nominals(), function( nml ) {
+    var sortFunc = function( nml ) {
       var chars = _.map( _.toArray(nml.title), function(i) {return i.charCodeAt();} );
       var sum = _.reduce( chars, function( s, c ) {return s + c;}, 0 );
       return Math.min( sum );
-    });
+    };
 
-    self.nominals( sorted );
+    self.ckpis( _.sortBy( self.ckpis(), sortFunc ) );
+    self.pkpis( _.sortBy( self.pkpis(), sortFunc ) );
   };
 
   var plot = function( self ) {
     sortNominals( self );
-    _.each( self.nominals(), function( nml ) {
+    var eachFunc = function( nml ) {
       plotNominals( self, nml );
-    });
+    };
+
+    _.each( self.ckpis(), eachFunc );
+    _.each( self.pkpis(), eachFunc );
   };
 
   var plotNominals = function( self, nml ) {
-    var id = self.nominals.indexOf( nml );
+    var id = nml.id;
     var plotId = 'nmlPlot' + id;
     var $container = $('#'+id).parent();
 

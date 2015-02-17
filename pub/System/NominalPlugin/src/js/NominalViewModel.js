@@ -87,7 +87,8 @@
           self.showNewYearLink( false );
           $('#tabs').tabs({
             fx: {opacity: 'toggle', duration: 150},
-            select: self.nmlTabChanged
+            select: self.nmlTabChanged,
+            activate: self.nmlTabChanged
           });
 
           var query = window.location.search.match( /\d{4}/ );
@@ -96,7 +97,12 @@
           if ( hasYear && hasYear.length > 0 ) {
             var index = _.indexOf( nmls, hasYear[0] );
             self.selectedNominal( hasYear[0] );
-            $('#tabs').tabs( 'select', index );
+
+            try {
+              $('#tabs').tabs( 'select', index );
+            } catch ( e ) {
+              $('#tabs').tabs( "option", "active", index );
+            }
           } else {
             self.selectedNominal( nmls[0] );
           }
@@ -135,7 +141,20 @@
     };
 
     this.nmlTabChanged = function( evt, ui ) {
-      var year = ui.panel.id;
+      var id;
+      if ( ui.panel && ui.panel.id ) {
+        id = ui.panel.id;
+      } else if ( ui.newPanel && ui.newPanel.length > 0 ) {
+        id = ui.newPanel[0].id;
+      } else {
+        if ( window.console && console.error ) {
+          console.error( 'unable to obtain panel id' );
+        }
+
+        return false;
+      }
+
+      var year = id;
       for( var i = 0; i < self.nominals().length; ++i ) {
         var nml = self.nominals()[i];
         if ( nml.name === year ) {
@@ -243,7 +262,11 @@
 
       var $tabs = $('#tabs');
       $('#nml-add-dialog').dialog('close');
-      $tabs.tabs( 'destroy' );
+
+      try {
+        $tabs.tabs( 'destroy' );
+      } catch( e ) { /* ignore */ }
+      
 
       var nml = createEntryObject( self );
       nml.name = year;
@@ -262,7 +285,11 @@
         fx: {opacity: 'toggle', duration: 150},
         select: self.nmlTabChanged
       });
-      $tabs.tabs( 'select', index );
+      try {
+        $tabs.tabs( 'select', index );
+      } catch ( e ) {
+        $tabs.tabs( "option", "active", index );
+      }
 
       self.selectedNominal( nml );
     };
@@ -358,7 +385,12 @@
           fx: {opacity: 'toggle', duration: 150},
           select: self.nmlTabChanged
         });
-        $tabs.tabs( 'select', index );
+
+        try {
+          $tabs.tabs( 'select', index );
+        } catch ( e ) {
+          $tabs.tabs( "option", "active", index );
+        }
 
         $.unblockUI();
         plot( self );

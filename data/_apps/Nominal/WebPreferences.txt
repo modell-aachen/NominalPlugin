@@ -12,10 +12,10 @@
 ---++ Modell Aachen Settings
 
    * Set CONTENTTEMPLATEWEB = 
-   
    * Set WORKFLOW = 
-
    * Set NO_MODAC_HEAD = 1
+
+---++ NominalPlugin Settings
 
    * Set WEBMETADATA = NominalForm
    * Set CKE_CONFIG_TOPIC = System.NominalPlugin
