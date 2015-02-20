@@ -84,6 +84,10 @@
             }));
 
             e.id = _.uniqueId();
+            if ( !e.type ) {
+              e.type = 'pkpi';
+            }
+
             self[e.type + 's'].push( e );
 
             if ( i + 1 === response.count ) {
