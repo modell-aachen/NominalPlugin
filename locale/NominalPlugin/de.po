@@ -1,6 +1,22 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-20 13:20+0200\n"
+"PO-Revision-Date: 2015-02-20 13:25+0200\n"
+"Last-Translator: Modell Aachen <access@modell-aachen.de>\n"
+"Language-Team: German <http://translate.modell-"
+"aachen.de/projects/nominalplugin/releasenew-york/de/>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 1.9\n"
+
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "%1 day(s)"
-msgstr ""
+msgstr "%1 Tag(e)"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 #: lib/Foswiki/Plugins/NominalPlugin.pm
@@ -13,7 +29,7 @@ msgstr "Geschäftsjahr hinzufügen"
 
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 msgid "Add task"
-msgstr ""
+msgstr "Aufgabe hinzufügen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Add together"
@@ -41,15 +57,15 @@ msgstr "Verlauf"
 
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Closed on"
-msgstr ""
+msgstr "Erledigt am"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Closed points"
-msgstr ""
+msgstr "Geschlossene Punkte"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Closed points in the last"
-msgstr ""
+msgstr "Geschlossene Punkte der letzten"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Comment"
@@ -69,7 +85,7 @@ msgstr "Unternehmenskennzahl"
 
 #: data/_apps/Nominal/NominalWebHomeTemplate.txt
 msgid "Corporate KPIs"
-msgstr ""
+msgstr "Unternehmenskennzahlen"
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "Create actions"
@@ -81,12 +97,12 @@ msgstr "Neue Kennzahl anlegen"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Create new action"
-msgstr ""
+msgstr "Aufgabe hinzufügen"
 
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Creator"
-msgstr ""
+msgstr "Ersteller"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
@@ -105,7 +121,7 @@ msgstr "Dezember"
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Decision"
-msgstr ""
+msgstr "Beschluss"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Delete"
@@ -140,7 +156,7 @@ msgstr "Möchten Sie das ausgewählte Jahr wirklich löschen?"
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Due date"
-msgstr ""
+msgstr "Termin"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Edit"
@@ -148,7 +164,7 @@ msgstr "Editieren"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Export these tasks to PDF"
-msgstr ""
+msgstr "Diese Aufgaben als PDF exportieren"
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "February"
@@ -156,7 +172,7 @@ msgstr "Februar"
 
 #: data/_apps/Nominal/NominalWebHomeTemplate.txt
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "Go to actions"
@@ -169,7 +185,7 @@ msgstr "Leere Charts verbergen"
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "January"
@@ -189,7 +205,7 @@ msgstr "Kennzahlen"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "List of open points (LoP)"
-msgstr ""
+msgstr "Liste offener Punkte (LoP)"
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "March"
@@ -211,7 +227,7 @@ msgstr "Monat"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "My tasks"
-msgstr ""
+msgstr "Meine Aufgaben"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 #: lib/Foswiki/Plugins/NominalPlugin.pm
@@ -247,11 +263,11 @@ msgstr "Quartal"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
 msgid "Related process"
-msgstr ""
+msgstr "Verwandter Prozess"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
 msgid "Related process KPI"
-msgstr ""
+msgstr "Verwandte Prozesskennzahl"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
@@ -278,7 +294,7 @@ msgstr ""
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Responsible for measurement"
-msgstr ""
+msgstr "Verantwortlich für Erhebung"
 
 #: data/_apps/Nominal/CustomSkinActionformTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
@@ -300,29 +316,29 @@ msgstr "Durchgängigen SOLL-Wert festlegen"
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Signal"
-msgstr ""
+msgstr "Ampel"
 
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Task"
-msgstr ""
+msgstr "Aufgabe"
 
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Task to"
-msgstr ""
+msgstr "Aufgabe an"
 
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 msgid "Task/Information"
-msgstr ""
+msgstr "Aufgabe/Information"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Tasks"
-msgstr ""
+msgstr "Aufgaben"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
 msgid "Title"
@@ -333,7 +349,7 @@ msgstr "Titel"
 #: data/_apps/Nominal/NominalViewTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
@@ -352,7 +368,7 @@ msgstr "Jahr"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "by fiscal year"
@@ -362,7 +378,7 @@ msgstr "nach Geschäftsjahr"
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "closed"
-msgstr ""
+msgstr "abgeschlossen"
 
 #: data/_apps/Nominal/NominalForm.txt
 msgid "monthly"
@@ -371,7 +387,7 @@ msgstr "monatlich"
 #: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
 #: data/_apps/Nominal/WebPreferences.txt
 msgid "open"
-msgstr ""
+msgstr "offen"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalForm.txt
@@ -385,11 +401,11 @@ msgstr "vierteljährlich"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "week"
-msgstr ""
+msgstr "Woche"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "weeks"
-msgstr ""
+msgstr "Wochen"
 
 #~ msgid "Data"
 #~ msgstr "Daten"
