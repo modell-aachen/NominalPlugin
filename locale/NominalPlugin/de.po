@@ -1,3 +1,7 @@
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "%1 day(s)"
+msgstr ""
+
 #: data/_apps/Nominal/NominalViewTemplate.txt
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "Actual"
@@ -6,6 +10,14 @@ msgstr "Ist"
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Add fiscal year"
 msgstr "Geschäftsjahr hinzufügen"
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+msgid "Add task"
+msgstr ""
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Add together"
+msgstr "Aufsummieren"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Add year"
@@ -24,37 +36,76 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Create actions"
-msgstr "Aktionen anlegen"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Go to actions"
-msgstr "Zu Aktionen wechseln"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
-#: data/_apps/Nominal/NominalEditTemplate.txt
-msgid "Unit"
-msgstr "Einheit"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Chart"
 msgstr "Verlauf"
+
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Closed on"
+msgstr ""
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Closed points"
+msgstr ""
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Closed points in the last"
+msgstr ""
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Comment"
 msgstr "Kommentar"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Quarter"
-msgstr "Quartal"
+msgid "Compare"
+msgstr "Vergleichen"
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Compare fiscal years"
+msgstr "Geschäftsjahre vergleichen"
+
+#: data/_apps/Nominal/NominalForm.txt
+msgid "Corporate KPI"
+msgstr "Unternehmenskennzahl"
+
+#: data/_apps/Nominal/NominalWebHomeTemplate.txt
+msgid "Corporate KPIs"
+msgstr ""
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "Create actions"
+msgstr "Aktionen anlegen"
 
 #: data/_apps/Nominal/WebActions.txt
 msgid "Create new KPI"
 msgstr "Neue Kennzahl anlegen"
 
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Create new action"
+msgstr ""
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Creator"
+msgstr ""
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Cycle"
+msgstr "Turnus"
+
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Date"
+msgstr "Datum"
+
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "December"
 msgstr "Dezember"
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Decision"
+msgstr ""
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Delete"
@@ -62,32 +113,63 @@ msgstr "Löschen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Delete selected year"
-msgstr "Das ausgewählte Jahr löschen"
+msgstr "Das ausgewählte Jahr lschen"
 
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Description"
 msgstr "Beschreibung"
 
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+#: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Details"
 msgstr "Details"
+
+#: data/_apps/Nominal/NominalWebHomeTemplate.txt
+msgid "Displayed year"
+msgstr "Angezeigtes Jahr"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Do you really want to delete the selected year?"
 msgstr "Möchten Sie das ausgewählte Jahr wirklich löschen?"
 
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Due date"
+msgstr ""
+
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Edit"
 msgstr "Editieren"
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Export these tasks to PDF"
+msgstr ""
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "February"
 msgstr "Februar"
 
 #: data/_apps/Nominal/NominalWebHomeTemplate.txt
+msgid "Filter"
+msgstr ""
+
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "Go to actions"
+msgstr "Zu Aktionen wechseln"
+
+#: data/_apps/Nominal/NominalWebHomeTemplate.txt
 msgid "Hide empty charts"
 msgstr "Leere Charts verbergen"
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Information"
+msgstr ""
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "January"
@@ -105,17 +187,9 @@ msgstr "Juni"
 msgid "Key data"
 msgstr "Kennzahlen"
 
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Set continuous nominal value"
-msgstr "Durchgängigen SOLL-Wert festlegen"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Reset"
-msgstr "Zurücksetzen"
-
-#: data/_apps/Nominal/NominalWebHomeTemplate.txt
-msgid "Key figures"
-msgstr "Kennzahlen"
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "List of open points (LoP)"
+msgstr ""
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "March"
@@ -125,17 +199,19 @@ msgstr "März"
 msgid "May"
 msgstr "Mai"
 
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Measurement"
 msgstr "Erhebung"
 
-msgid "Responsible"
-msgstr "Verantwortlich"
-
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Month"
 msgstr "Monat"
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "My tasks"
+msgstr ""
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 #: lib/Foswiki/Plugins/NominalPlugin.pm
@@ -150,104 +226,179 @@ msgstr "November"
 msgid "October"
 msgstr "Oktober"
 
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Persons eligible for viewing"
 msgstr "Ansichtsberechtigte Personen"
 
-#: data/_apps/Nominal/NominalEditTemplate.txt
-msgid "Cycle"
-msgstr "Turnus"
+#: data/_apps/Nominal/NominalForm.txt
+msgid "Process KPI"
+msgstr "Prozesskennzahl"
+
+#: data/_apps/Nominal/NominalWebHomeTemplate.txt
+msgid "Process KPIs"
+msgstr "Prozesskennzahlen"
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
+#: lib/Foswiki/Plugins/NominalPlugin.pm
+msgid "Quarter"
+msgstr "Quartal"
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
-msgid "monthly"
-msgstr "monatlich"
+msgid "Related process"
+msgstr ""
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
-msgid "quarterly"
-msgstr "vierteljährlich"
+msgid "Related process KPI"
+msgstr ""
 
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Relevant process"
+msgstr "Relevanter Prozess"
+
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Relevant process KPI"
+msgstr "Relevante Prozesskennzahl"
+
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Responsible"
+msgstr "Verantwortlich"
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Responsible for key figure"
+msgstr ""
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Responsible for measurement"
+msgstr ""
+
+#: data/_apps/Nominal/CustomSkinActionformTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Save"
 msgstr "Speichern"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Add together"
-msgstr "Aufsummieren"
+msgid "Select fiscal years"
+msgstr "Geschäftsjahre auswählen"
 
 #: lib/Foswiki/Plugins/NominalPlugin.pm
 msgid "September"
 msgstr "September"
 
-#: data/_apps/Nominal/NominalEditTemplate.txt
-msgid "TBD. Title"
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Set continuous nominal value"
+msgstr "Durchgängigen SOLL-Wert festlegen"
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Signal"
 msgstr ""
 
-#: data/_apps/Nominal/WebAtom.txt data/_apps/Nominal/WebRss.txt
-msgid "The %1 web of %2."
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+msgid "Status"
 msgstr ""
 
-#: data/_apps/Nominal/WebNotify.txt
-msgid "This is a subscription service to be automatically notified by e-mail when topics change in this %1 web. This is a convenient service, so you do not have to come back and check all the time if something has changed. To subscribe, please add a bullet with your %2 in alphabetical order to this list:"
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Task"
+msgstr ""
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Task to"
+msgstr ""
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+msgid "Task/Information"
+msgstr ""
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "Tasks"
 msgstr ""
 
 #: data/_apps/Nominal/NominalEditTemplate.txt
 msgid "Title"
 msgstr "Titel"
 
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "Type"
+msgstr ""
+
+#: data/_apps/Nominal/NominalEditTemplate.txt
+#: data/_apps/Nominal/NominalViewTemplate.txt
+msgid "Unit"
+msgstr "Einheit"
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Visible to eligible persons only"
 msgstr "Nur sichtbar für berechtigte Personen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Compare fiscal years"
-msgstr "Geschäftsjahre vergleichen"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Select fiscal years"
-msgstr "Geschäftsjahre auswählen"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Compare"
-msgstr "Vergleichen"
-
-#: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Year"
 msgstr "Jahr"
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "all"
+msgstr ""
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "by fiscal year"
 msgstr "nach Geschäftsjahr"
 
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "closed"
+msgstr ""
+
+#: data/_apps/Nominal/NominalForm.txt
+msgid "monthly"
+msgstr "monatlich"
+
+#: data/_apps/Nominal/CustomSkinCommentPluginTemplate.txt
+#: data/_apps/Nominal/WebPreferences.txt
+msgid "open"
+msgstr ""
+
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalForm.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "protected"
-msgstr "geschützt"
+msgstr "geschuützt"
 
-msgid "Process KPI"
-msgstr "Prozesskennzahl"
+#: data/_apps/Nominal/NominalForm.txt
+msgid "quarterly"
+msgstr "vierteljährlich"
 
-msgid "Corporate KPI"
-msgstr "Unternehmenskennzahl"
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "week"
+msgstr ""
 
-msgid "Relevant process KPI"
-msgstr "Relevante Prozesskennzahl"
-
-msgid "Relevant process"
-msgstr "Relevanter Prozess"
-
-msgid "Measurement"
-msgstr "Erhebung"
+#: data/_apps/Nominal/NominalActionsViewTemplate.txt
+msgid "weeks"
+msgstr ""
 
 #~ msgid "Data"
 #~ msgstr "Daten"
 
-#~ msgid "Date"
-#~ msgstr "Datum"
-
 #~ msgid "Frequency"
 #~ msgstr "Frequenz"
+
+#~ msgid "Key figures"
+#~ msgstr "Kennzahlen"
 
 #~ msgid "Method"
 #~ msgstr "Methode"
