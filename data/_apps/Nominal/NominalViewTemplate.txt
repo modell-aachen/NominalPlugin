@@ -40,13 +40,13 @@
         <td>%RENDERFORDISPLAY{field="Unit" format="$value"}%</td>
       </tr>
       <tr>
-        <td colspan="3"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
-      </tr>
-      <tr>
         <td colspan="3">%MAKETEXT{"Persons eligible for viewing"}%:</td>
       </tr>
       <tr>
         <td colspan="3">%RENDERFORDISPLAY{field="EligibleViewer" format="$value"}%</td>
+      </tr>
+      <tr>
+        <td colspan="3"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
       </tr>
       <tr>
         <td colspan="3">
