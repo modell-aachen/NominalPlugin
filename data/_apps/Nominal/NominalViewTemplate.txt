@@ -1,7 +1,13 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1416319146" format="1.1" reprev="2" version="2"}%
 %TMPL:INCLUDE{"view"}%
 
-%TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
+%TMPL:DEF{"modacMoreSubmenuView"}%
+<ul>
+  <!-- DELETE --><li class='requireModacMovePermission'><span class='modacDialogable morelink-delete'><a href='%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?template=more'>%MAKETEXT{"Delete topic"}%</a></span></li>
+</ul>
+%TMPL:END%
+
+TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
 %JQREQUIRE{"ui::dialog, ui::button,ui::tabs,blockui,textboxlist"}%
 %SETVAR{var="ALLOWTOPICVIEW" value="$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
 %SETVAR{var="ALLOWTOPICVIEW" value="" field="Private" type="Set" matches="^$"}%
