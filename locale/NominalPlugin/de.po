@@ -393,7 +393,7 @@ msgstr "offen"
 #: data/_apps/Nominal/NominalForm.txt
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "protected"
-msgstr "geschuützt"
+msgstr "geschützt"
 
 #: data/_apps/Nominal/NominalForm.txt
 msgid "quarterly"
