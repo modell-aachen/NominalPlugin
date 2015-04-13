@@ -113,9 +113,21 @@ TEMPLATE
 sub _restLIST {
   my ( $session, $subject, $verb, $response ) = @_;
   my $solr = Foswiki::Plugins::SolrPlugin->getSearcher();
-  my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:Web* -topic:*Actions -topic:*Form web:Nominal';
+  my $nominalWeb = Foswiki::Func::getPreferencesValue("NOMINALWEB") || "Nominal";
+  my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:Web* -topic:*Actions -topic:*Form';
+
+  #MA #7986
+  my $pattern = 'web:\s*[A-Za-z0-9]+[^\s]';
+  if ( $query =~ m/($pattern)/ ) {
+    # don't replace param web if it's set to anything elese than the default web
+    if ( $1 =~ m/Nominal/ ) {
+      $query =~ s/$pattern/web:$nominalWeb/;
+    }
+  } else {
+    $query .= " web:$nominalWeb";
+  }
+
   $query = $solr->entityDecode( $query, 1 );
-  
   my %params = ( rows => 9999 );
   my $raw = $solr->solrSearch( $query, \%params )->{raw_response};
   my $content = decode_json( $raw->{_content} );
