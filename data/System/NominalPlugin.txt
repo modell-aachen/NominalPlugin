@@ -25,6 +25,19 @@
       * modify the Solr query to match your setup (optional)
 
 
+---++ Filter Configuration
+NominalPlugin ships with a macro called _NOMINALFILTER. This macro allows you to filter generated KPIs by form fields.
+e.g
+<verbatim>
+%NOMINALFILTER{"Unit"}%
+%NOMINALFILTER{"Private"}%
+%NOMINALFILTER{"Title"}%
+etc...
+</verbatim>
+
+*Please note. Filters are not available when displaying a single KPI.*
+
+
 ---++ CKEditor Form Field Configuration
 
 The below CKEditor configuration is used by the NominalPlugin's edit template.

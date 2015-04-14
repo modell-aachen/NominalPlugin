@@ -33,12 +33,13 @@ STYLES
 
   Foswiki::Func::registerTagHandler( 'NOMINALTASKS', \&_handleTasks );
   Foswiki::Func::registerTagHandler( 'NOMINALVIEWMODEL', \&_handleVM );
+  Foswiki::Func::registerTagHandler( 'NOMINALFILTER', \&_handleFilter );
   Foswiki::Meta::registerMETA( 'NOMINAL', many => 1, require => ['name'] );
 
   my %getOpts = ( http_allow => 'GET', validate => 0, authenticate => 1 );
   Foswiki::Func::registerRESTHandler( 'actions', \&_restACTIONS, %getOpts );
   Foswiki::Func::registerRESTHandler( 'get', \&_restGET, %getOpts );
-  Foswiki::Func::registerRESTHandler( 'list', \&_restLIST, %getOpts );
+  # Foswiki::Func::registerRESTHandler( 'list', \&_restLIST, %getOpts );
 
   # ToDo. validate -> 1
   my %postOpts = ( http_allow => 'POST', validate => 0, authenticate => 1 );
@@ -110,8 +111,9 @@ TEMPLATE
   };
 }
 
-sub _restLIST {
-  my ( $session, $subject, $verb, $response ) = @_;
+sub _jsonList {
+  my $session = shift;
+
   my $solr = Foswiki::Plugins::SolrPlugin->getSearcher();
   my $nominalWeb = Foswiki::Func::getPreferencesValue("NOMINALWEB") || "Nominal";
   my $query = $Foswiki::cfg{Plugins}{NominalPlugin}{SolrQuery} || 'topic:NML* -topic:*Template -topic:Web* -topic:*Actions -topic:*Form';
@@ -160,10 +162,7 @@ sub _restLIST {
 
     my $wt = $hit->{webtopic};
     my $url = $hit->{url};
-    my $title = $hit->{field_Title_s};
     my $cycle = $hit->{field_Cycle_s};
-    my $unit = $hit->{field_Unit_s};
-    my $type = $hit->{field_Type_s};
     my $monthly = 1;
     if ( $cycle && $cycle ne 'monthly') {
       $monthly = 0;
@@ -174,13 +173,16 @@ sub _restLIST {
 
     my @nmls = $meta->find( 'NOMINAL' );
     my %item = (
-      data => \@nmls,
-      title => "$title",
-      url => "$url",
-      monthly => $monthly,
-      unit => "$unit",
-      type => "$type"
+      _data => \@nmls,
+      _url => "$url",
+      _monthly => $monthly,
     );
+
+    while ( my ($k, $v) = each %$hit ) {
+      if ( $k =~ m/^field_(\w+)_\w+$/ ) {
+        %item->{lc($1)} = $v;
+      }
+    }
 
     push( @list, \%item );
   }
@@ -229,6 +231,94 @@ sub _handleTasks {
 LINK
 
   return $link;
+}
+
+sub _handleFilter {
+  my( $session, $params, $topic, $web, $topicObject ) = @_;
+  my $fieldName = $params->{_DEFAULT} || $params->{field};
+  return '' unless $fieldName =~ m/^\w+$/;
+  
+  my $formName = $topicObject->getFormName || 'NominalForm';
+  my $form = Foswiki::Form->new($session, Foswiki::Func::normalizeWebTopicName($web, $formName) );
+  my $fields = $form->getFields;
+  my $field = (name => undef, type => undef, value => undef);
+  foreach my $f (@$fields) {
+    if ( $f->{name} eq $fieldName ) {
+      $field->{name} = $f->{name};
+      $field->{type} = $f->{type};
+      $field->{value} = $f->{value};
+      last;
+    }
+  }
+
+  return '' unless $field->{type};
+  my $name = lc($field->{name});
+
+  if ( $field->{type} =~ m/select/i ) {
+    my @opts = ();
+    my @labels = ();
+    my @arr = split(',', $field->{value});
+    foreach my $a (@arr) {
+      if ( $field->{type} =~ m/values/i ) {
+        my @pair = split('=', $a);
+        push( @opts, pop @pair );
+        push( @labels, pop @pair );
+      } else {
+        push( @opts, $a );
+      }
+    }
+
+    my @options = ("<option value=\"all\">%MAKETEXT{all}%</option>");
+    if ( scalar @opts eq scalar @labels) {
+      for (my $i=0; $i < scalar @opts; $i++) {
+        push( @options, "<option value=\"@opts[$i]\">@labels[$i]</option>")
+      }
+    } else {
+      for (my $i=0; $i < scalar @opts; $i++) {
+        push( @options, "<option value=\"@opts[$i]\">@opts[$i]</option>")
+      }
+    }
+
+    my $inner = join("\n", @options);
+    my $html = <<HTML;
+<select class="filter filter-select" data-name="$name">
+  $inner
+</select>
+HTML
+
+    return $html;
+  }
+
+  if ( $field->{type} =~ m/checkbox/i ) {
+    my $label;
+    my $value;
+    if ( $field->{type} =~ m/values/i ) {
+      my @pair = split('=', $field->{value});
+      $value = pop @pair;
+      $label = pop @pair;
+    } else {
+      $value = $label = $field->{value};
+    }
+
+    my $html = <<HTML;
+<select class="filter filter-checkbox" data-name="$name">
+  <option value="all">%MAKETEXT{all}%</option>
+  <option value="$value">$label</option>
+</select>
+HTML
+
+    return $html;
+  }
+
+  if ( $field->{type} =~ m/text/i || $field->{type} =~ m/editor/i ) {
+    my $html = <<HTML;
+    <input class="filter filter-text" type="text" data-name="$name">
+HTML
+
+    return $html;
+  }
+
+  return;
 }
 
 sub _handleVM {
@@ -297,7 +387,15 @@ SCRIPT
     Foswiki::Plugins::SafeWikiPlugin::Signatures::permitInlineCode( $script );
   }
 
-  return "<literal><script>$script</script></literal>";
+  my $json = _jsonList($session);
+  my $html = <<HTML;
+<literal>
+<div class="nml-json">$json</div>
+<script>$script</script>
+</literal>
+HTML
+
+  return $html; "";
 }
 
 1;

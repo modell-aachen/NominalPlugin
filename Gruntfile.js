@@ -172,7 +172,6 @@ module.exports = function(grunt) {
       dev: {
         options: {
           beautify: true,
-          compress: false,
           mangle: false,
           preserveComments: 'all'
         },
@@ -199,7 +198,9 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          compress: true,
+          compress: {
+            warnings: false
+          },
           mangle: true,
           preserveComments: false
         },
