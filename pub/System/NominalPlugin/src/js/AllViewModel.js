@@ -61,8 +61,17 @@
         plot( self );
       }, 300);
 
-      $('.filter').on('change', function() {
-        applyFilter(self);
+      $('.filter').each( function() {
+        var $filter = $(this);
+        if ( $filter.hasClass('filter-select') || $filter.hasClass('filter-checkbox') ) {
+          $filter.on( 'change', function() {
+            applyFilter(self);
+          });
+        } else if ( $filter.hasClass('filter-text') ) {
+          $filter.on( 'keyup', function() {
+            applyFilter(self);
+          });
+        }
       });
     }).fail( function() {
       $.unblockUI();
@@ -94,7 +103,7 @@
             e.type = 'pkpi';
           }
 
-          e._visibile = ko.observable(true);
+          e._visible = ko.observable(true);
           self[e.type + 's'].push( e );
           if ( i + 1 === json.count ) {
             var sorted = _.sortBy( _.uniq( years ), function( year ) {
@@ -140,9 +149,49 @@
           nml._filter = {};
         }
 
+        var hidden;
+        var isSet;
+
+        if ( isSelect ) {
+          isSet = val !== '(all)';
+
+          if ( _.isUndefined( nml[prop] ) ) {
+            hidden = isSet && true;
+          } else if ( _.isArray( nml[prop] ) ) {
+            hidden = isSet && _.indexOf(nml[prop], val ) === -1;
+          } else {
+            hidden = isSet && nml[prop] !== val;
+          }
+        } else {
+          isSet = !/^\s*$/.test(val);
+
+          if ( _.isUndefined( nml[prop] ) ) {
+            hidden = isSet && true;
+          } else if ( _.isArray( nml[prop] ) ) {
+            _.each(nml[prop], function(p) {
+              if ( !hidden ) {
+                if ( _.isString(p) ) {
+                  hidden = isSet && p.indexOf(val) === -1;
+                } else {
+                  hidden = isSet && p.indexOf(val) === val;
+                }
+              }
+            });
+          } else {
+            if ( _.isUndefined( nml[prop] ) ) {
+              hidden = isSet && true;
+            } else if ( _.isString(nml[prop]) ) {
+              hidden = isSet && nml[prop].toLowerCase().indexOf(val) === -1;
+            } else {
+              hidden = isSet && nml[prop] !== val;
+            }
+          }
+        }
+
         nml._filter[prop] = {
           type: isSelect ? 'select' : 'text',
-          value: val
+          value: val,
+          hidden: hidden
         };
       };
 
@@ -150,29 +199,19 @@
       _.each( self.pkpis(), apply );
     });
 
-    filterNominals( self );
+    enforceFilter( self );
   };
 
-  var filterNominals = function( self ) {
+  var enforceFilter = function( self ) {
     var filter = function(nml) {
-      var hidden = !nml._visibile();
-      var applyFilter = [];
+      var hidden = !nml._visible();
+      var enforce = [];
       for( var p in nml._filter ) {
         var o = nml._filter[p];
-        if ( o.type === 'select' ) {
-          var isTrue = o.value !== 'all';
-          applyFilter.push( isTrue );
-          if ( isTrue && nml[p] === o.value ) {
-            nml._visibile(false);
-          }
-        } else if ( o.type === 'text' ) {
-          // todo
-        }
+        enforce.push(o.hidden);
       }
 
-      if ( _.compact( applyFilter ).length === 0 ) {
-        nml._visibile(true);
-      }
+      nml._visible( _.compact(enforce).length === 0 );
     };
 
     _.each( self.ckpis(), filter );

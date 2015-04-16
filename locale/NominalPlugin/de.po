@@ -370,6 +370,9 @@ msgstr "Jahr"
 msgid "all"
 msgstr "alle"
 
+msgid "(all)"
+msgstr "(alle)"
+
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "by fiscal year"
 msgstr "nach Geschäftsjahr"

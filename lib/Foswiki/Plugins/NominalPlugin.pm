@@ -268,7 +268,7 @@ sub _handleFilter {
       }
     }
 
-    my @options = ("<option value=\"all\">%MAKETEXT{all}%</option>");
+    my @options = ("<option value=\"(all)\">%MAKETEXT{(all)}%</option>");
     if ( scalar @opts eq scalar @labels) {
       for (my $i=0; $i < scalar @opts; $i++) {
         push( @options, "<option value=\"@opts[$i]\">@labels[$i]</option>")
@@ -302,7 +302,7 @@ HTML
 
     my $html = <<HTML;
 <select class="filter filter-checkbox" data-name="$name">
-  <option value="all">%MAKETEXT{all}%</option>
+  <option value="(all)">%MAKETEXT{(all)}%</option>
   <option value="$value">$label</option>
 </select>
 HTML

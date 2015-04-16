@@ -14,15 +14,10 @@
       <input type="checkbox" data-bind="checked: hideEmpty">
     </label>
   </div>
-  <div>
-    <label>%MAKETEXT{"Cycle"}%
-      %NOMINALFILTER{"Cycle"}%
-    </label>
-  </div>
 </div>
 <div class="widgetBlockTitle">%MAKETEXT{"Corporate KPIs"}%</div>
 <div class="widgetBlockContent" data-bind="foreach: ckpis">
-  <a class="nml-link" data-bind="attr: {href: _url + '?year=' + $parent.selectedYear(), visible: _visibile}">
+  <a class="nml-link" data-bind="visible: _visible, attr: {href: _url + '?year=' + $parent.selectedYear()}">
     <div class="nml-container">
       <div class="nml" data-bind="attr: {id: id}"></div>
     </div>
@@ -30,7 +25,7 @@
 </div>
 <div class="widgetBlockTitle">%MAKETEXT{"Process KPIs"}%</div>
 <div class="widgetBlockContent" data-bind="foreach: pkpis">
-  <a class="nml-link" data-bind="attr: {href: _url + '?year=' + $parent.selectedYear(), visible: _visibile}">
+  <a class="nml-link" data-bind="visible: _visible, attr: {href: _url + '?year=' + $parent.selectedYear()}">
     <div class="nml-container">
       <div class="nml" data-bind="attr: {id: id}"></div>
     </div>
