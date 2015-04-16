@@ -56,8 +56,23 @@
 
     $.blockUI();
     load( self ).done( function() {
-      $.unblockUI();
-      plot( self );
+      setTimeout( function() {
+        $.unblockUI();
+        plot( self );
+      }, 300);
+
+      $('.filter').each( function() {
+        var $filter = $(this);
+        if ( $filter.hasClass('filter-select') || $filter.hasClass('filter-checkbox') ) {
+          $filter.on( 'change', function() {
+            applyFilter(self);
+          });
+        } else if ( $filter.hasClass('filter-text') ) {
+          $filter.on( 'keyup', function() {
+            applyFilter(self);
+          });
+        }
+      });
     }).fail( function() {
       $.unblockUI();
     });
@@ -67,43 +82,42 @@
     var deferred = $.Deferred();
 
     try {
-      var url = baseUri() + '/list';
-      $.getJSON( url, function( response ) {
-        if ( response && response.status === 'ok' ) {
-          // return if no data available
-          if ( response.data && response.data.length === 0 ) {
-            deferred.resolve();
-            return deferred.promise();
+      var str = $('.nml-json').text();
+      var json = $.parseJSON(str);
+      if ( json && json.status === 'ok' ) {
+        // return if no data available
+        if ( json.data && json.data.length === 0 ) {
+          deferred.resolve();
+          return deferred.promise();
+        }
+
+        // collect data per year
+        var years = [];
+        _.each( json.data, function( e, i ) {
+          years = years.concat( _.map( e._data, function( d ) {
+            return parseInt( d.name );
+          }));
+
+          e.id = _.uniqueId();
+          if ( !e.type ) {
+            e.type = 'pkpi';
           }
 
-          // collect data per year
-          var years = [];
-          _.each( response.data, function( e, i ) {
-            years = years.concat( _.map( e.data, function( d ) { 
-              return parseInt( d.name );
-            }));
+          e._visible = ko.observable(true);
+          self[e.type + 's'].push( e );
+          if ( i + 1 === json.count ) {
+            var sorted = _.sortBy( _.uniq( years ), function( year ) {
+              return Math.min( year );
+            });
 
-            e.id = _.uniqueId();
-            if ( !e.type ) {
-              e.type = 'pkpi';
-            }
-
-            self[e.type + 's'].push( e );
-
-            if ( i + 1 === response.count ) {
-              var sorted = _.sortBy( _.uniq( years ), function( year ) {
-                return Math.min( year );
-              });
-
-              self.availableYears( sorted );
-              self.selectedYear( (new Date()).getFullYear() );
-              deferred.resolve();
-            }
-          });
-        } else {
-          deferred.reject();
-        }
-      });
+            self.availableYears( sorted );
+            self.selectedYear( (new Date()).getFullYear() );
+            deferred.resolve();
+          }
+        });
+      } else {
+        deferred.reject();
+      }
     } catch( err ) {
       deferred.reject( err );
     }
@@ -123,6 +137,87 @@
     self.pkpis( _.sortBy( self.pkpis(), sortFunc ) );
   };
 
+  var applyFilter = function( self ) {
+    $('.filter').each( function() {
+      var $filter = $(this);
+      var prop = $filter.attr('data-name');
+      var val = $filter.val();
+      var isSelect = $filter.hasClass('filter-select') || $filter.hasClass('filter-checkbox');
+
+      var apply = function( nml ) {
+        if ( _.isUndefined( nml._filter ) ) {
+          nml._filter = {};
+        }
+
+        var hidden;
+        var isSet;
+
+        if ( isSelect ) {
+          isSet = val !== '(all)';
+
+          if ( _.isUndefined( nml[prop] ) ) {
+            hidden = isSet && true;
+          } else if ( _.isArray( nml[prop] ) ) {
+            hidden = isSet && _.indexOf(nml[prop], val ) === -1;
+          } else {
+            hidden = isSet && nml[prop] !== val;
+          }
+        } else {
+          isSet = !/^\s*$/.test(val);
+
+          if ( _.isUndefined( nml[prop] ) ) {
+            hidden = isSet && true;
+          } else if ( _.isArray( nml[prop] ) ) {
+            _.each(nml[prop], function(p) {
+              if ( !hidden ) {
+                if ( _.isString(p) ) {
+                  hidden = isSet && p.indexOf(val) === -1;
+                } else {
+                  hidden = isSet && p.indexOf(val) === val;
+                }
+              }
+            });
+          } else {
+            if ( _.isUndefined( nml[prop] ) ) {
+              hidden = isSet && true;
+            } else if ( _.isString(nml[prop]) ) {
+              hidden = isSet && nml[prop].toLowerCase().indexOf(val) === -1;
+            } else {
+              hidden = isSet && nml[prop] !== val;
+            }
+          }
+        }
+
+        nml._filter[prop] = {
+          type: isSelect ? 'select' : 'text',
+          value: val,
+          hidden: hidden
+        };
+      };
+
+      _.each( self.ckpis(), apply );
+      _.each( self.pkpis(), apply );
+    });
+
+    enforceFilter( self );
+  };
+
+  var enforceFilter = function( self ) {
+    var filter = function(nml) {
+      var hidden = !nml._visible();
+      var enforce = [];
+      for( var p in nml._filter ) {
+        var o = nml._filter[p];
+        enforce.push(o.hidden);
+      }
+
+      nml._visible( _.compact(enforce).length === 0 );
+    };
+
+    _.each( self.ckpis(), filter );
+    _.each( self.pkpis(), filter );
+  };
+
   var plot = function( self ) {
     sortNominals( self );
     var eachFunc = function( nml ) {
@@ -137,9 +232,8 @@
     var id = nml.id;
     var plotId = 'nmlPlot' + id;
     var $container = $('#'+id).parent();
-
     $container.css('display', 'inline-block' );
-    if ( nml.data.length === 0 ) {
+    if ( nml._data.length === 0 ) {
       if ( self.hideEmpty() ) {
         hidePlot( id );
       } else {
@@ -152,7 +246,7 @@
       self.selectedYear( (new Date()).getFullYear() );
     }
 
-    var data = _.where( nml.data, {name: self.selectedYear().toString()});
+    var data = _.where( nml._data, {name: self.selectedYear().toString()});
     if ( data.length === 0 ) {
       if ( self.hideEmpty() ) {
         hidePlot( id );
@@ -167,7 +261,7 @@
     var s1 = [], s2 = [];
     var max = 0, min = 0;
     if ( data ) {
-      if ( nml.monthly ) {
+      if ( nml._monthly ) {
         for( var i = 0; i < self.months().length; ++i ) {
           var month = self.months()[i];
 

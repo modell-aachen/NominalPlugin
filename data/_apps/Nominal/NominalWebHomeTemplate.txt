@@ -1,8 +1,8 @@
 %TMPL:INCLUDE{"view"}%
 %TMPL:INCLUDE{"SystemTabs"}%
 
-%TMPL:DEF{"content"}%
-<div class="widgetBlockTitle">%MAKETEXT{"Filter"}%</div>
+%TMPL:DEF{"content"}%%{
+}%<div class="widgetBlockTitle">%MAKETEXT{"Filter"}%</div>
 <div class="widgetBlockContent">
   <div>
     <label>%MAKETEXT{"Displayed year"}%
@@ -15,26 +15,22 @@
     </label>
   </div>
 </div>
-
 <div class="widgetBlockTitle">%MAKETEXT{"Corporate KPIs"}%</div>
 <div class="widgetBlockContent" data-bind="foreach: ckpis">
-  <a class="nml-link" data-bind="attr: {href: url + '?year=' + $parent.selectedYear()}">
+  <a class="nml-link" data-bind="visible: _visible, attr: {href: _url + '?year=' + $parent.selectedYear()}">
     <div class="nml-container">
       <div class="nml" data-bind="attr: {id: id}"></div>
     </div>
   </a>
 </div>
-
 <div class="widgetBlockTitle">%MAKETEXT{"Process KPIs"}%</div>
 <div class="widgetBlockContent" data-bind="foreach: pkpis">
-  <a class="nml-link" data-bind="attr: {href: url + '?year=' + $parent.selectedYear()}">
+  <a class="nml-link" data-bind="visible: _visible, attr: {href: _url + '?year=' + $parent.selectedYear()}">
     <div class="nml-container">
       <div class="nml" data-bind="attr: {id: id}"></div>
     </div>
   </a>
-</div>
-%JQREQUIRE{"blockui"}%
-%NOMINALVIEWMODEL{"list"}%
-%TMPL:END%
+</div>%{
+}%%JQREQUIRE{"blockui"}%%NOMINALVIEWMODEL{"list"}%%TMPL:END%
 
 %TMPL:DEF{"top_simple"}%%TMPL:END%
