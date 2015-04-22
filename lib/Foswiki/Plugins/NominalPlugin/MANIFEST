@@ -25,7 +25,13 @@ locale/NominalPlugin/de.po 0644
 locale/NominalPlugin/fr.po 0644
 locale/NominalPlugin/it.po 0644
 locale/NominalPlugin/zh-cn.po 0644
-pub/System/NominalPlugin/src/js/AllViewModel.js 0644
-pub/System/NominalPlugin/src/js/NominalViewModel.js 0644
-pub/System/NominalPlugin/src/scss/nominal.scss 0644
-
+pub/System/NominalPlugin/js/excanvas.js 0644
+pub/System/NominalPlugin/js/excanvas.min.js 0644
+pub/System/NominalPlugin/js/jqplot.js 0644
+pub/System/NominalPlugin/js/jqplot.min.js 0644
+pub/System/NominalPlugin/js/nominal.js 0644
+pub/System/NominalPlugin/js/nominal.min.js 0644
+pub/System/NominalPlugin/css/jqplot.js 0644
+pub/System/NominalPlugin/css/jqplot.min.js 0644
+pub/System/NominalPlugin/css/nominal.js 0644
+pub/System/NominalPlugin/css/nominal.min.js 0644
