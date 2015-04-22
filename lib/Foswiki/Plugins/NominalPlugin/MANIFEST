@@ -31,7 +31,7 @@ pub/System/NominalPlugin/js/jqplot.js 0644
 pub/System/NominalPlugin/js/jqplot.min.js 0644
 pub/System/NominalPlugin/js/nominal.js 0644
 pub/System/NominalPlugin/js/nominal.min.js 0644
-pub/System/NominalPlugin/css/jqplot.js 0644
-pub/System/NominalPlugin/css/jqplot.min.js 0644
-pub/System/NominalPlugin/css/nominal.js 0644
-pub/System/NominalPlugin/css/nominal.min.js 0644
+pub/System/NominalPlugin/css/jqplot.css 0644
+pub/System/NominalPlugin/css/jqplot.min.css 0644
+pub/System/NominalPlugin/css/nominal.css 0644
+pub/System/NominalPlugin/css/nominal.min.css 0644
