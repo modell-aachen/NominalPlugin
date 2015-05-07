@@ -50,8 +50,13 @@
     this.hideEmpty = ko.observable( false );
     this.hideEmpty.subscribe( function( val ) { plot( self ); });
 
+    var loaded = false;
     this.selectedYear = ko.observable( (new Date().getFullYear()) );
-    this.selectedYear.subscribe( function( val ) { plot( self ); });
+    this.selectedYear.subscribe( function( val ) {
+      if ( loaded ) {
+        plot( self );
+      }
+    });
     this.availableYears = ko.observableArray();
 
     $.blockUI();
@@ -59,6 +64,7 @@
       setTimeout( function() {
         $.unblockUI();
         plot( self );
+        loaded = true;
       }, 300);
 
       $('.filter').each( function() {
