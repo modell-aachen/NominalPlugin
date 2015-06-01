@@ -183,7 +183,7 @@ sub _jsonList {
 
     while ( my ($k, $v) = each %$hit ) {
       if ( $k =~ m/^field_(\w+)_\w+$/ ) {
-        %item->{lc($1)} = $v;
+        $item{lc($1)} = $v;
       }
     }
 
@@ -244,7 +244,7 @@ sub _handleFilter {
   my $formName = $topicObject->getFormName || 'NominalForm';
   my $form = Foswiki::Form->new($session, Foswiki::Func::normalizeWebTopicName($web, $formName) );
   my $fields = $form->getFields;
-  my $field = (name => undef, type => undef, value => undef);
+  my $field = {'name' => undef, 'type' => undef, 'value' => undef};
   foreach my $f (@$fields) {
     if ( $f->{name} eq $fieldName ) {
       $field->{name} = $f->{name};
@@ -274,11 +274,11 @@ sub _handleFilter {
     my @options = ("<option value=\"(all)\">%MAKETEXT{(all)}%</option>");
     if ( scalar @opts eq scalar @labels) {
       for (my $i=0; $i < scalar @opts; $i++) {
-        push( @options, "<option value=\"@opts[$i]\">@labels[$i]</option>")
+        push( @options, "<option value=\"$opts[$i]\">$labels[$i]</option>")
       }
     } else {
       for (my $i=0; $i < scalar @opts; $i++) {
-        push( @options, "<option value=\"@opts[$i]\">@opts[$i]</option>")
+        push( @options, "<option value=\"$opts[$i]\">$opts[$i]</option>")
       }
     }
 
