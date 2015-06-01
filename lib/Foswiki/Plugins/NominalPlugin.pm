@@ -112,7 +112,7 @@ TEMPLATE
 }
 
 sub _jsonList {
-  my $session = shift;
+  my ($session, $web, $topic) = @_;
 
   my $solr = Foswiki::Plugins::SolrPlugin->getSearcher();
   my $nominalWeb = Foswiki::Func::getPreferencesValue("NOMINALWEB") || "Nominal";
@@ -120,11 +120,14 @@ sub _jsonList {
 
   #MA #7986
   my $pattern = 'web:\s*[A-Za-z0-9]+[^\s]';
+  my $mpattern = 'web:\s*%WEB%';
   if ( $query =~ m/($pattern)/ ) {
     # don't replace param web if it's set to anything elese than the default web
     if ( $1 =~ m/Nominal/ ) {
       $query =~ s/$pattern/web:$nominalWeb/;
     }
+  } elsif ( $query =~ m/($mpattern)/ ) {
+    $query = Foswiki::Func::expandCommonVariables($query, $topic, $web);
   } else {
     $query .= " web:$nominalWeb";
   }
@@ -387,7 +390,7 @@ SCRIPT
     Foswiki::Plugins::SafeWikiPlugin::Signatures::permitInlineCode( $script );
   }
 
-  my $json = _jsonList($session);
+  my $json = _jsonList($session, $web, $topic);
   my $html = <<HTML;
 <literal>
 <div class="nml-json">$json</div>
