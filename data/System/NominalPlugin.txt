@@ -78,9 +78,11 @@ The below CKEditor configuration is used by the NominalPlugin's edit template.
 ---++ Plugin Info
 
 |  Author: | Foswiki:Main.SvenMeyer |
-|  Copyright: | &copy; 2015, Modell Aachen GmbH |
+|  Copyright: | &copy; 2014-2015, Modell Aachen GmbH |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
+|  Change History: | |
+|  1.1 | Added compatiblity for older application installation |
 |  Home: | http://www.modell-aachen.de |
 |  Support: | http://www.modell-aachen.de |

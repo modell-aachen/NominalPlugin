@@ -6,8 +6,8 @@ use Error qw( :try );
 use Foswiki::Func;
 use JSON;
 
-our $VERSION = version->declare("1.1.0");
-our $RELEASE = "1.1.0";
+our $VERSION = version->declare("1.1");
+our $RELEASE = "1.1";
 our $SHORTDESCRIPTION = 'Nominal/Actual Performance Indicators';
 our $NO_PREFS_IN_TOPIC = 1;
 
@@ -136,7 +136,7 @@ sub _jsonList {
   my %params = ( rows => 9999 );
   my $raw = $solr->solrSearch( $query, \%params )->{raw_response};
   my $content = decode_json( $raw->{_content} );
-  
+
   my $r = $content->{response};
   my $count = $r->{numFound};
 
@@ -407,11 +407,9 @@ HTML
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
-Author: Sven Meyer <meyer@modell-aachen.de>
+Author: Sven Meyer <meyer@modell-aachen.de>, et al.
 
-Copyright (C) 2008-2014 Foswiki Contributors. Foswiki Contributors
-are listed in the AUTHORS file in the root of this distribution.
-NOTE: Please extend that file, not this notice.
+Copyright (C) 2014-2015 Modell Aachen GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -424,3 +422,4 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 As per the GPL, removal of this notice is prohibited.
+

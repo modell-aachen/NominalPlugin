@@ -11,14 +11,15 @@
 
 ---++ Modell Aachen Settings
 
-   * Set CONTENTTEMPLATEWEB = 
-   * Set WORKFLOW = 
+   * Set CONTENTTEMPLATEWEB =
+   * Set WORKFLOW =
    * Set NO_MODAC_HEAD = 1
 
 ---++ NominalPlugin Settings
 
    * Set WEBMETADATA = NominalForm
    * Set CKE_CONFIG_TOPIC = System.NominalPlugin
+   * Set NOMINALWEB = KPI
 
 ---++ Appearance
 
@@ -28,7 +29,7 @@
    * Set SITEMAPLIST = on
       * set to =off= to hide this web from the [[%SYSTEMWEB%.SiteMap][SiteMap]]
 
-   * Set WEBSUMMARY = 
+   * Set WEBSUMMARY =
       * description what this web is used for
 
    * Set NOSEARCHALL = off
@@ -39,7 +40,7 @@
    * WebTopicEditTemplate
       * default template for new topics in this web, if this topic does not exist,  [[%SYSTEMWEB%.WebTopicEditTemplate][site-level default template]] will be used
 
-   * Set WEBFORMS = 
+   * Set WEBFORMS =
       * Comma separated list of forms that can be attached to topics in this web. See [[%SYSTEMWEB%.DataForms][DataForms]] for more information.
 
    * Set Glossar = 1
@@ -53,13 +54,13 @@ Remember that an empty setting is a valid setting; setting DENYWEBVIEW to nothin
    * Set ALLOWWEBVIEW =
    * Set DENYWEBCHANGE = WikiGuest
    * Set ALLOWWEBCHANGE =
-   * Set DENYWEBRENAME = WikiGuest
-   * Set ALLOWWEBRENAME = %USERSWEB%.AdminUser
+   * Set DENYWEBRENAME =
+   * Set ALLOWWEBRENAME = KeyUserGroup
 
 Users or groups allowed to change or rename this <nop>%TOPIC% topic: (e.g., [[%USERSWEB%.AdminGroup][AdminGroup]])
 
-   * Set ALLOWTOPICCHANGE = %USERSWEB%.AdminUser
-   * Set ALLOWTOPICRENAME = %USERSWEB%.AdminUser
+   * Set ALLOWTOPICCHANGE = KeyUserGroup
+   * Set ALLOWTOPICRENAME = KeyUserGroup
 
 ---++ ActionTracker settings
    * Set ACTIONTRACKERPLUGIN_EXTRAS = |createdate,date|task,text,50|zeit,text,10|state,select+values,"%MAKETEXT{"open"}%=open","%MAKETEXT{"closed"}%=closed"|result,select+values,"%MAKETEXT{"Decision"}%=Decision","%MAKETEXT{"Task"}%=Task","%MAKETEXT{"Information"}%=Information"|
