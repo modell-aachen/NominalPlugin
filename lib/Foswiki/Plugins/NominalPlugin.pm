@@ -6,8 +6,8 @@ use Error qw( :try );
 use Foswiki::Func;
 use JSON;
 
-our $VERSION = version->declare("1.0.0");
-our $RELEASE = "1.0.0";
+our $VERSION = version->declare("1.1.0");
+our $RELEASE = "1.1.0";
 our $SHORTDESCRIPTION = 'Nominal/Actual Performance Indicators';
 our $NO_PREFS_IN_TOPIC = 1;
 
@@ -178,6 +178,7 @@ sub _jsonList {
     my %item = (
       _data => \@nmls,
       _url => "$url",
+      url => "$url",
       _monthly => $monthly,
     );
 
