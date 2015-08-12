@@ -248,7 +248,7 @@ sub _handleFilter {
   my $field = {'name' => undef, 'type' => undef, 'value' => undef};
   foreach my $f (@$fields) {
     if ( $f->{name} eq $fieldName ) {
-      $field->{name} = $f->{name};
+      $field->{name} = $f->{title} || $f->{name};
       $field->{type} = $f->{type};
       $field->{value} = $f->{value};
       last;
