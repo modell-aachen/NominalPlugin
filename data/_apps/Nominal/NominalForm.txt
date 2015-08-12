@@ -23,6 +23,6 @@
 
 <verbatim>
 %STARTSECTION{"kpis"}%[%SOLRSEARCH{
-  "web:Processes type:topic title_search:?* -topic:*%WORKFLOWSUFFIX% (webtopic_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%) OR title_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%))" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$percntENCODE{\\"$title\\" type=\\"safe\\"}$percnt\\",\\"sublabel\\":\\"$web.$topic\\",\\"value\\":\\"$web.$topic\\"}"}%" separator="," limit="%URLPARAM{"limit" default="10"}%"
+  "field_Title_s: %URLPARAM{"term"}%* type:topic topic:NML* field_Type_s:pkpi" web="%URLPARAM{"baseweb" default="%BASEWEB%"}%" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$field_Title_s\\",\\"value\\":\\"$topic\\"}"}%" separator="," rows="%URLPARAM{"limit" default="10"}%"
 }%]%ENDSECTION{"kpis"}%
 </verbatim>
