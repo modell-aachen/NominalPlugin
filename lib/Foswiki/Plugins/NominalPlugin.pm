@@ -66,7 +66,7 @@ sub _restGET {
   }
 
   my %retval = (status => 'ok', data => \@nmls, monthly => $monthly);
-  my $json = encode_json( \%retval );
+  my $json = to_json( \%retval );
 
   $response->header( -type => 'application/json' );
   $response->status( 200 );
@@ -83,7 +83,7 @@ sub _restACTIONS {
   my ($web, $topic) = Foswiki::Func::normalizeWebTopicName( undef, $src );
   my $newTopic = $topic . "Actions";
   my %retval = (status => 'ok', location => "$web.$newTopic");
-  my $json = encode_json( \%retval );
+  my $json = to_json( \%retval );
 
   my $exists = Foswiki::Func::topicExists( $web, $newTopic );
   return $json if $exists;
@@ -100,14 +100,14 @@ TEMPLATE
   } catch Foswiki::AccessControlException with {
     my $e = shift;
     %retval = (status => 'error', msg => "$e");
-    return encode_json( \%retval );
+    return to_json( \%retval );
   } catch Error::Simple with {
     my $e = shift;
     %retval = (status => 'error', msg => "$e");
-    return encode_json( \%retval );
+    return to_json( \%retval );
   } otherwise {
     %retval = (status => 'error', msg => "Unknown");
-    return encode_json( \%retval );
+    return to_json( \%retval );
   };
 }
 
@@ -135,7 +135,7 @@ sub _jsonList {
   $query = $solr->entityDecode( $query, 1 );
   my %params = ( rows => 9999 );
   my $raw = $solr->solrSearch( $query, \%params )->{raw_response};
-  my $content = decode_json( $raw->{_content} );
+  my $content = from_json( $raw->{_content} );
 
   my $r = $content->{response};
   my $count = $r->{numFound};
@@ -192,7 +192,7 @@ sub _jsonList {
   }
 
   my %retval = (status => 'ok', count => $count - $skipped, data => \@list);
-  return encode_json( \%retval );
+  return to_json( \%retval );
 }
 
 sub _restPOST {
@@ -202,26 +202,26 @@ sub _restPOST {
 
   if ( $verb !~ m/^(save|delete)$/ ) {
     my %retval = (status => 'error', msg => 'invalid endpoint');
-    return encode_json( \%retval );
+    return to_json( \%retval );
   }
 
   my $src = $query->{param}->{source}[0] || '';
   my $json = $params->{data}[0] || '';
   unless ( $src && $json ) {
     my %retval = (status => 'error', msg => 'invalid endpoint');
-    return encode_json( \%retval );
+    return to_json( \%retval );
   }
 
   my ($web, $topic) = Foswiki::Func::normalizeWebTopicName( undef, $src );
   my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
-  my $data = decode_json( $json );
+  my $data = from_json( $json );
 
   $meta->putKeyed( 'NOMINAL', \%$data ) if $verb eq 'save';
   $meta->remove( 'NOMINAL', $data->{name} ) if $verb eq 'delete';
   $meta->save();
 
   my %retval = (status => 'ok');
-  return encode_json( \%retval );
+  return to_json( \%retval );
 }
 
 sub _handleTasks {
