@@ -16,14 +16,15 @@ my $plugin = "NominalPlugin";
 my @manifest = ();
 my $basedir;
 my @ignore = (
-  "node_modules/",
-  "\\.bowerrc",
-  "\\.cache/",
-  "\\.git",
-  "Gruntfile.js",
-  "bower.json",
-  "package.json",
-  "bower_components/",
+  'node_modules/',
+  '\.bowerrc$',
+  '\.cache/',
+  '\.git$',
+  '\.changes$',
+  'Gruntfile.js$',
+  'bower.json$',
+  'package.json$',
+  'bower_components/',
   "lib/Foswiki/Plugins/$plugin/build.pl",
   "lib/Foswiki/Plugins/$plugin/MANIFEST",
   "pub/System/$plugin/src/"
