@@ -9,9 +9,9 @@
 
 %TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
 %JQREQUIRE{"ui::dialog, ui::button,ui::tabs,blockui,textboxlist"}%
-%SETVAR{var="ALLOWTOPICVIEW" value="$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
+%SETVAR{var="ALLOWTOPICVIEW" value="$percntURLPARAM{\"Responsible\" default=\"$percntQUERY{\"Responsible\"}$percnt\"}$percnt,$percntURLPARAM{\"MeasurementWho\" default=\"$percntQUERY{\"MeasurementWho\"}$percnt\"}$percnt,$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
 %SETVAR{var="ALLOWTOPICVIEW" value="" field="Private" type="Set" matches="^$"}%
-%SETVAR{var="ALLOWTOPICCHANGE" value="$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
+%SETVAR{var="ALLOWTOPICCHANGE" value="$percntURLPARAM{\"Responsible\" default=\"$percntQUERY{\"Responsible\"}$percnt\"}$percnt,$percntURLPARAM{\"MeasurementWho\" default=\"$percntQUERY{\"MeasurementWho\"}$percnt\"}$percnt,$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\"}$percnt" field="Private" type="Set" matches="^private$"}%
 %SETVAR{var="ALLOWTOPICCHANGE" value="" field="Private" type="Set" matches="^$"}%
 
 <div class="widgetBlockTitle">%MAKETEXT{"Details"}%</div>
