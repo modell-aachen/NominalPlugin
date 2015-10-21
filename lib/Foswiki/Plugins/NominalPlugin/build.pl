@@ -20,7 +20,7 @@ my @ignore = (
   '\.bowerrc$',
   '\.cache/',
   '\.git$',
-  '\.npm/$',
+  '\.npm/',
   '\.changes$',
   'Gruntfile.js$',
   'bower.json$',
