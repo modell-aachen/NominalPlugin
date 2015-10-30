@@ -283,7 +283,8 @@
 
       $tabs.tabs({
         fx: {opacity: 'toggle', duration: 150},
-        select: self.nmlTabChanged
+        select: self.nmlTabChanged,
+        activate: self.nmlTabChanged
       });
       try {
         $tabs.tabs( 'select', index );
