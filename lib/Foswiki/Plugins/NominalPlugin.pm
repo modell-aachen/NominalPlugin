@@ -261,7 +261,7 @@ sub _handleFilter {
   if ( $field->{type} =~ m/select/i ) {
     my @opts = ();
     my @labels = ();
-    my @arr = split(',', $field->{value});
+    my @arr = split(/,(\s*)?/, $field->{value});
     foreach my $a (@arr) {
       if ( $field->{type} =~ m/values/i ) {
         my @pair = split('=', $a);
@@ -422,4 +422,3 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 As per the GPL, removal of this notice is prohibited.
-
