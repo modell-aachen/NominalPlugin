@@ -241,7 +241,7 @@ sub _handleFilter {
   my( $session, $params, $topic, $web, $topicObject ) = @_;
   my $fieldName = $params->{_DEFAULT} || $params->{field};
   return '' unless $fieldName =~ m/^\w+$/;
-  
+
   my $formName = $topicObject->getFormName || 'NominalForm';
   my $form = Foswiki::Form->new($session, Foswiki::Func::normalizeWebTopicName($web, $formName) );
   my $fields = $form->getFields;
@@ -261,7 +261,7 @@ sub _handleFilter {
   if ( $field->{type} =~ m/select/i ) {
     my @opts = ();
     my @labels = ();
-    my @arr = split(/,(\s*)?/, $field->{value});
+    my @arr = split(/\s*,\s*/, $field->{value});
     foreach my $a (@arr) {
       if ( $field->{type} =~ m/values/i ) {
         my @pair = split('=', $a);
