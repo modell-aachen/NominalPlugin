@@ -149,12 +149,12 @@ sub _jsonList {
 
     my $private = $hit->{field_Private_lst};
     if ( defined $private ) {
-      my $viewer = $hit->{field_EligibleViewer_lst};
+      my @viewer = split(/,\s*/, $hit->{field_EligibleViewer_s});
 
       my @cuids = ();
-      foreach (@$viewer) {
-        my $cuid = Foswiki::Func::getCanonicalUserID( $_ );
-        push( @cuids, $cuid );
+      foreach my $v (@viewer) {
+        my $cuid = Foswiki::Func::getCanonicalUserID($v);
+        push( @cuids, $cuid ) if $cuid;
       }
 
       my $isAllowed = grep( /\Q$curUser\E/, @cuids );
