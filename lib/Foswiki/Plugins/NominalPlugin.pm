@@ -185,6 +185,7 @@ sub _jsonList {
 
     while ( my ($k, $v) = each %$hit ) {
       if ( $k =~ m/^field_(\w+)_\w+$/ ) {
+        $v = Encode::decode($Foswiki::cfg{Site}{CharSet}, $v) if $Foswiki::UNICODE;
         $item{lc($1)} = $v;
       }
     }
@@ -193,7 +194,7 @@ sub _jsonList {
   }
 
   my %retval = (status => 'ok', count => $count - $skipped, data => \@list);
-  return to_json( \%retval );
+  Foswiki::urlEncode(to_json(\%retval))
 }
 
 sub _restPOST {
