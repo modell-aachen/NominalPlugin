@@ -1,4 +1,3 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1416319146" format="1.1" reprev="2" version="2"}%
 %TMPL:INCLUDE{"view"}%
 
 %TMPL:DEF{"modacMoreSubmenuView"}%
