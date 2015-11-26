@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Error qw( :try );
 use Foswiki::Func;
+use Foswiki::Plugins::JQueryPlugin;
 use JSON;
 
 our $VERSION = version->declare("1.1");
@@ -350,8 +351,9 @@ STYLES
 <script type="text/javascript" src="$path/js/nominal$suffix.js"></script>
 SCRIPTS
 
+  Foswiki::Plugins::JQueryPlugin::createPlugin('jqp::underscore');
   Foswiki::Func::addToZone( 'head', 'NOMINALPLUGIN::STYLES', $styles );
-  Foswiki::Func::addToZone( 'script', 'NOMINALPLUGIN::SCRIPTS', $scripts, 'JQUERYPLUGIN::FOSWIKI' );
+  Foswiki::Func::addToZone( 'script', 'NOMINALPLUGIN::SCRIPTS', $scripts, 'JQUERYPLUGIN::JQP::UNDERSCORE' );
 
   my %lang = (
     actual => '%MAKETEXT{"Actual"}%',

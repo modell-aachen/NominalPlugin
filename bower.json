@@ -19,7 +19,6 @@
   ],
   "dependencies": {
     "knockout": "~3.2.0",
-    "jqplot": "*",
-    "underscore": ">=1.7.0"
+    "jqplot": "*"
   }
 }
