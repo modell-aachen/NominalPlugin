@@ -1,2 +1,3 @@
 Foswiki::Plugins::JQueryPlugin,>=4.33,perl,JQueryPlugin required.
 Foswiki::Plugins::MetaDataPlugin,>=2.0.1,perl required.
+Foswiki::Contrib::JQPluginContrib,>=1.0,perl, required.

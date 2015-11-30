@@ -80,6 +80,10 @@
 </script>
 %TMPL:END%
 
+%TMPL:DEF{"pagetitle"}%%MAKETEXT{"Create new KPI"}%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:currenttopic"}%%TMPL:P{"breadcrumb:separator"}%%MAKETEXT{"Create new KPI"}%%TMPL:END%
+
 %META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
 
 <!-- %{

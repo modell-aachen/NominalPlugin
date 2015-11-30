@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Error qw( :try );
 use Foswiki::Func;
+use Foswiki::Plugins::JQueryPlugin;
 use JSON;
 
 our $VERSION = version->declare("1.1");
@@ -148,12 +149,12 @@ sub _jsonList {
 
     my $private = $hit->{field_Private_lst};
     if ( defined $private ) {
-      my $viewer = $hit->{field_EligibleViewer_lst};
+      my @viewer = split(/,\s*/, $hit->{field_EligibleViewer_s});
 
       my @cuids = ();
-      foreach (@$viewer) {
-        my $cuid = Foswiki::Func::getCanonicalUserID( $_ );
-        push( @cuids, $cuid );
+      foreach my $v (@viewer) {
+        my $cuid = Foswiki::Func::getCanonicalUserID($v);
+        push( @cuids, $cuid ) if $cuid;
       }
 
       my $isAllowed = grep( /\Q$curUser\E/, @cuids );
@@ -184,6 +185,7 @@ sub _jsonList {
 
     while ( my ($k, $v) = each %$hit ) {
       if ( $k =~ m/^field_(\w+)_\w+$/ ) {
+        $v = Encode::decode($Foswiki::cfg{Site}{CharSet}, $v) if $Foswiki::UNICODE;
         $item{lc($1)} = $v;
       }
     }
@@ -192,7 +194,7 @@ sub _jsonList {
   }
 
   my %retval = (status => 'ok', count => $count - $skipped, data => \@list);
-  return to_json( \%retval );
+  Foswiki::urlEncode(to_json(\%retval))
 }
 
 sub _restPOST {
@@ -350,8 +352,9 @@ STYLES
 <script type="text/javascript" src="$path/js/nominal$suffix.js"></script>
 SCRIPTS
 
+  Foswiki::Plugins::JQueryPlugin::createPlugin('jqp::underscore');
   Foswiki::Func::addToZone( 'head', 'NOMINALPLUGIN::STYLES', $styles );
-  Foswiki::Func::addToZone( 'script', 'NOMINALPLUGIN::SCRIPTS', $scripts, 'JQUERYPLUGIN::FOSWIKI' );
+  Foswiki::Func::addToZone( 'script', 'NOMINALPLUGIN::SCRIPTS', $scripts, 'JQUERYPLUGIN::JQP::UNDERSCORE' );
 
   my %lang = (
     actual => '%MAKETEXT{"Actual"}%',

@@ -1,4 +1,3 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1416319146" format="1.1" reprev="2" version="2"}%
 %TMPL:INCLUDE{"view"}%
 
 %TMPL:DEF{"modacMoreSubmenuView"}%
@@ -243,6 +242,8 @@
    * Set ALLOWTOPICCHANGE = AdminUser
 %ENDSECTION{type="templateonly"}%
 %TMPL:END%
+
+%TMPL:DEF{"breadcrumb:currenttopic"}%%IF{"'%TOPIC%' != 'WebHome'" then="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%][%QUERY{"Title"}%]]" else=" "}%%TMPL:END%
 
 %META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
 %META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%
