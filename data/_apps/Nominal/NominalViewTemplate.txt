@@ -39,7 +39,10 @@
       </tr>
       <tr>
         <td>%IF{"'%TOPIC%'/Type='ckpi'" then="%MAKETEXT{"Relevant process KPI"}%" else="%MAKETEXT{"Relevant process"}%"}%:</td>
-        <td>%RENDERFORDISPLAY{field="%IF{"'%TOPIC%'/Type='ckpi'" then="RelatedKPI" else="RelatedProcess"}%" format="$percntIF{\"'$value'\" then=\"[[$value]]\"}$percnt"}%</td>
+        <td>
+          %IF{"'%TOPIC%'/Type='ckpi'" then="<a href='%SCRIPTURL{view}%/%QUERY{RelatedKPI}%'>%QUERY{"RelatedKPI/Title" default="$percentQUERY{RelatedKPI}$percent"}%</a>"
+            else="[[%QUERY{RelatedProcess}%]]"}%
+        </td>
       </tr>
       <tr>
         <td colspan="2">%MAKETEXT{"Unit"}%:</td>
@@ -62,7 +65,6 @@
     </tbody>
   </table>
 </div>
-
 <div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: '(' + selectedNominalText() + ')'"></small></div>
 <div class="widgetBlockContent">
 <div class="right" data-bind="visible: canCompareYears">
