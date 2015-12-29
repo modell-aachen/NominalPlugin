@@ -323,6 +323,7 @@
 
     var s1 = [], s2 = [];
     var max = 0, min = 0;
+    var formatString = '%#.0f';
     if ( data ) {
       if ( nml._monthly ) {
         for( var i = 0; i < self.months().length; ++i ) {
@@ -379,6 +380,17 @@
       }
     }
 
+    if (!s1.length && !s2.length) {
+      return;
+    } else {
+      for (var i = 0; i < s1.length; ++i) {
+        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
+          formatString = '%#.2f';
+          break;
+        }
+      }
+    }
+
     var plot = window[plotId];
     if ( plot ) {
       plot.destroy();
@@ -428,7 +440,7 @@
           max: Math.round(1.1 * max),
           tickOptions: {
             angle: 0,
-            formatString: '%#.0f'
+            formatString: formatString
           }
         }
       },
