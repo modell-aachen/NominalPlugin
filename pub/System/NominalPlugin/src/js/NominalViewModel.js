@@ -289,8 +289,8 @@
       var $base = $id.find('.col-nominal > .nml-input');
       var addUp = $('#nml-sum-batch').prop('checked');
       if ( !addUp ) {
-        $base.val( val );
         if (!self.isDaily()) {
+          $base.val( val );
           for( var p in self.selectedNominal() ) {
             if ( /^NML/.test( p ) ) {
               self.selectedNominal()[p] = val;
@@ -301,10 +301,11 @@
             return month.selected();
           })[0];
 
-          var days = selected.days();
-          for (var d = 0; d < days.length; ++d) {
-            self.selectedNominal()['NML_' + days[d].index] = val;
-          }
+          val = "" + Math.round(val*1000/1000);
+          _.each(selected.days(), function(day) {
+            self.selectedNominal()['NML_' + day.index] = val;
+            $id.find('[data-day="' + day.index + '"]').val(val);
+          });
         }
       } else {
         var sum = val;
@@ -340,7 +341,6 @@
             sum += val;
           }
         }
-
       }
 
       $('#nml-btn-save').click();
