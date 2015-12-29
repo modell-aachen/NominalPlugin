@@ -679,6 +679,10 @@
       window.nmlplot.destroy();
     }
 
+    if (!s1.length && !s2.length) {
+      return;
+    }
+
     window.nmlplot = $.jqplot('nml-graph', [s1, s2], {
       animate: !$.jqplot.use_excanvas && self.animate,
       grid: {

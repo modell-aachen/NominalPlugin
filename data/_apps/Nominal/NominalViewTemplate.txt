@@ -65,7 +65,7 @@
     </tbody>
   </table>
 </div>
-<div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: '(' + selectedNominalText() + ')'"></small>
+<div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: selectedNominalText() ? '(' + selectedNominalText() + ')' : ''"></small>
   <select style="float: right; margin: -3px 0;" data-bind="visible: isDaily, event: {change: $root.onDailyMonthChanged}, foreach: days">
     <option data-bind="text: name, value: index, attr: {selected: selected}"></option>
   </select>
