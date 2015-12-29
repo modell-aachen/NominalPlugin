@@ -275,7 +275,7 @@
         val = val.replace(',', '.');
       }
 
-      if ( !/\d+(\.\d+)?/.test( val ) || val < 0 ) {
+      if ( !/^\d+(\.\d+)?$/.test( val ) || val < 0 ) {
         $input.addClass('invalid');
         return;
       }
