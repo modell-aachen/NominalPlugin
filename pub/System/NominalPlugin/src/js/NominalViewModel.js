@@ -237,8 +237,11 @@
       }
 
       if ( dclickHandle !== null ) {
-        self.selectedNominal().disabled( false );
         dclick = null;
+        self.selectedNominal().disabled( false );
+        $('.nml-input').each(function() {
+          $(this).data('orig_val', $(this).val());
+        });
       } else {
         dclickHandle = setTimeout ( function() { dclickHandle = null; }, 350 );
       }
@@ -397,13 +400,18 @@
     };
 
     this.editNominal = function( nml ) {
+      $('.nml-input').each(function() {
+        $(this).data('orig_val', $(this).val());
+      });
+
       nml.disabled( false );
     };
 
     this.cancelEditNominal = function( nml ) {
       // reset invalid inputs
-      $('.nml-table input.invalid').each( function( i, input ) {
-        $(input).val(0);
+      $('.nml-input').each( function() {
+        $(this).val($(this).data('orig_val'));
+        $(this).removeClass('invalid');
       });
 
       nml.disabled( true );
