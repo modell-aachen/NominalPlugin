@@ -102,21 +102,6 @@ module.exports = function(grunt) {
       }
     },
 
-    jshint: {
-      options: {
-        browser: true,
-        curly: true,
-        eqeqeq: true,
-        eqnull: true,
-        reporter: require('jshint-stylish'),
-        globals: {
-          jQuery: true
-        },
-        ignores: ['<%= pkg.pubDir %>/src/js/excanvas.js']
-      },
-      beforeconcat: ['<%= pkg.pubDir %>/src/js/**/*.js']
-    },
-
     sass: {
       options: {
           includePaths: ['<%= pkg.pubDir %>/src/scss/']
@@ -171,14 +156,13 @@ module.exports = function(grunt) {
     uglify: {
       dev: {
         options: {
-          beautify: true,
+          beautify: false,
           mangle: false,
           preserveComments: 'all'
         },
         files: {
           '<%= pkg.pubDir %>/js/nominal.js': [
             '<%= pkg.bower %>/knockout/dist/knockout.debug.js',
-            '<%= pkg.bower %>/underscore/underscore.js',
             '<%= pkg.pubDir %>/src/js/**/!(excanvas).js'
           ],
           '<%= pkg.pubDir %>/js/excanvas.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
@@ -207,7 +191,6 @@ module.exports = function(grunt) {
         files: {
           '<%= pkg.pubDir %>/js/nominal.min.js': [
             '<%= pkg.bower %>/knockout/dist/knockout.js',
-            '<%= pkg.bower %>/underscore/underscore.js',
             '<%= pkg.pubDir %>/src/js/**/!(excanvas).js'
           ],
           '<%= pkg.pubDir %>/js/excanvas.min.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
@@ -240,14 +223,13 @@ module.exports = function(grunt) {
       },
       uglify: {
         files: ['<%= pkg.pubDir %>/src/js/**/*.js'],
-        tasks: ['jshint','uglify:' + target]
+        tasks: ['uglify:' + target]
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-file-creator');
@@ -262,7 +244,6 @@ module.exports = function(grunt) {
   grunt.registerTask('pseudo-install', ['exec:install']);
   grunt.registerTask('build', [
     'sass',
-    'jshint',
     'uglify'
   ]);
 }
