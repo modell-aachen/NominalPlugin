@@ -112,6 +112,44 @@ table.nml-table {
   }
 }
 
+table.nml-daily-table {
+  width: 100%;
+  border-spacing: 0;
+
+  > tbody {
+    background: #f8fcff;
+
+    > tr {
+      cursor: pointer;
+
+      &:nth-child(even) {
+        background: #fff;
+      }
+
+      > td.selected {
+        border: 1px solid #6494c9;
+      }
+
+      div.title {
+        padding: 5px;
+        transition: background .3s ease-in-out;
+
+        &:hover {
+          background: #6494c9;
+          color: #fff;
+        }
+      }
+
+      span.title {
+        color: inherit;
+        font-size: 1.2em;
+        font-weight: bold;
+        transition: color .3s ease-in-out;
+      }
+    }
+  }
+}
+
 input.nml-input {
   width: 100%;
   text-align: right;
@@ -151,9 +189,9 @@ div.nml-container {
   margin: 10px;
   cursor: pointer;
 
-  > .nml {
-    min-width: inherit;
-    min-height: inherit;
+  .nml {
+    min-width: 350px;
+    min-height: 200px;
   }
 }
 

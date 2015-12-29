@@ -24,18 +24,18 @@
     ];
 
     var months = [
-      {index: getIndex( 1 ), name: lang.jan},
-      {index: getIndex( 2 ), name: lang.feb},
-      {index: getIndex( 3 ), name: lang.mar},
-      {index: getIndex( 4 ), name: lang.apr},
-      {index: getIndex( 5 ), name: lang.may},
-      {index: getIndex( 6 ), name: lang.jun},
-      {index: getIndex( 7 ), name: lang.jul},
-      {index: getIndex( 8 ), name: lang.aug},
-      {index: getIndex( 9 ), name: lang.sep},
-      {index: getIndex( 10 ), name: lang.oct},
-      {index: getIndex( 11 ), name: lang.nov},
-      {index: getIndex( 12 ), name: lang.dec}
+      {index: getIndex( 1 ), rawIndex: 1, name: lang.jan},
+      {index: getIndex( 2 ), rawIndex: 2, name: lang.feb},
+      {index: getIndex( 3 ), rawIndex: 3, name: lang.mar},
+      {index: getIndex( 4 ), rawIndex: 4, name: lang.apr},
+      {index: getIndex( 5 ), rawIndex: 5, name: lang.may},
+      {index: getIndex( 6 ), rawIndex: 6, name: lang.jun},
+      {index: getIndex( 7 ), rawIndex: 7, name: lang.jul},
+      {index: getIndex( 8 ), rawIndex: 8, name: lang.aug},
+      {index: getIndex( 9 ), rawIndex: 9, name: lang.sep},
+      {index: getIndex( 10 ), rawIndex: 10, name: lang.oct},
+      {index: getIndex( 11 ), rawIndex: 11, name: lang.nov},
+      {index: getIndex( 12 ), rawIndex: 12, name: lang.dec}
     ];
 
     // sort months according to their new index
@@ -43,12 +43,22 @@
       return Math.min( month.index );
     });
 
+    var weeks = [];
+    for (var i = 1; i <= 52; ++i) {
+      weeks.push({index: i, name: 'KW' + i});
+    }
+
     this.months = ko.observableArray( months );
     this.quarter = ko.observableArray( quarter );
+    this.weeks = ko.observableArray( weeks );
+    this.days = ko.observableArray( [] );
     this.ckpis = ko.observableArray();
     this.pkpis = ko.observableArray();
     this.hideEmpty = ko.observable( false );
     this.hideEmpty.subscribe( function( val ) { plot( self ); });
+
+    var m = _.findWhere(months, {rawIndex: 1 + (new Date()).getMonth()});
+    this.selectedMonth = ko.observable(m.index);
 
     var loaded = false;
     this.selectedYear = ko.observable( (new Date().getFullYear()) );
@@ -58,6 +68,44 @@
       }
     });
     this.availableYears = ko.observableArray();
+
+    this.getDailyObject = function(year) {
+      var totalDays = function(y, m) {
+        var d = new Date(y, m, 0);
+        return d.getDate();
+      };
+
+      var dayCounter = 1;
+      var now = new Date(Date.now());
+      year = parseInt(year);
+
+      var days = [];
+      _.each(self.months(), function(month) {
+        var arr = [];
+        var m = _.clone(month);
+        m.days = ko.observableArray();
+        m.selected = ko.observable(false);
+
+        var numdays = totalDays(year, m.rawIndex);
+        for (var n = 1; n <= numdays; ++n) {
+          var d = new Date(year, m.rawIndex - 1, n);
+          arr.push({index: dayCounter, name: d.toLocaleDateString(navigator.language)});
+          dayCounter++;
+        }
+
+        m.days(arr);
+        days.push(m);
+      });
+
+      return days;
+    };
+
+    this.onDailyMonthChanged = function(nml, evt) {
+      var month = _.findWhere(self.months(), {index: parseInt($(evt.target).val())});
+      nml.selectedMonth(month.index);
+      plotNominals(self, nml);
+      return false;
+    };
 
     $.blockUI();
     load( self ).done( function() {
@@ -110,17 +158,26 @@
           }
 
           e._visible = ko.observable(true);
-          self[e.type + 's'].push( e );
-          if ( i + 1 === json.count ) {
-            var sorted = _.sortBy( _.uniq( years ), function( year ) {
-              return Math.min( year );
-            });
-
-            self.availableYears( sorted );
-            self.selectedYear( (new Date()).getFullYear() );
-            deferred.resolve();
+          e.isDaily = ko.observable(e._daily === 1);
+          e.selectedMonth = ko.observable();
+          if (e.isDaily()) {
+            var now = 1 + (new Date()).getMonth();
+            var current = _.filter(self.months(), function(m) {
+              return m.rawIndex === now;
+            })[0];
+            e.selectedMonth(current.index);
           }
+
+          self[e.type + 's'].push( e );
         });
+
+        var sorted = _.sortBy( _.uniq( years ), function( year ) {
+          return Math.min( year );
+        });
+
+        self.availableYears( sorted );
+        self.selectedYear( (new Date()).getFullYear() );
+        deferred.resolve();
       } else {
         deferred.reject();
       }
@@ -278,7 +335,7 @@
           s1.push( [month.name.substring( 0, 3 ), val1] );
           s2.push( [month.name.substring( 0, 3 ), val2] );
         }
-      } else {
+      } else if (nml._quarterly) {
         for( var j = 0; j < self.quarter().length; ++j ) {
           var q = self.quarter()[j];
 
@@ -288,6 +345,36 @@
           min = Math.min( min, Math.min( qa, qn ) );
           s1.push( [q.name.substring( 0, 3 ), qa] );
           s2.push( [q.name.substring( 0, 3 ), qn] );
+        }
+      } else if (nml._weekly) {
+        for( var k = 0; k < self.weeks().length; ++k ) {
+          var week = self.weeks()[k];
+
+          var wa = data['ACT_' + week.index];
+          var wn = data['NML_' + week.index];
+          max = Math.max( max, Math.max( wa, wn ) );
+          min = Math.min( min, Math.min( wa, wn ) );
+          s1.push( [week.name, wa] );
+          s2.push( [week.name, wn] );
+        }
+      } else if (nml._daily) {
+        var months = self.days();
+        if (!months.length) {
+          months = self.getDailyObject(data.name);
+          self.days(months);
+        }
+
+        var current = nml.selectedMonth();
+        var selected = _.findWhere(months, {index: parseInt(current)});
+        var days = selected.days();
+        for( var l = 0; l < days.length; ++l ) {
+          var day = days[l];
+          var da = data['ACT_' + day.index];
+          var dn = data['NML_' + day.index];
+          max = Math.max( max, Math.max( da, dn ) );
+          min = Math.min( min, Math.min( da, dn ) );
+          s1.push( [day.name, da] );
+          s2.push( [day.name, dn] );
         }
       }
     }
@@ -315,7 +402,7 @@
         renderer: $.jqplot.BarRenderer,
         shadow: false,
         rendererOptions: {
-          barWidth: 15,
+          barWidth: nml._weekly ? 3 : (nml._daily ? 5 : (nml._monthly ? 15 : 35))
         },
         pointLabels: { show: false }
       }, {
@@ -327,20 +414,21 @@
       axesDefaults: {
         tickRenderer: $.jqplot.CanvasAxisTickRenderer,
         tickOptions: {
-          angle: 45
+          angle: nml._weekly ? 90 : (nml._monthly ? 45 : 0)
         }
       },
       axes: {
         xaxis: {
-          renderer: $.jqplot.CategoryAxisRenderer
+          renderer: $.jqplot.CategoryAxisRenderer,
+          numberTicks: nml._daily ? 0.1 : undefined,
         },
         yaxis: {
           autoscale: false,
-          min: 1.1 * min,
-          max: 1.1 * max,
+          min: Math.round(1.1 * min),
+          max: Math.round(1.1 * max),
           tickOptions: {
             angle: 0,
-            formatString: '%#.2f'
+            formatString: '%#.0f'
           }
         }
       },

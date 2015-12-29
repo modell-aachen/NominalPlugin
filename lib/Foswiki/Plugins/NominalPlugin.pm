@@ -61,13 +61,13 @@ sub _restGET {
 
   my @nmls = $meta->find( 'NOMINAL' );
   my $cycle = $meta->get( 'FIELD', 'Cycle' );
-  my $monthly = 1;
-  if ( $cycle && $cycle->{value} ne 'monthly') {
-    $monthly = 0;
-  }
+  my $monthly = $cycle->{value} eq 'monthly' ? 1 : 0;
+  my $quarterly = $cycle->{value} eq 'quarterly' ? 1 : 0;
+  my $weekly = $cycle->{value} eq 'weekly' ? 1 : 0;
+  my $daily = $cycle->{value} eq 'daily' ? 1 : 0;
 
-  my %retval = (status => 'ok', data => \@nmls, monthly => $monthly);
-  my $json = to_json( \%retval );
+  my %retval = (status => 'ok', data => \@nmls, monthly => $monthly, quarterly => $quarterly, weekly => $weekly, daily => $daily);
+  my $json = to_json(\%retval);
 
   $response->header( -type => 'application/json' );
   $response->status( 200 );
@@ -167,10 +167,11 @@ sub _jsonList {
     my $wt = $hit->{webtopic};
     my $url = $hit->{url};
     my $cycle = $hit->{field_Cycle_s};
-    my $monthly = 1;
-    if ( $cycle && $cycle ne 'monthly') {
-      $monthly = 0;
-    }
+
+    my $monthly = $cycle eq 'monthly' ? 1 : 0;
+    my $quarterly = $cycle eq 'quarterly' ? 1 : 0;
+    my $weekly = $cycle eq 'weekly' ? 1 : 0;
+    my $daily = $cycle eq 'daily' ? 1 : 0;
 
     my ($web, $topic) = Foswiki::Func::normalizeWebTopicName( undef, $wt );
     my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
@@ -181,6 +182,9 @@ sub _jsonList {
       _url => "$url",
       url => "$url",
       _monthly => $monthly,
+      _quarterly => $quarterly,
+      _weekly => $weekly,
+      _daily => $daily,
     );
 
     while ( my ($k, $v) = each %$hit ) {

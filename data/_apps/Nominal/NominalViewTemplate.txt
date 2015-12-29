@@ -7,7 +7,7 @@
 %TMPL:END%
 
 %TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
-%JQREQUIRE{"ui::dialog, ui::button,ui::tabs,blockui,textboxlist"}%
+%JQREQUIRE{"ui::dialog, ui::button,ui::tabs,blockui,textboxlist,jqp::underscore"}%
 
 %SETVAR{var="ALLOWTOPICVIEW" value="$percntURLPARAM{\"EligibleViewer\" default=\"$percntQUERY{\"EligibleViewer\"}$percnt\" multiple=\"on\" separator=\",\"}$percnt" field="Private" type="Set" matches="^private$"}%
 %SETVAR{var="ALLOWTOPICVIEW" value="" field="Private" type="Set" matches="^$"}%
@@ -65,7 +65,11 @@
     </tbody>
   </table>
 </div>
-<div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: '(' + selectedNominalText() + ')'"></small></div>
+<div class="widgetBlockTitle">%MAKETEXT{"Chart"}% <small data-bind="text: '(' + selectedNominalText() + ')'"></small>
+  <select style="float: right; margin: -3px 0;" data-bind="visible: isDaily, event: {change: $root.onDailyMonthChanged}, foreach: days">
+    <option data-bind="text: name, value: index, attr: {selected: selected}"></option>
+  </select>
+</div>
 <div class="widgetBlockContent">
 <div class="right" data-bind="visible: canCompareYears">
   <a class="nml-button" href="#" title="%MAKETEXT{"Compare fiscal years"}%" data-bind="click: showCompareDialog">
@@ -134,7 +138,7 @@
           </tr>
         </tbody>
       </table>
-      <table class="nml-table" data-bind="visible: $parent.isMonthly() == false">
+      <table class="nml-table" data-bind="visible: $parent.isQuarterly">
         <thead>
           <tr>
             <th class="col-month">%MAKETEXT{"Quarter"}%</th>
@@ -154,6 +158,67 @@
             </td>
             <td class="col-comment">
               <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + q.index], disable: nml.disabled">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="nml-table" data-bind="visible: $parent.isWeekly">
+        <thead>
+          <tr>
+            <th class="col-month">%MAKETEXT{"Calendar Week"}%</th>
+            <th class="col-actual">%MAKETEXT{"Actual"}%</th>
+            <th class="col-nominal">%MAKETEXT{"Nominal"}%</th>
+            <th class="col-comment">%MAKETEXT{"Comment"}%</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: {data: $parent.weeks, as: 'w'}">
+          <tr data-bind="click: $root.clickToEdit">
+            <td class="col-month" data-bind="text: w.name"></td>
+            <td class="col-actual">
+              <input class="nml-input" type="text" data-bind="textInput: nml['ACT_' + w.index], disable: nml.disabled" required data-required>
+            </td>
+            <td class="col-nominal">
+              <input class="nml-input" type="text" data-bind="textInput: nml['NML_' + w.index], disable: nml.disabled, attr: {'data-week': w.index}" required data-required>
+            </td>
+            <td class="col-comment">
+              <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + w.index], disable: nml.disabled">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="nml-daily-table" data-bind="visible: $parent.isDaily">
+        <tbody data-bind="foreach: $parent.days">
+          <tr>
+            <td colspan="4" style="width: 100%" data-bind="attr: {class: selected() ? 'selected' : ''}">
+              <div class="title" data-bind="click: $root.onDailyMonthClicked">
+                <img src="%PUBURLPATH%/%SYSTEMWEB%/FamFamFamSilkIcons/bullet_toggle_plus.png" border="0" alt="" data-bind="visible: selected() ? false : true">
+                <img src="%PUBURLPATH%/%SYSTEMWEB%/FamFamFamSilkIcons/bullet_toggle_minus.png" border="0" alt="" data-bind="visible: selected() ? true : false">
+                <span class="title" data-bind="{text: name}"></span>
+              </div>
+              <table class="nml-table" data-bind="visible: selected">
+                <thead>
+                  <tr>
+                    <th class="col-month">%MAKETEXT{"Day"}%</th>
+                    <th class="col-actual">%MAKETEXT{"Actual"}%</th>
+                    <th class="col-nominal">%MAKETEXT{"Nominal"}%</th>
+                    <th class="col-comment">%MAKETEXT{"Comment"}%</th>
+                  </tr>
+                </thead>
+                <tbody data-bind="foreach: days">
+                  <tr data-bind="click: $root.clickToEdit">
+                    <td class="col-month" data-bind="text: name"></td>
+                    <td class="col-actual">
+                      <input class="nml-input" type="text" data-bind="textInput: nml['ACT_' + index], disable: nml.disabled" required data-required>
+                    </td>
+                    <td class="col-nominal">
+                      <input class="nml-input" type="text" data-bind="textInput: nml['NML_' + index], disable: nml.disabled, attr: {'data-day': index}" required data-required>
+                    </td>
+                    <td class="col-comment">
+                      <input class="nml-input" type="text" data-bind="textInput: nml['CMT_' + index], disable: nml.disabled">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </td>
           </tr>
         </tbody>
