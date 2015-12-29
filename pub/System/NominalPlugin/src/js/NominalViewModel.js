@@ -372,6 +372,10 @@
       nml.name = year;
       if (self.isDaily()) {
         var days = self.getDailyObject(year);
+        var now = 1 + (new Date()).getMonth();
+        _.each(days, function(month) {
+          month.selected(now === month.rawIndex);
+        });
         self.days = ko.observableArray(days);
       }
 
