@@ -1,13 +1,14 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1391172388" format="1.1" reprev="2" version="2"}%
  %TMPL:INCLUDE{edit}%
 
-%TMPL:DEF{"pagetitle"}%
-  %IF{"'%TOPICTITLE%' = 'NMLAUTOINC0000'" then="%MAKETEXT{"Create new KPI"}%" else="%TOPICTITLE%"}%  <span class="foswikiGrayText">%IF{"defined rev" then=" %MAKETEXT{"(revision [_1])" args="%URLPARAM{"rev"}%"}%" else=""}%</span>
-%TMPL:END% 
+%TMPL:DEF{"pagetitle"}%%{
+}%%IF{"'%TOPICTITLE%' = 'NMLAUTOINC0000'" then="%MAKETEXT{"Create new KPI"}%" else="%ENCODE{"%QUERY{"Title"}%" type="html"}%"}%  <span class="foswikiGrayText">%IF{"defined rev" then=" %MAKETEXT{"(revision [_1])" args="%URLPARAM{"rev"}%"}%" else=""}%</span>%TMPL:END% 
 
-%TMPL:DEF{"breadcrumb:currenttopic"}%
-  %IF{"'%TOPICTITLE%' = 'NMLAUTOINC0000'" then="%TMPL:P{"breadcrumb:separator"}%%MAKETEXT{"Create new KPI"}%" else="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%]]"}%
-%TMPL:END%
+%TMPL:DEF{"breadcrumb:currenttopic"}%%{
+}%%IF{"'%TOPICTITLE%' = 'NMLAUTOINC0000'" then="%TMPL:P{"breadcrumb:separator"}%%MAKETEXT{"Create new KPI"}%"}%%{
+}%%IF{"'%TOPIC%' != 'WebHome' AND '%TOPIC%' != 'NMLAUTOINC0000'" then="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%][%ENCODE{"%QUERY{"Title"}%" type="html"}%]]" else=" "}%%{
+}%%TMPL:END%
+
  
 %TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
 %TMPL:P{"formstart"}%%TMPL:P{"formtop"}%
@@ -91,5 +92,4 @@
       <td>IF{"'%TOPIC%'/Type='ckpi' or $'URLPARAM{type}'='ckpi'" then="MAKETEXT{"Related process KPI"}%" else="MAKETEXT{"Related process"}"}:</td>
       <td>RENDERFOREDIT{field="%IF{"'TOPIC%'/Type='ckpi'" then="RelatedKPI" else="RelatedProcess"}%" format="$edit"}</td>
     </tr>-->
-
 %TMPL:END%

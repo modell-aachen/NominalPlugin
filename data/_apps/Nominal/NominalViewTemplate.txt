@@ -301,7 +301,7 @@
 %NOMINALVIEWMODEL%
 %TMPL:END%
 
-%TMPL:DEF{"top_simple"}%<div class="patternTop"><div id="modacHeading">%RENDERFORDISPLAY{field="Title" format="$value"}%</div>
+%TMPL:DEF{"top_simple"}%<div class="patternTop"><div id="modacHeading">%ENCODE{"%QUERY{"Title"}%" type="html"}%</div>
 <span class="patternHomePath">%TMPL:P{"breadcrumb"}%</span><br></div><!--/patternTop-->%TMPL:END%
 
 %TMPL:DEF{"policymananegment"}%
@@ -310,7 +310,7 @@
 %ENDSECTION{type="templateonly"}%
 %TMPL:END%
 
-%TMPL:DEF{"breadcrumb:currenttopic"}%%IF{"'%TOPIC%' != 'WebHome'" then="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%][%QUERY{"Title"}%]]" else=" "}%%TMPL:END%
+%TMPL:DEF{"breadcrumb:currenttopic"}%%IF{"'%TOPIC%' != 'WebHome'" then="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%][%ENCODE{"%QUERY{"Title"}%" type="html"}%]]" else=" "}%%TMPL:END%
 
 %META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
 %META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%
