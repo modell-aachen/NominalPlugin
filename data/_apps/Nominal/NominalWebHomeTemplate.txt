@@ -28,11 +28,14 @@
 </div>
 <div class="widgetBlockTitle">%MAKETEXT{"Process KPIs"}%</div>
 <div class="widgetBlockContent" data-bind="foreach: pkpis">
-  <a class="nml-link" data-bind="visible: _visible, attr: {href: _url + '?year=' + $parent.selectedYear()}">
-    <div class="nml-container">
+  <div class="nml-container">
+    <select style="float: right;margin-top: -19px;margin-right: -19px;" data-bind="visible: isDaily, value: selectedMonth, event: {change: $parent.onDailyMonthChanged}, foreach: $parent.months">
+      <option data-bind="text: name, value: index"></option>
+    </select>
+    <a class="nml-link" data-bind="visible: _visible, attr: {href: _url + '?year=' + $parent.selectedYear() + '&month=' + selectedMonth()}">
       <div class="nml" data-bind="attr: {id: id}"></div>
-    </div>
-  </a>
+    </a>
+  </div>
 </div>%{
 }%%JQREQUIRE{"blockui,jqp::underscore"}%%NOMINALVIEWMODEL{"list"}%%TMPL:END%
 
