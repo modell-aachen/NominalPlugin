@@ -453,12 +453,12 @@
   };
 
   var hidePlot = function( id ) {
-    $('#'+id).parent().css('display', 'none');
+    $('#'+id).closest('.nml-container').css('display', 'none');
   };
 
   var showPlot = function( id ) {
     var $plot = $('#'+id);
-    $plot.parent().css('display', 'inline-block');
+    $plot.closest('.nml-container').css('display', 'inline-block');
     $plot.css('height', '');
     $plot.css('width', '');
   };
