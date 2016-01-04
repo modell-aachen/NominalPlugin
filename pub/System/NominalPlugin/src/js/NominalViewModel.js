@@ -589,7 +589,7 @@
 
   var baseUri = function() {
     var p = foswiki.preferences;
-    return p.SCRIPTURLPATH + '/rest' + p.SCRIPTSUFFIX + '/NominalPlugin';
+    return p.SCRIPTURL + '/rest' + p.SCRIPTSUFFIX + '/NominalPlugin';
   };
 
   var plot = function( self ) {

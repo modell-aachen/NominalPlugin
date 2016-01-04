@@ -465,6 +465,6 @@
 
   var baseUri = function() {
     var p = foswiki.preferences;
-    return p.SCRIPTURLPATH + '/rest' + p.SCRIPTSUFFIX + '/NominalPlugin';
+    return p.SCRIPTURL + '/rest' + p.SCRIPTSUFFIX + '/NominalPlugin';
   };
 }(jQuery, window._, window.document, window));
