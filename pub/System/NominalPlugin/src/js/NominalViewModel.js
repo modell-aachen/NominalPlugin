@@ -368,7 +368,7 @@
       } catch( e ) { /* ignore */ }
       
 
-      var nml = createEntryObject( self );
+      var nml = createEntryObject( self, year );
       nml.name = year;
       if (self.isDaily()) {
         var days = self.getDailyObject(year);
@@ -568,7 +568,7 @@
     return deferred.promise();
   };
 
-  var createEntryObject = function( self ) {
+  var createEntryObject = function( self, year ) {
     var obj = {
       name: ko.observable(),
       disabled: ko.observable( true ),
@@ -578,7 +578,8 @@
       daily: ko.observable(self.isDaily())
     };
 
-    for ( var i = 1; i <= 365; ++i ) {
+    var days = parseInt(year) % 4 === 0 ? 366 : 365;
+    for ( var i = 1; i <= days; ++i ) {
       obj['ACT_'+i] = 0;
       obj['NML_'+i] = 0;
       obj['CMT_'+i] = '';
