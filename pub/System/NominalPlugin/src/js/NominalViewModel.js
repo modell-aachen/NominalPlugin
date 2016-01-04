@@ -684,8 +684,16 @@
       window.nmlplot.destroy();
     }
 
+    var formatString = '%#.0f';
     if (!s1.length && !s2.length) {
       return;
+    } else {
+      for (var i = 0; i < s1.length; ++i) {
+        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
+          formatString = '%#.2f';
+          break;
+        }
+      }
     }
 
     window.nmlplot = $.jqplot('nml-graph', [s1, s2], {
@@ -732,7 +740,7 @@
           max: 1.1 * max,
           tickOptions: {
             angle: 0,
-            formatString: '%#.2f'
+            formatString: formatString
           }
         }
       },
@@ -812,6 +820,14 @@
         }
       }
 
+      var formatString = '%#.0f';
+      for (var i = 0; i < s1.length; ++i) {
+        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
+          formatString = '%#.2f';
+          break;
+        }
+      }
+
       series.push( s1 );
       series.push( s2 );
 
@@ -873,7 +889,7 @@
           max: 1.1 * max,
           tickOptions: {
             angle: 0,
-            formatString: '%#.2f'
+            formatString: formatString
           }
         }
       },
