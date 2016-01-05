@@ -24,28 +24,34 @@
     ];
 
     var months = [
-      {index: getIndex( 1 ), name: lang.jan},
-      {index: getIndex( 2 ), name: lang.feb},
-      {index: getIndex( 3 ), name: lang.mar},
-      {index: getIndex( 4 ), name: lang.apr},
-      {index: getIndex( 5 ), name: lang.may},
-      {index: getIndex( 6 ), name: lang.jun},
-      {index: getIndex( 7 ), name: lang.jul},
-      {index: getIndex( 8 ), name: lang.aug},
-      {index: getIndex( 9 ), name: lang.sep},
-      {index: getIndex( 10 ), name: lang.oct},
-      {index: getIndex( 11 ), name: lang.nov},
-      {index: getIndex( 12 ), name: lang.dec}
+      {index: getIndex( 1 ), rawIndex: 1, name: lang.jan},
+      {index: getIndex( 2 ), rawIndex: 2, name: lang.feb},
+      {index: getIndex( 3 ), rawIndex: 3, name: lang.mar},
+      {index: getIndex( 4 ), rawIndex: 4, name: lang.apr},
+      {index: getIndex( 5 ), rawIndex: 5, name: lang.may},
+      {index: getIndex( 6 ), rawIndex: 6, name: lang.jun},
+      {index: getIndex( 7 ), rawIndex: 7, name: lang.jul},
+      {index: getIndex( 8 ), rawIndex: 8, name: lang.aug},
+      {index: getIndex( 9 ), rawIndex: 9, name: lang.sep},
+      {index: getIndex( 10 ), rawIndex: 10, name: lang.oct},
+      {index: getIndex( 11 ), rawIndex: 11, name: lang.nov},
+      {index: getIndex( 12 ), rawIndex: 12, name: lang.dec}
     ];
 
     months = _.sortBy( months, function ( month ) {
       return Math.min( month.index );
     });
 
-    this.lang = lang;
+    var weeks = [];
+    for (var i = 1; i <= 52; ++i) {
+      weeks.push({index: i, name: 'KW' + i});
+    }
 
+    this.lang = lang;
     this.months = ko.observableArray( months );
     this.quarter = ko.observableArray( quarter );
+    this.weeks = ko.observableArray( weeks );
+    this.days = ko.observableArray( [] );
     this.nominals = ko.observableArray();
     this.showNewYearLink = ko.observable( true );
     this.canCompareYears = ko.observable( false );
@@ -55,6 +61,12 @@
     this.selectedNominal = ko.observable({name: ''});
     this.selectedNominalText = ko.observable('');
     this.isMonthly = ko.observable( true );
+    this.isQuarterly = ko.observable( true );
+    this.isWeekly = ko.observable( true );
+    this.isDaily = ko.observable( true );
+
+    var m = _.findWhere(months, {rawIndex: 1 + (new Date()).getMonth()});
+    this.selectedMonth = ko.observable(m.index);
 
     this.selectedNominal.subscribe( function( nml ) {
       self.selectedNominalText( nml.name );
@@ -62,7 +74,7 @@
     });
 
     this.nominals.subscribe( function( nmls ) {
-      self.canCompareYears( nmls.length > 1 );
+      self.canCompareYears( nmls.length > 1 && !self.isDaily());
     });
 
     // load stored KPIs
@@ -75,8 +87,10 @@
           return Math.max( parseInt( nml.name ) );
         };
 
-        var isMonthly = response.monthly === 1 ? true : false;
-        self.isMonthly( isMonthly );
+        self.isWeekly(response.weekly === 1);
+        self.isMonthly(response.monthly === 1);
+        self.isQuarterly(response.quarterly === 1);
+        self.isDaily(response.daily === 1);
 
         var nmls = _.sortBy( response.data, extsort );
         if ( nmls.length > 0 ) {
@@ -91,8 +105,8 @@
             activate: self.nmlTabChanged
           });
 
-          var query = window.location.search.match( /\d{4}/ );
-          var year = query && query.length > 0 ? query[0] : (new Date()).getFullYear();
+          var query = window.location.search.match( /year=(?:\d{4})/ );
+          var year = query && query.length > 1 ? query[1] : (new Date()).getFullYear();
           var hasYear = _.where( nmls, {name: year.toString()} );
           if ( hasYear && hasYear.length > 0 ) {
             var index = _.indexOf( nmls, hasYear[0] );
@@ -112,6 +126,37 @@
         plot( self );
       }
     });
+
+    this.getDailyObject = function(year) {
+      var totalDays = function(y, m) {
+        var d = new Date(y, m, 0);
+        return d.getDate();
+      };
+
+      var dayCounter = 1;
+      var now = new Date(Date.now());
+      year = parseInt(year);
+
+      var days = [];
+      _.each(self.months(), function(month) {
+        var arr = [];
+        var m = _.clone(month);
+        m.days = ko.observableArray();
+        m.selected = ko.observable(false);
+
+        var numdays = totalDays(year, m.rawIndex);
+        for (var n = 1; n <= numdays; ++n) {
+          var d = new Date(year, m.rawIndex - 1, n);
+          arr.push({index: dayCounter, name: d.toLocaleDateString(navigator.language)});
+          dayCounter++;
+        }
+
+        m.days(arr);
+        days.push(m);
+      });
+
+      return days;
+    };
 
     this.nmlActions = function( evt ) {
       $.blockUI();
@@ -165,6 +210,26 @@
       }
     };
 
+    this.onDailyMonthChanged = function(data, evt) {
+      var selected = $(evt.target).val() - 1;
+      var months = self.days();
+      for (var i = 0; i < months.length; ++i) {
+        var month = months[i];
+        month.selected(i === selected);
+      }
+
+      plot(self);
+    };
+
+    this.onDailyMonthClicked = function(obj, evt) {
+      var select = !this.selected();
+      _.each(self.days(), function(day) {
+        day.selected(false);
+      });
+      this.selected(select);
+      plot(self);
+    };
+
     var dclickHandle = null;
     this.clickToEdit = function() {
       if ( self.selectedNominal().disabled() === false ) {
@@ -172,8 +237,11 @@
       }
 
       if ( dclickHandle !== null ) {
-        self.selectedNominal().disabled( false );
         dclick = null;
+        self.selectedNominal().disabled( false );
+        $('.nml-input').each(function() {
+          $(this).data('orig_val', $(this).val());
+        });
       } else {
         dclickHandle = setTimeout ( function() { dclickHandle = null; }, 350 );
       }
@@ -207,7 +275,7 @@
         val = val.replace(',', '.');
       }
 
-      if ( !/\d+(\.\d+)?/.test( val ) || val < 0 ) {
+      if ( !/^\d+(\.\d+)?$/.test( val ) || val < 0 ) {
         $input.addClass('invalid');
         return;
       }
@@ -221,24 +289,56 @@
       var $base = $id.find('.col-nominal > .nml-input');
       var addUp = $('#nml-sum-batch').prop('checked');
       if ( !addUp ) {
-        $base.val( val );
-        for( var p in self.selectedNominal() ) {
-          if ( /^NML/.test( p ) ) {
-            self.selectedNominal()[p] = val;
+        if (!self.isDaily()) {
+          $base.val( val );
+          for( var p in self.selectedNominal() ) {
+            if ( /^NML/.test( p ) ) {
+              self.selectedNominal()[p] = val;
+            }
           }
+        } else {
+          var selected = _.filter(self.days(), function(month) {
+            return month.selected();
+          })[0];
+
+          val = "" + Math.round(val*1000/1000);
+          _.each(selected.days(), function(day) {
+            self.selectedNominal()['NML_' + day.index] = val;
+            $id.find('[data-day="' + day.index + '"]').val(val);
+          });
         }
       } else {
         var sum = val;
-        var $col = self.isMonthly() ? $base : $id.find('[data-quarter]');
-        $col.each( function() {
-          $(this).val( Math.round( sum * 1000 ) / 1000 );
-          sum += val;
-        });
+        var $col = $base;
+        if (self.isQuarterly()) {
+          $col = $id.find('[data-quarter]');
+        } else if (self.isWeekly()) {
+          $col = $id.find('[data-week]');
+        }
 
-        for( var prop in self.selectedNominal() ) {
-          if ( /^NML_/.test( prop ) ) {
-            var i = parseInt( prop.match(/^NML_(\d+)$/)[1] );
-            self.selectedNominal()[prop] = i * val;
+        if (!self.isDaily()) {
+          $col.each( function() {
+            $(this).val( Math.round( sum * 1000 ) / 1000 );
+            sum += val;
+          });
+
+          for( var prop in self.selectedNominal() ) {
+            if ( /^NML_/.test( prop ) ) {
+              var i = parseInt( prop.match(/^NML_(\d+)$/)[1] );
+              self.selectedNominal()[prop] = i * val;
+            }
+          }
+        } else {
+          var selected = _.filter(self.days(), function(month) {
+            return month.selected();
+          })[0];
+
+          var days = selected.days();
+          for (var day = 0; day < days.length; ++day) {
+            self.selectedNominal()['NML_' + days[day].index] = sum;
+            $col = $id.find('[data-day="' + days[day].index + '"]');
+            $col.val(Math.round(sum*1000/1000));
+            sum += val;
           }
         }
       }
@@ -268,8 +368,16 @@
       } catch( e ) { /* ignore */ }
       
 
-      var nml = createEntryObject( self );
+      var nml = createEntryObject( self, year );
       nml.name = year;
+      if (self.isDaily()) {
+        var days = self.getDailyObject(year);
+        var now = 1 + (new Date()).getMonth();
+        _.each(days, function(month) {
+          month.selected(now === month.rawIndex);
+        });
+        self.days = ko.observableArray(days);
+      }
 
       self.nominals.push( nml );
       self.showNewYearLink( false );
@@ -296,13 +404,18 @@
     };
 
     this.editNominal = function( nml ) {
+      $('.nml-input').each(function() {
+        $(this).data('orig_val', $(this).val());
+      });
+
       nml.disabled( false );
     };
 
     this.cancelEditNominal = function( nml ) {
       // reset invalid inputs
-      $('.nml-table input.invalid').each( function( i, input ) {
-        $(input).val(0);
+      $('.nml-input').each( function() {
+        $(this).val($(this).data('orig_val'));
+        $(this).removeClass('invalid');
       });
 
       nml.disabled( true );
@@ -455,14 +568,18 @@
     return deferred.promise();
   };
 
-  var createEntryObject = function( self ) {
+  var createEntryObject = function( self, year ) {
     var obj = {
       name: ko.observable(),
       disabled: ko.observable( true ),
-      monthly: ko.observable( self.isMonthly() )
+      monthly: ko.observable(self.isMonthly()),
+      quarterly: ko.observable(self.isQuarterly()),
+      weekly: ko.observable(self.isWeekly()),
+      daily: ko.observable(self.isDaily())
     };
 
-    for ( var i = 1; i <= 12; ++i ) {
+    var days = parseInt(year) % 4 === 0 ? 366 : 365;
+    for ( var i = 1; i <= days; ++i ) {
       obj['ACT_'+i] = 0;
       obj['NML_'+i] = 0;
       obj['CMT_'+i] = '';
@@ -473,7 +590,7 @@
 
   var baseUri = function() {
     var p = foswiki.preferences;
-    return p.SCRIPTURLPATH + '/rest' + p.SCRIPTSUFFIX + '/NominalPlugin';
+    return p.SCRIPTURL + '/rest' + p.SCRIPTSUFFIX + '/NominalPlugin';
   };
 
   var plot = function( self ) {
@@ -481,7 +598,7 @@
     // series2: [date, nominal]
 
     var nml = self.selectedNominal();
-    if ( !nml ) {
+    if ( !nml || /^$/.test(nml.name) ) {
       if ( window.nmlplot ) {
         window.nmlplot.destroy();
       }
@@ -505,7 +622,7 @@
         s1.push( [month.name, val1] );
         s2.push( [month.name, val2] );
       }
-    } else {
+    } else if (self.isQuarterly()) {
       for( var j = 0; j < self.quarter().length; ++j ) {
         var q = self.quarter()[j];
 
@@ -516,10 +633,67 @@
         s1.push( [q.name, qa] );
         s2.push( [q.name, qn] );
       }
+    } else if (self.isWeekly()) {
+      for( var k = 0; k < self.weeks().length; ++k ) {
+        var week = self.weeks()[k];
+
+        var wa = nml['ACT_' + week.index];
+        var wn = nml['NML_' + week.index];
+        max = Math.max( max, Math.max( wa, wn ) );
+        min = Math.min( min, Math.min( wa, wn ) );
+        s1.push( [week.name, wa] );
+        s2.push( [week.name, wn] );
+      }
+    } else if (self.isDaily()) {
+      var months = self.days();
+      if (!months.length) {
+        months = self.getDailyObject(nml.name);
+        self.days(months);
+      }
+
+      var selected = _.filter(months, function(m) {
+        return m.selected();
+      });
+
+      if (!selected.length) {
+        var now = 1 + (new Date()).getMonth();
+        var query = window.location.search.match( /month=(\d{1,2})/ );
+        var qm = query && query.length > 1 ? parseInt(query[1]) : -1;
+        _.each(months, function(m) {
+          m.selected(qm > 0 ? m.index === qm : m.rawIndex === now);
+        });
+      }
+
+      selected = _.filter(months, function(m) {
+        return m.selected();
+      });
+
+      var days = selected[0].days();
+      for( var l = 0; l < days.length; ++l ) {
+        var day = days[l];
+        var da = nml['ACT_' + day.index];
+        var dn = nml['NML_' + day.index];
+        max = Math.max( max, Math.max( da, dn ) );
+        min = Math.min( min, Math.min( da, dn ) );
+        s1.push( [day.name, da] );
+        s2.push( [day.name, dn] );
+      }
     }
 
     if ( window.nmlplot )  {
       window.nmlplot.destroy();
+    }
+
+    var formatString = '%#.0f';
+    if (!s1.length && !s2.length) {
+      return;
+    } else {
+      for (var i = 0; i < s1.length; ++i) {
+        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
+          formatString = '%#.2f';
+          break;
+        }
+      }
     }
 
     window.nmlplot = $.jqplot('nml-graph', [s1, s2], {
@@ -541,7 +715,7 @@
         renderer: $.jqplot.BarRenderer,
         shadow: false,
         rendererOptions: {
-          barWidth: 50,
+          barWidth: self.isWeekly() ? 25 : (self.isDaily() ? 35 : 50),
         },
         pointLabels: { show: false }
       }, {
@@ -553,7 +727,7 @@
       axesDefaults: {
         tickRenderer: $.jqplot.CanvasAxisTickRenderer,
         tickOptions: {
-          angle: 0
+          angle: (self.isWeekly() || self.isDaily()) ? 45 : 0
         }
       },
       axes: {
@@ -566,7 +740,7 @@
           max: 1.1 * max,
           tickOptions: {
             angle: 0,
-            formatString: '%#.2f'
+            formatString: formatString
           }
         }
       },
@@ -622,7 +796,7 @@
           s1.push( [month.name, val1] );
           s2.push( [month.name, val2] );
         }
-      } else {
+      } else if (self.isQuarterly()) {
         for( var j = 0; j < self.quarter().length; ++j ) {
           var q = self.quarter()[j];
 
@@ -632,6 +806,25 @@
           min = Math.min( min, Math.min( qa, qn ) );
           s1.push( [q.name, qa] );
           s2.push( [q.name, qn] );
+        }
+      } else if (self.isWeekly()) {
+        for( var k = 0; k < self.weeks().length; ++k ) {
+          var week = self.weeks()[k];
+
+          var wa = nml['ACT_' + week.index];
+          var wn = nml['NML_' + week.index];
+          max = Math.max( max, Math.max( wa, wn ) );
+          min = Math.min( min, Math.min( wa, wn ) );
+          s1.push( [week.name, wa] );
+          s2.push( [week.name, wn] );
+        }
+      }
+
+      var formatString = '%#.0f';
+      for (var i = 0; i < s1.length; ++i) {
+        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
+          formatString = '%#.2f';
+          break;
         }
       }
 
@@ -643,7 +836,7 @@
         renderer: $.jqplot.BarRenderer,
         shadow: false,
         rendererOptions: {
-          barWidth: 15,
+          barWidth: (self.isWeekly() || self.isDaily()) ? 8 : 15,
           barPadding: 0,
           barMargin: 0
         },
@@ -683,7 +876,7 @@
       axesDefaults: {
         tickRenderer: $.jqplot.CanvasAxisTickRenderer,
         tickOptions: {
-          angle: 0
+          angle: (self.isWeekly() || self.isDaily()) ? 45 : 0
         }
       },
       axes: {
@@ -696,7 +889,7 @@
           max: 1.1 * max,
           tickOptions: {
             angle: 0,
-            formatString: '%#.2f'
+            formatString: formatString
           }
         }
       },

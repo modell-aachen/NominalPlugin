@@ -6,9 +6,9 @@
 | Description | editor | | | | |
 | Responsible | user | 50 | | | |
 | MeasurementWho | user | 50 | | | |
-| RelatedProcess | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=processes;skin=text;limit=20 | | |
-| RelatedKPI | textboxlist | 50 limit="1" | %SCRIPTURL{"view"}%/%WEB%/NominalForm?section=kpis;skin=text;limit=20 | | |
-| Cycle | select+values | 1 | %MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"quarterly"}%=quarterly | Cycle | |
+| RelatedProcess | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=source;skin=text;limit=20 | RelatedProcess |  |
+| RelatedKPI | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=kpi;skin=text;limit=20 | RelatedKPI | displayTopic="%WEB%.NominalAjaxHelper" displaySection="kpi_init" |
+| Cycle | select+values | 1 | %MAKETEXT{"quarterly"}%=quarterly,%MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"weekly"}%=weekly,%MAKETEXT{"daily"}%=daily | Cycle | |
 | EligibleViewer | user+multi | 50  | | | |
 | Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
 

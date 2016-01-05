@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Error qw( :try );
 use Foswiki::Func;
+use Foswiki::Plugins::JQueryPlugin;
 use JSON;
 
 our $VERSION = version->declare("1.1");
@@ -60,13 +61,13 @@ sub _restGET {
 
   my @nmls = $meta->find( 'NOMINAL' );
   my $cycle = $meta->get( 'FIELD', 'Cycle' );
-  my $monthly = 1;
-  if ( $cycle && $cycle->{value} ne 'monthly') {
-    $monthly = 0;
-  }
+  my $monthly = $cycle->{value} eq 'monthly' ? 1 : 0;
+  my $quarterly = $cycle->{value} eq 'quarterly' ? 1 : 0;
+  my $weekly = $cycle->{value} eq 'weekly' ? 1 : 0;
+  my $daily = $cycle->{value} eq 'daily' ? 1 : 0;
 
-  my %retval = (status => 'ok', data => \@nmls, monthly => $monthly);
-  my $json = to_json( \%retval );
+  my %retval = (status => 'ok', data => \@nmls, monthly => $monthly, quarterly => $quarterly, weekly => $weekly, daily => $daily);
+  my $json = to_json(\%retval);
 
   $response->header( -type => 'application/json' );
   $response->status( 200 );
@@ -148,12 +149,12 @@ sub _jsonList {
 
     my $private = $hit->{field_Private_lst};
     if ( defined $private ) {
-      my $viewer = $hit->{field_EligibleViewer_lst};
+      my @viewer = split(/,\s*/, $hit->{field_EligibleViewer_s});
 
       my @cuids = ();
-      foreach (@$viewer) {
-        my $cuid = Foswiki::Func::getCanonicalUserID( $_ );
-        push( @cuids, $cuid );
+      foreach my $v (@viewer) {
+        my $cuid = Foswiki::Func::getCanonicalUserID($v);
+        push( @cuids, $cuid ) if $cuid;
       }
 
       my $isAllowed = grep( /\Q$curUser\E/, @cuids );
@@ -166,10 +167,11 @@ sub _jsonList {
     my $wt = $hit->{webtopic};
     my $url = $hit->{url};
     my $cycle = $hit->{field_Cycle_s};
-    my $monthly = 1;
-    if ( $cycle && $cycle ne 'monthly') {
-      $monthly = 0;
-    }
+
+    my $monthly = $cycle eq 'monthly' ? 1 : 0;
+    my $quarterly = $cycle eq 'quarterly' ? 1 : 0;
+    my $weekly = $cycle eq 'weekly' ? 1 : 0;
+    my $daily = $cycle eq 'daily' ? 1 : 0;
 
     my ($web, $topic) = Foswiki::Func::normalizeWebTopicName( undef, $wt );
     my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
@@ -180,10 +182,14 @@ sub _jsonList {
       _url => "$url",
       url => "$url",
       _monthly => $monthly,
+      _quarterly => $quarterly,
+      _weekly => $weekly,
+      _daily => $daily,
     );
 
     while ( my ($k, $v) = each %$hit ) {
       if ( $k =~ m/^field_(\w+)_\w+$/ ) {
+        $v = Encode::decode($Foswiki::cfg{Site}{CharSet}, $v) if $Foswiki::UNICODE;
         $item{lc($1)} = $v;
       }
     }
@@ -192,7 +198,7 @@ sub _jsonList {
   }
 
   my %retval = (status => 'ok', count => $count - $skipped, data => \@list);
-  return to_json( \%retval );
+  Foswiki::urlEncode(to_json(\%retval))
 }
 
 sub _restPOST {
@@ -241,7 +247,7 @@ sub _handleFilter {
   my( $session, $params, $topic, $web, $topicObject ) = @_;
   my $fieldName = $params->{_DEFAULT} || $params->{field};
   return '' unless $fieldName =~ m/^\w+$/;
-  
+
   my $formName = $topicObject->getFormName || 'NominalForm';
   my $form = Foswiki::Form->new($session, Foswiki::Func::normalizeWebTopicName($web, $formName) );
   my $fields = $form->getFields;
@@ -261,7 +267,7 @@ sub _handleFilter {
   if ( $field->{type} =~ m/select/i ) {
     my @opts = ();
     my @labels = ();
-    my @arr = split(',', $field->{value});
+    my @arr = split(/\s*,\s*/, $field->{value});
     foreach my $a (@arr) {
       if ( $field->{type} =~ m/values/i ) {
         my @pair = split('=', $a);
@@ -350,8 +356,9 @@ STYLES
 <script type="text/javascript" src="$path/js/nominal$suffix.js"></script>
 SCRIPTS
 
+  Foswiki::Plugins::JQueryPlugin::createPlugin('jqp::underscore');
   Foswiki::Func::addToZone( 'head', 'NOMINALPLUGIN::STYLES', $styles );
-  Foswiki::Func::addToZone( 'script', 'NOMINALPLUGIN::SCRIPTS', $scripts, 'JQUERYPLUGIN::FOSWIKI' );
+  Foswiki::Func::addToZone( 'script', 'NOMINALPLUGIN::SCRIPTS', $scripts, 'JQUERYPLUGIN::JQP::UNDERSCORE' );
 
   my %lang = (
     actual => '%MAKETEXT{"Actual"}%',
@@ -422,4 +429,3 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 As per the GPL, removal of this notice is prohibited.
-

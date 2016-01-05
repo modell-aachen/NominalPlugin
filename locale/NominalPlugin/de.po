@@ -402,6 +402,14 @@ msgstr "geschützt"
 msgid "quarterly"
 msgstr "vierteljährlich"
 
+#: data/_apps/Nominal/NominalForm.txt
+msgid "weekly"
+msgstr "wöchentlich"
+
+#: data/_apps/Nominal/NominalForm.txt
+msgid "daily"
+msgstr "täglich"
+
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "week"
 msgstr "Woche"
@@ -409,6 +417,12 @@ msgstr "Woche"
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "weeks"
 msgstr "Wochen"
+
+msgid "Calendar Week"
+msgstr "Kalenderwoche"
+
+msgid "Day"
+msgstr "Tag"
 
 #~ msgid "Data"
 #~ msgstr "Daten"
