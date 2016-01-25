@@ -41,7 +41,8 @@
         <td>%IF{"'%TOPIC%'/Type='ckpi'" then="%MAKETEXT{"Relevant process KPI"}%" else="%MAKETEXT{"Relevant process"}%"}%:</td>
         <td>
           %IF{"'%TOPIC%'/Type='ckpi'" then="<a href='%SCRIPTURL{view}%/%QUERY{RelatedKPI}%'>%QUERY{"RelatedKPI/Title" default="$percentQUERY{RelatedKPI}$percent"}%</a>"
-            else="[[%QUERY{RelatedProcess}%]]"}%
+            else="
+                $percntIF{\"'$percntQUERY{RelatedProcess}$percnt'=''\" else=\"[[$percntQUERY{RelatedProcess}$percnt]]\"}$percnt "}%
         </td>
       </tr>
       <tr>

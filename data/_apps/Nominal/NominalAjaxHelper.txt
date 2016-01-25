@@ -10,7 +10,7 @@
 
 <verbatim>
 %STARTSECTION{name="kpi"}%{"results":[%SOLRSEARCH{
-  "type:topic topic:*%URLPARAM{"q" default="?"}%* form:*NominalForm web:%BASEWEB% -topic:*Template"
+  "type:topic field_Title_s:*%URLPARAM{"q" default="?"}%* form:*NominalForm web:%BASEWEB% -topic:*Template field_Type_s:pkpi"
   fields="webtopic, topic, field_Title_s"
   format="{\"id\":\"$webtopic\",\"text\":\"$field_Title_s\"}"
   separator=", "
