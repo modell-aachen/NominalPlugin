@@ -596,7 +596,10 @@
   var plot = function( self ) {
     // series1: [date, actual]
     // series2: [date, nominal]
-
+    // MA-Ticket: #10861 correct reset when in compare mode
+    if( self.isComparing()){
+       self.resetComparison();
+    }
     var nml = self.selectedNominal();
     if ( !nml || /^$/.test(nml.name) ) {
       if ( window.nmlplot ) {
