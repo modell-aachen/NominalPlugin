@@ -17,7 +17,7 @@
 <div class="widgetBlockContent">
   <table class="metaDataHead">
     <tr>
-      <td colspan="2">%MAKETEXT{"Title"}%:</td>
+      <td colspan="2">%MAKETEXT{"Title"}%<font color="red">*</font>:</td>
       <td>%RENDERFOREDIT{field="Title" format="$edit"}%</td>
       <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
     </tr>
