@@ -259,7 +259,7 @@
         <tr>
           <td style="width: 50px;"></td>
           <td>
-            <label for="nml-sum-batch">%MAKETEXT{"Add together"}%</label>
+            <label for="nml-sum-batch">%MAKETEXT{"Add up"}%</label>
             <input type="checkbox" id="nml-sum-batch" />
           </td>
         </tr>
