@@ -32,7 +32,7 @@ msgid "Add task"
 msgstr "Aufgabe hinzufügen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
-msgid "Add together"
+msgid "Add up"
 msgstr "Aufsummieren"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt

@@ -514,26 +514,31 @@
 
   var updateNominal = function( self, action, source ) {
     var deferred = $.Deferred();
-    $('.nml-table input[data-required]').each( function() {
-      var $this = $(this);
-      var val = $this.val();
+    var nml  = self.selectedNominal();
 
+    $('#' + nml.name + ' input[data-required]').each( function() {
+      var $input = $(this);
+      if ($input.prop('disabled')) {
+        return;
+      }
+
+      var val = $input.val();
       var isNotEmpty = val && val.trim() !== '';
       if ( isNotEmpty ) {
         val = val.replace( ',', '.' );
+      } else {
+        val = 0;
       }
 
       var valid = /^\d+(\.\d+)?$/.test( val );
-
-      if ( isNotEmpty && valid ) {
-        $this.removeClass('invalid');
+      if ( valid ) {
+        $input.removeClass('invalid');
       } else {
-        $this.addClass('invalid');
+        $input.addClass('invalid');
       }
     });
 
-    var nml  = self.selectedNominal();
-    if ( $('.nml-table input.invalid').length > 0 ) {
+    if ( $('#' + nml.name + ' input.invalid').length > 0 ) {
       deferred.reject();
       nml.disabled( false );
     } else {
@@ -596,7 +601,10 @@
   var plot = function( self ) {
     // series1: [date, actual]
     // series2: [date, nominal]
-
+    // MA-Ticket: #10861 correct reset when in compare mode
+    if( self.isComparing()){
+       self.resetComparison();
+    }
     var nml = self.selectedNominal();
     if ( !nml || /^$/.test(nml.name) ) {
       if ( window.nmlplot ) {
