@@ -4,7 +4,7 @@
   fields="webtopic, topic, title"
   format="{\"id\":\"$webtopic\",\"text\":\"$title\"}"
   separator=", "
-  rows="999999"
+  rows="%URLPARAM{"limit" default="20"}%"
 }%,{"id":"noReference","text":"%MAKETEXT{no reference}%"}]}%ENDSECTION{name="source"}%
 </verbatim>
 
@@ -14,7 +14,7 @@
   fields="webtopic, topic, field_Title_s"
   format="{\"id\":\"$webtopic\",\"text\":\"$field_Title_s\"}"
   separator=", "
-  rows="999999"
+  rows="%URLPARAM{"limit" default="20"}%"
 }%,{"id":"noReference","text":"%MAKETEXT{no reference}%"}]}%ENDSECTION{name="kpi"}%
 
 %STARTSECTION{name="kpi_init"}%
