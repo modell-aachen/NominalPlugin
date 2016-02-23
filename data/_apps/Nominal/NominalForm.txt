@@ -12,6 +12,13 @@
 | EligibleViewer | user+multi | 50  | | | |
 | Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
 
+   * Set RelatedProcess_s2_placeholder = %MAKETEXT{"no reference"}%
+   * Set RelatedProcess_s2_placeholdervalue = noReference
+   * Set RelatedProcess_s2_allowClear = 1
+   * Set RelatedKPI_s2_placeholder = %MAKETEXT{"no reference"}%
+   * Set RelatedKPI_s2_placeholdervalue = noReference
+   * Set RelatedKPI_s2_allowClear = 1
+
    * Set ALLOWTOPICCHANGE = AdminUser
    * Set NOWYSIWYG = 1
 

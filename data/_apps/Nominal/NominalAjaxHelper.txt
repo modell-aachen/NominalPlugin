@@ -4,8 +4,11 @@
   fields="webtopic, topic, title"
   format="{\"id\":\"$webtopic\",\"text\":\"$percentENCODE{\"$title\" type=\"quote\"}$percent\"}"
   separator=", "
-  rows="%URLPARAM{"limit" default="20"}%"
-}%,{"id":"noReference","text":"%MAKETEXT{no reference}%"}]}%ENDSECTION{name="source"}%
+  rows="%URLPARAM{"limit" default="10"}%"
+  start="%URLPARAM{"page" default="0"}%"
+  sort="title asc, date desc"
+  footer="], \"total\":$count, \"dummy\":["
+}%]}%ENDSECTION{name="source"}%
 </verbatim>
 
 <verbatim>
@@ -14,8 +17,11 @@
   fields="webtopic, topic, field_Title_s"
   format="{\"id\":\"$webtopic\",\"text\":\"$field_Title_s\"}"
   separator=", "
-  rows="%URLPARAM{"limit" default="20"}%"
-}%,{"id":"noReference","text":"%MAKETEXT{no reference}%"}]}%ENDSECTION{name="kpi"}%
+  rows="%URLPARAM{"limit" default="10"}%"
+  start="%URLPARAM{"page" default="0"}%"
+  sort="field_Title_s asc, date desc"
+  footer="], \"total\":$count, \"dummy\":["
+}%]}%ENDSECTION{name="kpi"}%
 
 %STARTSECTION{name="kpi_init"}%
 %SOLRSEARCH{
