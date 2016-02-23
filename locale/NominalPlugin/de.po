@@ -290,7 +290,7 @@ msgstr "Verantwortlich"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Responsible for key figure"
-msgstr ""
+msgstr "Verantwortlich für Kennzahl"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Responsible for measurement"

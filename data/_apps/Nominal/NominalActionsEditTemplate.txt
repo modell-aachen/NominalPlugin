@@ -1,12 +1,48 @@
 %META:TOPICPARENT{name="WebHome"}%
 %TMPL:INCLUDE{edit}%
 
-%TMPL:DEF{"content"}%%TMPL:P{"simpleheader"}%
+%TMPL:DEF{"content"}%%{
+}%%TMPL:P{"simpleheader"}%%{
+}%<div class="widgetBlockTitle">%MAKETEXT{"Details"}%</div>
+<div class="widgetBlockContent">
+  <table class="metaDataHead">
+    <tbody>
+      <tr>
+        <td>%MAKETEXT{"Responsible for key figure"}%:</td>
+        <td style="min-width: 200px;">%RENDERFOREDIT{field="Responsible" format="$edit" form="NominalForm" topic="%SUBST{text="%WEB%.%BASETOPIC%" pattern="Actions" format=""}%"}%</td>
+        <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
+      </tr>
+      <tr>
+        <td>%MAKETEXT{"Responsible for measurement"}%:</td>
+        <td>%RENDERFOREDIT{field="MeasurementWho" format="$edit" form="NominalForm" topic="%SUBST{text="%WEB%.%BASETOPIC%" pattern="Actions" format=""}%"}%</td>
+        <td rowspan="6">%RENDERFOREDIT{field="Description" format="$edit" form="NominalForm" topic="%SUBST{text="%WEB%.%BASETOPIC%" pattern="Actions" format=""}%"}%</td>
+      </tr>
+      <tr>
+        <td>%MAKETEXT{"Cycle"}%:</td>
+        <td>%RENDERFOREDIT{field="Cycle" format="$edit" form="NominalForm" topic="%SUBST{text="%WEB%.%BASETOPIC%" pattern="Actions" format=""}%"}%</td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="checkbox" %IF{"'%TOPIC%'/Private=~'private'" then="checked=$quotchecked$quot"}% disabled>&nbsp;%MAKETEXT{"protected"}% <i>(%MAKETEXT{"Visible to eligible persons only"}%)</i></td>
+      </tr>
+      <tr>
+        <td colspan="2">%MAKETEXT{"Persons eligible for viewing"}%:</td>
+      </tr>
+      <tr>
+        <td colspan="2">%RENDERFOREDIT{field="EligibleViewer" format="$edit" form="NominalForm" topic="%SUBST{text="%WEB%.%BASETOPIC%" pattern="Actions" format=""}%"}%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>%{
+}%%TMPL:P{"formstart"}%%TMPL:P{"formtop"}%%TMPL:P{"topicinfo"}%%TMPL:P{"formend"}%%TMPL:END%
+
+%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%
+
+
+
+%TMPL:DEF{"content234"}%
 %TMPL:P{"formstart"}%%TMPL:P{"formtop"}%
 %INCLUDE{"%SYSTEMWEB%/JSCalendarContribInline"}%
 %TMPL:P{"topicinfo"}%
 %TMPL:P{"formend"}%
 %TMPL:END%
-
-%META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
-%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%

@@ -1,0 +1,26 @@
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| TopicType | text | 10 | task | | M H |
+| Context | text | 10 | | | M H |
+| Parent | text | 10 | | | H |
+| Author | text | 10 | %RENDERUSER{format="$cUID"}% | Task "creator" | M H |
+| Created | date | 10 | %GMTIME{"$epoch"}% | Time of creation | M H |
+| Changed | date | 10 | %GMTIME{"$epoch"}% | Time of most recent change | H |
+| Closed | date | 10 | | | H |
+| Status | select+values | | %MAKETEXT{"open"}%=open,%MAKETEXT{"closed"}%=closed,%MAKETEXT{"deleted"}%=deleted | Status | |
+| Title | text | 95 | | Title | M |
+| AssignedTo | user | 20 | | Assigned to | M |
+| Description | taskeditor | 50 | | Description | |
+| DueDate | date2 | 10 | | Due | |
+| Informees | user+multi | 50 | | Persons to notify on changes | |
+| Prioritize | select+values | | %MAKETEXT{"no"}%=No,%MAKETEXT{"yes"}%=Yes | High priority | |
+| Type | select+values | | %MAKETEXT{"Task"}%=Task,%MAKETEXT{"Decision"}%=Decision,%MAKETEXT{"Information"}%=Information | Type | |
+
+   * Set ALLOWTOPICCHANGE = AdminUser
+   * Set NOWYSIWYG = 1
+   * Set TASKCFG_HAS_CHILDREN = 0
+   * Set TASKCFG_TASK_TYPE = nominal
+   * Set TASKCFG_TASK_TEMPLATE_FILE = $formweb.NominalTaskViewTemplate
+   * Set TASKCFG_TASK_TEMPLATE = nominal::task
+   * Set TASKCFG_EDITOR_TEMPLATE = nominal::editor
+   * Set TASKCFG_NOTIFY_REMIND = $curvalue(AssignedTo),$curvalue(Author),$curvalue(Informees)
+   * Set TASKCFG_SCHEDULE_REMIND = $curvalue(Reminder)
