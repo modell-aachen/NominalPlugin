@@ -9,6 +9,15 @@
   sort="title asc, date desc"
   footer="], \"total\":$count, \"dummy\":["
 }%]}%ENDSECTION{name="source"}%
+
+%STARTSECTION{name="source_init"}%
+%SOLRSEARCH{
+  "webtopic:%id% form:*DocumentForm web:%PROCESSESWEB%"
+  fields="webtopic, title"
+  format="$title"
+  rows="1"
+}%
+%ENDSECTION{name="kpi_init"}%
 </verbatim>
 
 <verbatim>
