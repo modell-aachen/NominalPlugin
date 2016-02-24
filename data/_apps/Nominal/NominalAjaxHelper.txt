@@ -2,7 +2,7 @@
 %STARTSECTION{name="source"}%{"results":[%SOLRSEARCH{
   "type:topic topic:*%URLPARAM{"q" default="?"}%* form:*DocumentForm web:%PROCESSESWEB% -topic:*Template"
   fields="webtopic, topic, title"
-  format="{\"id\":\"$webtopic\",\"text\":\"$title\"}"
+  format="{\"id\":\"$webtopic\",\"text\":\"$percentENCODE{\"$title\" type=\"quote\"}$percent\"}"
   separator=", "
   rows="%URLPARAM{"limit" default="20"}%"
 }%,{"id":"noReference","text":"%MAKETEXT{no reference}%"}]}%ENDSECTION{name="source"}%
