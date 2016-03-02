@@ -664,27 +664,33 @@
       });
 
       if (!selected.length) {
-        var now = 1 + (new Date()).getMonth();
         var query = window.location.search.match( /month=(\d{1,2})/ );
         var qm = query && query.length > 1 ? parseInt(query[1]) : -1;
-        _.each(months, function(m) {
-          m.selected(qm > 0 ? m.index === qm : m.rawIndex === now);
-        });
+        if(qm != -1){
+          _.each(months, function(m) {
+            m.selected(m.index === qm);
+          });
+          //just select the month from query when loading the page for the first time
+          //FIREFOX needs the hash
+          window.history.pushState("", "", '#');
+        }
       }
 
       selected = _.filter(months, function(m) {
         return m.selected();
       });
 
-      var days = selected[0].days();
-      for( var l = 0; l < days.length; ++l ) {
-        var day = days[l];
-        var da = nml['ACT_' + day.index];
-        var dn = nml['NML_' + day.index];
-        max = Math.max( max, Math.max( da, dn ) );
-        min = Math.min( min, Math.min( da, dn ) );
-        s1.push( [day.name, da] );
-        s2.push( [day.name, dn] );
+      if(selected.length){
+        var days = selected[0].days();
+        for( var l = 0; l < days.length; ++l ) {
+          var day = days[l];
+          var da = nml['ACT_' + day.index];
+          var dn = nml['NML_' + day.index];
+          max = Math.max( max, Math.max( da, dn ) );
+          min = Math.min( min, Math.min( da, dn ) );
+          s1.push( [day.name, da] );
+          s2.push( [day.name, dn] );
+        }
       }
     }
 
