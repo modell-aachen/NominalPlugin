@@ -424,6 +424,9 @@ msgstr "Kalenderwoche"
 msgid "Day"
 msgstr "Tag"
 
+msgid "Superior KPI"
+msgstr "Übergeordnete Kennzahl"
+
 #~ msgid "Data"
 #~ msgstr "Daten"
 

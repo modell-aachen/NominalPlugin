@@ -1,6 +1,6 @@
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | TopicType | text | 10 | task | | M H |
-| Context | text | 10 | | | M H |
+| Context | text | 10 | | Superior KPI | M H |
 | Parent | text | 10 | | | H |
 | Author | text | 10 | %RENDERUSER{format="$cUID"}% | Task "creator" | M H |
 | Created | date | 10 | %GMTIME{"$epoch"}% | Time of creation | M H |
