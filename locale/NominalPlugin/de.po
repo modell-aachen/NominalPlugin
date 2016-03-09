@@ -129,7 +129,7 @@ msgstr "Löschen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Delete selected year"
-msgstr "Das ausgewählte Jahr lschen"
+msgstr "Das ausgewählte Jahr löschen"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
