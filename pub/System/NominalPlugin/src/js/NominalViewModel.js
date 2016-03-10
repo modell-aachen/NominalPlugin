@@ -673,6 +673,11 @@
           //just select the month from query when loading the page for the first time
           //FIREFOX needs the hash
           window.history.pushState("", "", '#');
+        }else if(!window.location.href.match(/#$/)) {
+          _.each(months, function(m) {
+            m.selected(m.index === (new Date()).getMonth()+1);
+          });
+          window.history.pushState("", "", '#');
         }
       }
 
