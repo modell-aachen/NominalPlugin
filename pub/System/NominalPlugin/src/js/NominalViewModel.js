@@ -105,7 +105,7 @@
             activate: self.nmlTabChanged
           });
 
-          var query = window.location.search.match( /year=(?:\d{4})/ );
+          var query = window.location.search.match( /year=(\d{4})/ );
           var year = query && query.length > 1 ? query[1] : (new Date()).getFullYear();
           var hasYear = _.where( nmls, {name: year.toString()} );
           if ( hasYear && hasYear.length > 0 ) {
