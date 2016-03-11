@@ -202,8 +202,15 @@
       var year = id;
       for( var i = 0; i < self.nominals().length; ++i ) {
         var nml = self.nominals()[i];
-        if ( nml.name === year ) {
+        if ( nml.name == year ) {
           self.selectedNominal( nml );
+          months = self.getDailyObject(nml.name);
+          if(self.isDaily()){
+            _.each(months, function(m) {
+              m.selected(m.index === (new Date()).getMonth()+1);
+            });
+          }
+          self.days(months);
           plot( self );
           return;
         }
@@ -376,7 +383,7 @@
         _.each(days, function(month) {
           month.selected(now === month.rawIndex);
         });
-        self.days = ko.observableArray(days);
+        self.days(days);
       }
 
       self.nominals.push( nml );
@@ -487,6 +494,13 @@
 
         if ( index < self.nominals().length ) {
           self.selectedNominal( self.nominals()[index] );
+          var months = self.getDailyObject(self.nominals()[index].name);
+          if(self.isDaily()){
+            _.each(months, function(m) {
+              m.selected(m.index === (new Date()).getMonth()+1);
+            });
+          }
+          self.days(months);
         } else {
           self.selectedNominal( {name: ''} );
           self.showNewYearLink( true );
@@ -673,11 +687,11 @@
           //just select the month from query when loading the page for the first time
           //FIREFOX needs the hash
           window.history.pushState("", "", '#');
-        }else if(!window.location.href.match(/#$/)) {
+        } else if(!window.location.href.match(/#$/)) {
           _.each(months, function(m) {
             m.selected(m.index === (new Date()).getMonth()+1);
           });
-          window.history.pushState("", "", '#');
+          window.history.pushState("", "", "#");
         }
       }
 
