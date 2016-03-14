@@ -105,7 +105,7 @@
             activate: self.nmlTabChanged
           });
 
-          var query = window.location.search.match( /year=(?:\d{4})/ );
+          var query = window.location.search.match( /year=(\d{4})/ );
           var year = query && query.length > 1 ? query[1] : (new Date()).getFullYear();
           var hasYear = _.where( nmls, {name: year.toString()} );
           if ( hasYear && hasYear.length > 0 ) {
@@ -202,8 +202,15 @@
       var year = id;
       for( var i = 0; i < self.nominals().length; ++i ) {
         var nml = self.nominals()[i];
-        if ( nml.name === year ) {
+        if ( nml.name == year ) {
           self.selectedNominal( nml );
+          months = self.getDailyObject(nml.name);
+          if(self.isDaily()){
+            _.each(months, function(m) {
+              m.selected(m.index === (new Date()).getMonth()+1);
+            });
+          }
+          self.days(months);
           plot( self );
           return;
         }
@@ -376,7 +383,7 @@
         _.each(days, function(month) {
           month.selected(now === month.rawIndex);
         });
-        self.days = ko.observableArray(days);
+        self.days(days);
       }
 
       self.nominals.push( nml );
@@ -487,6 +494,13 @@
 
         if ( index < self.nominals().length ) {
           self.selectedNominal( self.nominals()[index] );
+          var months = self.getDailyObject(self.nominals()[index].name);
+          if(self.isDaily()){
+            _.each(months, function(m) {
+              m.selected(m.index === (new Date()).getMonth()+1);
+            });
+          }
+          self.days(months);
         } else {
           self.selectedNominal( {name: ''} );
           self.showNewYearLink( true );
@@ -664,27 +678,38 @@
       });
 
       if (!selected.length) {
-        var now = 1 + (new Date()).getMonth();
         var query = window.location.search.match( /month=(\d{1,2})/ );
         var qm = query && query.length > 1 ? parseInt(query[1]) : -1;
-        _.each(months, function(m) {
-          m.selected(qm > 0 ? m.index === qm : m.rawIndex === now);
-        });
+        if(qm != -1){
+          _.each(months, function(m) {
+            m.selected(m.index === qm);
+          });
+          //just select the month from query when loading the page for the first time
+          //FIREFOX needs the hash
+          window.history.pushState("", "", '#');
+        } else if(!window.location.href.match(/#$/)) {
+          _.each(months, function(m) {
+            m.selected(m.index === (new Date()).getMonth()+1);
+          });
+          window.history.pushState("", "", "#");
+        }
       }
 
       selected = _.filter(months, function(m) {
         return m.selected();
       });
 
-      var days = selected[0].days();
-      for( var l = 0; l < days.length; ++l ) {
-        var day = days[l];
-        var da = nml['ACT_' + day.index];
-        var dn = nml['NML_' + day.index];
-        max = Math.max( max, Math.max( da, dn ) );
-        min = Math.min( min, Math.min( da, dn ) );
-        s1.push( [day.name, da] );
-        s2.push( [day.name, dn] );
+      if(selected.length){
+        var days = selected[0].days();
+        for( var l = 0; l < days.length; ++l ) {
+          var day = days[l];
+          var da = nml['ACT_' + day.index];
+          var dn = nml['NML_' + day.index];
+          max = Math.max( max, Math.max( da, dn ) );
+          min = Math.min( min, Math.min( da, dn ) );
+          s1.push( [day.name, da] );
+          s2.push( [day.name, dn] );
+        }
       }
     }
 

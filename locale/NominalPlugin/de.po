@@ -129,7 +129,7 @@ msgstr "Löschen"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Delete selected year"
-msgstr "Das ausgewählte Jahr lschen"
+msgstr "Das ausgewählte Jahr löschen"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 #: data/_apps/Nominal/NominalEditTemplate.txt
@@ -290,7 +290,7 @@ msgstr "Verantwortlich"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Responsible for key figure"
-msgstr ""
+msgstr "Verantwortlich für Kennzahl"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Responsible for measurement"
@@ -423,6 +423,9 @@ msgstr "Kalenderwoche"
 
 msgid "Day"
 msgstr "Tag"
+
+msgid "Superior KPI"
+msgstr "Übergeordnete Kennzahl"
 
 #~ msgid "Data"
 #~ msgstr "Daten"

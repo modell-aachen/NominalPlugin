@@ -6,23 +6,19 @@
 | Description | editor | | | | |
 | Responsible | user | 50 | | | |
 | MeasurementWho | user | 50 | | | |
-| RelatedProcess | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=source;skin=text;limit=20 | RelatedProcess |  |
+| RelatedProcess | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=source;skin=text;limit=20 | RelatedProcess | displayTopic="%WEB%.NominalAjaxHelper" displaySection="source_init" |
 | RelatedKPI | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=kpi;skin=text;limit=20 | RelatedKPI | displayTopic="%WEB%.NominalAjaxHelper" displaySection="kpi_init" |
 | Cycle | select+values | 1 | %MAKETEXT{"quarterly"}%=quarterly,%MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"weekly"}%=weekly,%MAKETEXT{"daily"}%=daily | Cycle | |
 | EligibleViewer | user+multi | 50  | | | |
 | Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
 
+   * Set RelatedProcess_s2_placeholder = %MAKETEXT{"no reference"}%
+   * Set RelatedProcess_s2_placeholdervalue = noReference
+   * Set RelatedProcess_s2_allowClear = 1
+   * Set RelatedKPI_s2_placeholder = %MAKETEXT{"no reference"}%
+   * Set RelatedKPI_s2_placeholdervalue = noReference
+   * Set RelatedKPI_s2_allowClear = 1
+
    * Set ALLOWTOPICCHANGE = AdminUser
    * Set NOWYSIWYG = 1
 
-<verbatim>
-%STARTSECTION{"processes"}%[%SOLRSEARCH{
-  "web:Processes type:topic title_search:?* -topic:*%WORKFLOWSUFFIX% (webtopic_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%) OR title_search:(%FORMATLIST{"%CALC{"$LOWER(%URLPARAM{"term" default="does not exist"}%)"}%" split=" " separator=" " pattern="(.*)" format="*$1*"}%))" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$percntENCODE{\\"$title\\" type=\\"safe\\"}$percnt\\",\\"sublabel\\":\\"$web.$topic\\",\\"value\\":\\"$web.$topic\\"}"}%" separator="," limit="%URLPARAM{"limit" default="10"}%"
-}%]%ENDSECTION{"processes"}%
-</verbatim>
-
-<verbatim>
-%STARTSECTION{"kpis"}%[%SOLRSEARCH{
-  "field_Title_s: %URLPARAM{"term"}%* type:topic topic:NML* field_Type_s:pkpi" web="%URLPARAM{"baseweb" default="%BASEWEB%"}%" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$field_Title_s\\",\\"value\\":\\"$topic\\"}"}%" separator="," rows="%URLPARAM{"limit" default="10"}%"
-}%]%ENDSECTION{"kpis"}%
-</verbatim>
