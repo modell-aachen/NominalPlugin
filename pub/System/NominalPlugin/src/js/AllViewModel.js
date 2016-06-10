@@ -190,10 +190,8 @@
 
   var sortNominals = function( self ) {
     // sort by title, ascending
-    var sortFunc = function( nml ) {
-      var chars = _.map( _.toArray(nml.title), function(i) {return i.charCodeAt();} );
-      var sum = _.reduce( chars, function( s, c ) {return s + c;}, 0 );
-      return Math.min( sum );
+    var sortFunc = function(nml) {
+      return (nml.title || '').toLowerCase();
     };
 
     self.ckpis( _.sortBy( self.ckpis(), sortFunc ) );
