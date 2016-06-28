@@ -40,7 +40,7 @@
       <tr>
         <td>%IF{"'%TOPIC%'/Type='ckpi'" then="%MAKETEXT{"Relevant process KPI"}%" else="%MAKETEXT{"Relevant process"}%"}%:</td>
         <td>
-          %IF{"'%TOPIC%'/Type='ckpi'" then="<a href='%SCRIPTURL{view}%/%QUERY{RelatedKPI}%'>%QUERY{"RelatedKPI/Title" default="$percentQUERY{RelatedKPI}$percent"}%</a>"
+          %IF{"'%TOPIC%'/Type='ckpi'" then="<a href='%SCRIPTURL{view}%/%QUERY{RelatedKPI}%'>%QUERY{"RelatedKPI/TopicTitle" default="$percentQUERY{RelatedKPI}$percent"}%</a>"
             else="
                 $percntIF{\"'$percntQUERY{RelatedProcess}$percnt'=''\" else=\"[[$percntQUERY{RelatedProcess}$percnt]]\"}$percnt "}%
         </td>
@@ -302,7 +302,7 @@
 %NOMINALVIEWMODEL%
 %TMPL:END%
 
-%TMPL:DEF{"top_simple"}%<div class="patternTop"><div id="modacHeading">%ENCODE{"%QUERY{"Title"}%" type="html"}%</div>
+%TMPL:DEF{"top_simple"}%<div class="patternTop"><div id="modacHeading">%ENCODE{"%QUERY{"TopicTitle"}%" type="html"}%</div>
 <span class="patternHomePath">%TMPL:P{"breadcrumb"}%</span><br></div><!--/patternTop-->%TMPL:END%
 
 %TMPL:DEF{"policymananegment"}%
@@ -311,7 +311,7 @@
 %ENDSECTION{type="templateonly"}%
 %TMPL:END%
 
-%TMPL:DEF{"breadcrumb:currenttopic"}%%IF{"'%TOPIC%' != 'WebHome'" then="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%][%ENCODE{"%QUERY{"Title"}%" type="html"}%]]" else=" "}%%TMPL:END%
+%TMPL:DEF{"breadcrumb:currenttopic"}%%IF{"'%TOPIC%' != 'WebHome'" then="%TMPL:P{"breadcrumb:separator"}%[[%TOPIC%][%ENCODE{"%QUERY{"TopicTitle"}%" type="html"}%]]" else=" "}%%TMPL:END%
 
 %META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminUser"}%
 %META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%

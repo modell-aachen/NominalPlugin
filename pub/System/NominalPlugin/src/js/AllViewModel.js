@@ -191,7 +191,7 @@
   var sortNominals = function( self ) {
     // sort by title, ascending
     var sortFunc = function(nml) {
-      return (nml.title || '').toLowerCase();
+      return (nml.topictitle || '').toLowerCase();
     };
 
     self.ckpis( _.sortBy( self.ckpis(), sortFunc ) );
@@ -394,7 +394,7 @@
       plot.destroy();
     }
 
-    var title = nml.title;
+    var title = nml.topictitle;
     if ( nml.unit ) {
       title += ' [' + nml.unit + ']';
     }
