@@ -402,7 +402,7 @@ SCRIPT
   $json = _jsonList($session, $web, $topic) unless $viewmodel eq 'NominalViewModel';
   my $html = <<HTML;
 <literal>
-<div class="nml-json">$json</div>
+<script class="nml-json" type'text/json'>$json</script>
 <script>$script</script>
 </literal>
 HTML
