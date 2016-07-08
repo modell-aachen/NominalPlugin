@@ -137,7 +137,7 @@
 
     try {
       var str = $('.nml-json').text();
-      var json = $.parseJSON(decodeURIComponent(str));
+      var json = $.parseJSON(str);
       if ( json && json.status === 'ok' ) {
         // return if no data available
         if ( json.data && json.data.length === 0 ) {
