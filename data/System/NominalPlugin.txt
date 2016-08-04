@@ -57,7 +57,7 @@ The below CKEditor configuration is used by the NominalPlugin's edit template.
   "enterMode": 1,
   "shiftEnterMode": 2,
   "extraPlugins": "link,qwiki,qwikiautosuggest,qwikifilebrowser",
-  "removePlugins": "autosave,divarea,filebrowser,table,tabletools,wordcount,magicline,qwikisave,qwikitable,qwikitabletools,qwikitoolbar,elementspath",
+  "removePlugins": "autosave,divarea,filebrowser,table,tabletools,wordcount,magicline,qwikisave,qwikitoolbar,elementspath",
   "language": "%LANGUAGE%",
   "forcePasteAsPlainText": false,
   "filebrowserUploadUrl": "%SCRIPTURLPATH{"rest"}%/WysiwygPlugin/upload?noredirect",
