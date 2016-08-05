@@ -198,7 +198,7 @@ sub _jsonList {
   }
 
   my %retval = (status => 'ok', count => $count - $skipped, data => \@list);
-  Foswiki::urlEncode(to_json(\%retval))
+  to_json(\%retval);
 }
 
 sub _restPOST {
@@ -353,7 +353,7 @@ STYLES
   my $scripts = <<SCRIPTS;
 <literal><!--[if lt IE 9]><script type="text/javascript" src="$path/js/excanvas$suffix.js"></script><![endif]--></literal>
 <script type="text/javascript" src="$path/js/jqplot$suffix.js"></script>
-<script type="text/javascript" src="$path/js/nominal$suffix.js"></script>
+<script type="text/javascript" src="$path/js/nominal$suffix.js?v=$RELEASE"></script>
 SCRIPTS
 
   Foswiki::Plugins::JQueryPlugin::createPlugin('jqp::underscore');
@@ -398,10 +398,11 @@ SCRIPT
     Foswiki::Plugins::SafeWikiPlugin::Signatures::permitInlineCode( $script );
   }
 
-  my $json = _jsonList($session, $web, $topic);
+  my $json= '';
+  $json = _jsonList($session, $web, $topic) unless $viewmodel eq 'NominalViewModel';
   my $html = <<HTML;
 <literal>
-<div class="nml-json">$json</div>
+<script class="nml-json" type="text/json">$json</script>
 <script>$script</script>
 </literal>
 HTML
