@@ -22,21 +22,21 @@
 
 <verbatim>
 %STARTSECTION{name="kpi"}%{"results":[%SOLRSEARCH{
-  "type:topic field_Title_s:*%URLPARAM{"q" default="?"}%* form:*NominalForm web:%BASEWEB% -topic:*Template field_Type_s:pkpi"
-  fields="webtopic, topic, field_Title_s"
-  format="{\"id\":\"$webtopic\",\"text\":\"$field_Title_s\"}"
+  "type:topic field_TopicTitle_s:*%URLPARAM{"q" default="?"}%* form:*NominalForm web:%BASEWEB% -topic:*Template field_Type_s:pkpi"
+  fields="webtopic, topic, field_TopicTitle_s"
+  format="{\"id\":\"$webtopic\",\"text\":\"$field_TopicTitle_s\"}"
   separator=", "
   rows="%URLPARAM{"limit" default="10"}%"
   start="%URLPARAM{"page" default="0"}%"
-  sort="field_Title_s asc, date desc"
+  sort="field_TopicTitle_s asc, date desc"
   footer="], \"total\":$count, \"dummy\":["
 }%]}%ENDSECTION{name="kpi"}%
 
 %STARTSECTION{name="kpi_init"}%
 %SOLRSEARCH{
   "webtopic:%id% form:*NominalForm"
-  fields="webtopic, topic, field_Title_s"
-  format="$field_Title_s"
+  fields="webtopic, topic, field_TopicTitle_s"
+  format="$field_TopicTitle_s"
   separator=", "
   sort="topic"
 }%
@@ -45,6 +45,8 @@
 
 <verbatim>
 %STARTSECTION{" "}%[%SOLRSEARCH{
-  "field_Title_s: %URLPARAM{"term"}%* type:topic topic:NML* field_Type_s:pkpi" web="%URLPARAM{"baseweb" default="%BASEWEB%"}%" format="<nop>%URLPARAM{"format" encode="quote" default="{\\"label\\":\\"$field_Title_s\\",\\"value\\":\\"$topic\\"}"}%" separator="," rows="%URLPARAM{"limit" default="10"}%"
+  "field_TopicTitle_s: %URLPARAM{"term"}%* type:topic topic:NML* field_Type_s:pkpi"
+  web="%URLPARAM{"baseweb" default="%BASEWEB%"}%" format="<nop>%URLPARAM{"format" encode="quote"
+  default="{\\"label\\":\\"$field_TopicTitle_s\\",\\"value\\":\\"$topic\\"}"}%" separator="," rows="%URLPARAM{"limit" default="10"}%"
 }%]%ENDSECTION{"kpis"}%
 </verbatim>
