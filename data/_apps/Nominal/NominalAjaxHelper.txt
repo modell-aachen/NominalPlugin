@@ -1,6 +1,6 @@
 <verbatim>
 %STARTSECTION{name="source"}%{"results":[%SOLRSEARCH{
-  "type:topic topic:*%URLPARAM{"q" default="?"}%* form:*DocumentForm web:%PROCESSESWEB% -topic:*Template"
+  "type:topic field_TopicTitle_s:*%URLPARAM{"q" default="?"}%* form:*DocumentForm web:%PROCESSESWEB% -topic:*Template -topic:*%WORKFLOWSUFFIX%"
   fields="webtopic, topic, title"
   format="{\"id\":\"$webtopic\",\"text\":\"$percentENCODE{\"$title\" type=\"quote\"}$percent\"}"
   separator=", "
