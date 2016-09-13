@@ -18,7 +18,7 @@
   <table class="metaDataHead">
     <tr class="modacForm">
       <td colspan="2"><span class="title">%MAKETEXT{"Title"}%</span><font color="red">*</font>:</td>
-      <td>%RENDERFOREDIT{field="Title" format="$edit"}%</td>
+      <td>%RENDERFOREDIT{field="TopicTitle" format="$edit"}%</td>
       <td class="title-col" style="width: 50%">%MAKETEXT{"Description"}%:</td>
     </tr>
     <tr>

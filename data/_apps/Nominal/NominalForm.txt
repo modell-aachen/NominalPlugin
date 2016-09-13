@@ -1,6 +1,6 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1398843678" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1467041478" format="1.1" reprev="1" version="2"}%
 | *Name* | *Type* | *Size* | *Values* | *Tool Message* | *Attritbutes* |
-| Title | text | 50 | | | M |
+| TopicTitle | text | 50 | | | M |
 | Type | select+values | 1 | %MAKETEXT{"Process KPI"}%=pkpi,%MAKETEXT{"Corporate KPI"}%=ckpi | Type | |
 | Unit | text | 50 | | | |
 | Description | editor | | | | |
