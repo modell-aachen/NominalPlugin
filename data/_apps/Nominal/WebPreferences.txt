@@ -19,7 +19,6 @@
 
    * Set WEBMETADATA = NominalForm
    * Set CKE_CONFIG_TOPIC = System.NominalPlugin
-   * Set NOMINALWEB = KPI
 
 ---++ Appearance
 
