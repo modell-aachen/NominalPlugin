@@ -16,11 +16,9 @@
    1 Edit the _WebPreferences_ of your destination web and add the following settings:
       * <verbatim>   * Set WEBMETADATA = NominalForm</verbatim>
       * <verbatim>   * Set CKE_CONFIG_TOPIC = System.NominalPlugin</verbatim>
-   1 Edit [[Main.SitePreferences]] and set variable *NOMINALWEB* to the according web name chosen above (defaults to Nominal)
       * <verbatim>   * Set NOMINALWEB = MyWebName</verbatim>
-      * This preference value will be skipped if your solr query (see next step) contains a web filter which doesn't point to the default name (e.g. web:FooWeb)
-      * *This preference value cannot be set within topic WebPreferences!*
-   1 Switch to _/bin/configure_ and 
+         * This preference value will be skipped if your solr query (see next step) contains a web filter which doesn't point to the default name (e.g. web:FooWeb)
+   1 Switch to _/bin/configure_ and
       * set the starting month of a fiscal year (defaults to 1)
       * modify the Solr query to match your setup (optional)
 
