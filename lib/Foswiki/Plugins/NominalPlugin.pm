@@ -134,7 +134,13 @@ sub _jsonList {
   }
 
   $query = $solr->entityDecode( $query, 1 );
-  my %params = ( rows => 9999 );
+  my %params = {
+      rows => 9999,
+  };
+  unless(Foswiki::Func::isAnAdmin()) {
+      my $wikiUser = Foswiki::Func::getWikiName();
+      $params{fq} = ["(access_granted:$wikiUser OR access_granted:all)"];
+  }
   my $raw = $solr->solrSearch( $query, \%params )->{raw_response};
   my $content = from_json( $raw->{_content} );
 
@@ -146,23 +152,6 @@ sub _jsonList {
   my $curUser = Foswiki::Func::getCanonicalUserID( $session->{user} );
   for (my $i = 0; $i < $count; $i++) {
     my $hit = $r->{docs}[$i];
-
-    my $private = $hit->{field_Private_lst};
-    if ( defined $private ) {
-      my @viewer = split(/,\s*/, $hit->{field_EligibleViewer_s});
-
-      my @cuids = ();
-      foreach my $v (@viewer) {
-        my $cuid = Foswiki::Func::getCanonicalUserID($v);
-        push( @cuids, $cuid ) if $cuid;
-      }
-
-      my $isAllowed = grep( /\Q$curUser\E/, @cuids );
-      if ( !$isAllowed && !Foswiki::Func::isAnAdmin( $session->{user} ) ) {
-        $skipped++;
-        next;
-      }
-    }
 
     my $wt = $hit->{webtopic};
     my $url = $hit->{url};
