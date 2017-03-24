@@ -435,7 +435,7 @@
         yaxis: {
           autoscale: false,
           min: Math.round(1.1 * min),
-          max: Math.round(1.1 * max),
+          max:  max < 1 ? 1.1 * max : Math.round(1.1 * max),
           tickOptions: {
             angle: 0,
             formatString: formatString
