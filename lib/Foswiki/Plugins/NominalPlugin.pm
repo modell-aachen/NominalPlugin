@@ -134,9 +134,9 @@ sub _jsonList {
   }
 
   $query = $solr->entityDecode( $query, 1 );
-  my %params = {
+  my %params = (
       rows => 9999,
-  };
+  );
   unless(Foswiki::Func::isAnAdmin()) {
       my $wikiUser = Foswiki::Func::getWikiName();
       $params{fq} = ["(access_granted:$wikiUser OR access_granted:all)"];
