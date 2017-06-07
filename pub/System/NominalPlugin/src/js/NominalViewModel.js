@@ -373,7 +373,6 @@
       try {
         $tabs.tabs( 'destroy' );
       } catch( e ) { /* ignore */ }
-      
 
       var nml = createEntryObject( self, year );
       nml.name = year;
@@ -476,7 +475,7 @@
         $.unblockUI();
       });
     };
- 
+
     this.deleteNominal = function() {
       updateNominal( self, 'delete', source ).done( function() {
         // update ui
@@ -717,17 +716,12 @@
       window.nmlplot.destroy();
     }
 
-    var formatString = '%#.0f';
     if (!s1.length && !s2.length) {
       return;
-    } else {
-      for (var i = 0; i < s1.length; ++i) {
-        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
-          formatString = '%#.2f';
-          break;
-        }
-      }
     }
+
+    var fp = !!_.filter(_.unzip(s1)[1], function(n) {return /[\.,]/.test(n);}).length;
+    var formatString = fp ? '%#.2f' : (max <= 3 ? '%#.1f' : '%#.0f');
 
     window.nmlplot = $.jqplot('nml-graph', [s1, s2], {
       animate: !$.jqplot.use_excanvas && self.animate,
@@ -769,8 +763,8 @@
         },
         yaxis: {
           autoscale: false,
-          min: 1.1 * min,
-          max: 1.1 * max,
+          min: min,
+          max: max,
           tickOptions: {
             angle: 0,
             formatString: formatString
@@ -853,13 +847,8 @@
         }
       }
 
-      var formatString = '%#.0f';
-      for (var i = 0; i < s1.length; ++i) {
-        if (/\.|,/.test(s1[i][1]) || /\.|,/.test(s2[i][1])) {
-          formatString = '%#.2f';
-          break;
-        }
-      }
+      var fp = !!_.filter(_.unzip(s1)[1], function(n) {return /[\.,]/.test(n);}).length;
+      var formatString = fp ? '%#.2f' : (max <= 3 ? '%#.1f' : '%#.0f');
 
       series.push( s1 );
       series.push( s2 );
@@ -918,8 +907,8 @@
         },
         yaxis: {
           autoscale: false,
-          min: 1.1 * min,
-          max: 1.1 * max,
+          min: min,
+          max: max,
           tickOptions: {
             angle: 0,
             formatString: formatString
