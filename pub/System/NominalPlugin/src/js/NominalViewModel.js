@@ -546,6 +546,7 @@
       var valid = /^\d+(\.\d+)?$/.test( val );
       if ( valid ) {
         $input.removeClass('invalid');
+        $input.val(val);
       } else {
         $input.addClass('invalid');
       }

@@ -160,7 +160,7 @@ msgstr "Termin"
 
 #: data/_apps/Nominal/NominalViewTemplate.txt
 msgid "Edit"
-msgstr "Editieren"
+msgstr "Bearbeiten"
 
 #: data/_apps/Nominal/NominalActionsViewTemplate.txt
 msgid "Export these tasks to PDF"
