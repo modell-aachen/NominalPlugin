@@ -18,7 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "jqplot": "*",
+    "jqplot": "jqPlot/jqPlot#1.0.9",
     "knockout": "knockoutjs#~3.4.0"
   }
 }

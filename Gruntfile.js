@@ -112,7 +112,7 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/css/nominal.css': '<%= pkg.pubDir %>/src/scss/nominal.scss',
-          '<%= pkg.pubDir %>/css/jqplot.css': '<%= pkg.bower %>/jqplot/jquery.jqplot.css'
+          '<%= pkg.pubDir %>/css/jqplot.css': '<%= pkg.bower %>/jqplot/src/jquery.jqplot.css'
         }
       },
       dist: {
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/css/nominal.min.css': '<%= pkg.pubDir %>/src/scss/nominal.scss',
-          '<%= pkg.pubDir %>/css/jqplot.min.css': '<%= pkg.bower %>/jqplot/jquery.jqplot.css'
+          '<%= pkg.pubDir %>/css/jqplot.min.css': '<%= pkg.bower %>/jqplot/src/jquery.jqplot.css'
         }
       }
     },
@@ -167,16 +167,16 @@ module.exports = function(grunt) {
           ],
           '<%= pkg.pubDir %>/js/excanvas.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
           '<%= pkg.pubDir %>/js/jqplot.js': [
-            '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.cursor.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasTextRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.categoryAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.dateAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.highlighter.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.pointLabels.js'
+            '<%= pkg.bower %>/jqplot/src/jquery.jqplot.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.barRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.cursor.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.canvasAxisTickRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.canvasTextRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.categoryAxisRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.dateAxisRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.enhancedLegendRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.highlighter.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.pointLabels.js'
           ]
         }
       },
@@ -195,16 +195,16 @@ module.exports = function(grunt) {
           ],
           '<%= pkg.pubDir %>/js/excanvas.min.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
           '<%= pkg.pubDir %>/js/jqplot.min.js': [
-            '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.cursor.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasTextRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.categoryAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.dateAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.highlighter.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.pointLabels.js'
+            '<%= pkg.bower %>/jqplot/src/jquery.jqplot.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.barRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.cursor.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.canvasAxisTickRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.canvasTextRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.categoryAxisRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.dateAxisRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.enhancedLegendRenderer.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.highlighter.js',
+            '<%= pkg.bower %>/jqplot/src/plugins/jqplot.pointLabels.js'
           ]
         }
       }
