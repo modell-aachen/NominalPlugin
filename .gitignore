@@ -4,5 +4,4 @@
 /lib/Foswiki/Plugins/NominalPlugin/MANIFEST
 /pub/System/NominalPlugin/css/*
 /pub/System/NominalPlugin/js/*
-/bower_components/*
 /node_modules/*
