@@ -12,20 +12,17 @@ module.exports = function(grunt) {
   pkg.localeDir = 'locale';
   pkg.libDirBase = 'lib/Foswiki/' + (isPlugin ? 'Plugins/': 'Contrib/');
   pkg.libDir = pkg.libDirBase + pkg.name;
-
-  try {
-    var bowerrc = grunt.file.readJSON('.bowerrc');
-    pkg.bower = bowerrc.directory;
-  } catch( e ) {
-    pkg.bower = 'bower_components'
-  }
+  pkg.node = 'node_modules';
 
   grunt.initConfig({
     pkg: pkg,
 
     clean: {
-      css: ["<%= pkg.pubDir %>/css/*.css"],
-      js: ["<%= pkg.pubDir %>/js/*.js"],
+      css: ["<%= pkg.pubDir %>/css/nominal.*css"],
+      js: [
+              "<%= pkg.pubDir %>/js/excanvas.*js",
+              "<%= pkg.pubDir %>/js/nominal.*js"
+      ],
       manifest: ["manifest.tmp"]
     },
 
@@ -64,19 +61,16 @@ module.exports = function(grunt) {
           var _ = grunt.util._;
 
           var ignore = [
-            pkg.bower,
             'node_modules/',
             'Gruntfile.js',
             'src/',
             '.git/',
             '.gitignore',
-            '.bowerrc',
             '.cache/',
             'build.pl',
             'README.md',
             'MANIFEST',
             'package.json',
-            'bower.json',
             'manifest.tmp'
           ];
 
@@ -112,7 +106,6 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/css/nominal.css': '<%= pkg.pubDir %>/src/scss/nominal.scss',
-          '<%= pkg.pubDir %>/css/jqplot.css': '<%= pkg.bower %>/jqplot/jquery.jqplot.css'
         }
       },
       dist: {
@@ -121,7 +114,6 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/css/nominal.min.css': '<%= pkg.pubDir %>/src/scss/nominal.scss',
-          '<%= pkg.pubDir %>/css/jqplot.min.css': '<%= pkg.bower %>/jqplot/jquery.jqplot.css'
         }
       }
     },
@@ -162,22 +154,10 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/js/nominal.js': [
-            '<%= pkg.bower %>/knockout/dist/knockout.debug.js',
+            '<%= pkg.node %>/knockout/build/output/knockout-latest.debug.js',
             '<%= pkg.pubDir %>/src/js/**/!(excanvas).js'
           ],
           '<%= pkg.pubDir %>/js/excanvas.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
-          '<%= pkg.pubDir %>/js/jqplot.js': [
-            '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.cursor.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasTextRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.categoryAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.dateAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.highlighter.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.pointLabels.js'
-          ]
         }
       },
       dist: {
@@ -190,22 +170,10 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= pkg.pubDir %>/js/nominal.min.js': [
-            '<%= pkg.bower %>/knockout/dist/knockout.js',
+            '<%= pkg.node %>/knockout/build/output/knockout-latest.js',
             '<%= pkg.pubDir %>/src/js/**/!(excanvas).js'
           ],
           '<%= pkg.pubDir %>/js/excanvas.min.js': ['<%= pkg.pubDir %>/src/js/excanvas.js'],
-          '<%= pkg.pubDir %>/js/jqplot.min.js': [
-            '<%= pkg.bower %>/jqplot/jquery.jqplot.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.barRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.cursor.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.canvasTextRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.categoryAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.dateAxisRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.highlighter.js',
-            '<%= pkg.bower %>/jqplot/plugins/jqplot.pointLabels.js'
-          ]
         }
       }
     },

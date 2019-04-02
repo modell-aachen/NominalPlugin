@@ -70,9 +70,6 @@ sub _installDeps {
   print "Fetching dependencies:\n";
   print $this->sys_action( qw(npm install) ) . "\n";
 
-  print "Updating components:\n";
-  print $this->sys_action( qw(bower update) ) . "\n";
-
   print "Cleaning directories...\n";
   print $this->sys_action( qw(grunt clean) ) . "\n";
 

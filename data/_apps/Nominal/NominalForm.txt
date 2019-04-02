@@ -10,8 +10,10 @@
 | RelatedKPI | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=kpi;skin=text;limit=20 | RelatedKPI | displayTopic="%WEB%.NominalAjaxHelper" displaySection="kpi_init" |
 | Cycle | select+values | 1 | %MAKETEXT{"quarterly"}%=quarterly,%MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"weekly"}%=weekly,%MAKETEXT{"daily"}%=daily | Cycle | |
 | EligibleViewer | user+multi | 50  | | | |
-| Private | checkbox+values | 1 | %MAKETEXT{"protected"}%=private | | |
+| Private | acl | 1 | %MAKETEXT{"protected"}%=private | visible only for participants and nominal creator |  |  |
 
+   * Set Private_acl_allowedUsers = %QUERY{"EligibleViewer"}%
+   * Set Private_acl_triggerCondition = 1
    * Set RelatedProcess_s2_placeholder = %MAKETEXT{"no reference"}%
    * Set RelatedProcess_s2_placeholdervalue = noReference
    * Set RelatedProcess_s2_allowClear = 1
