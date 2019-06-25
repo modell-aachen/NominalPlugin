@@ -62,7 +62,7 @@ Users or groups allowed to change or rename this <nop>%TOPIC% topic: (e.g., [[%U
    * Set ALLOWTOPICRENAME = KeyUserGroup
 
 ---++ ActionTracker settings
-   * Set ACTIONTRACKERPLUGIN_EXTRAS = |createdate,date|task,text,50|zeit,text,10|state,select+values,"%MAKETEXT{"open"}%=open","%MAKETEXT{"closed"}%=closed"|result,select+values,"%MAKETEXT{"Decision"}%=Decision","%MAKETEXT{"Task"}%=Task","%MAKETEXT{"Information"}%=Information"|
+   * Set ACTIONTRACKERPLUGIN_EXTRAS = |createdate,date|task,text,50|zeit,text,10|state,select2+values,"%MAKETEXT{"open"}%=open","%MAKETEXT{"closed"}%=closed"|result,select2+values,"%MAKETEXT{"Decision"}%=Decision","%MAKETEXT{"Task"}%=Task","%MAKETEXT{"Information"}%=Information"|
    * Set ACTIONTRACKERPLUGIN_TABLEHEADER = | %MAKETEXT{"Date"}% | %MAKETEXT{"Creator"}% | %MAKETEXT{"Type"}% | %MAKETEXT{"Task to"}% | %MAKETEXT{"Task"}%/%MAKETEXT{"Information"}% | Details | %MAKETEXT{"Due date"}% | %MAKETEXT{"Closed on"}% | <div style="display:none;">Status</div>| %MAKETEXT{"Signal"}% ||
    * Set ACTIONTRACKERPLUGIN_TABLEFORMAT = | $createdate | $creator | $percntMAKETEXT{"$result"}$percnt | $percntSUBST{text="$who" pattern="^Main\." format=""}$percnt | $task | $text | $due<div style="display: none">($closed)</div> | $closed | <div style="display:none;">$state</div> | |$edit |
    * Set ACTIONTRACKERPLUGIN_EDITHEADER = | %MAKETEXT{"Type"}% | %MAKETEXT{"Task to"}% | %MAKETEXT{"Due date"}% | Status | %MAKETEXT{"Task"}%/%MAKETEXT{"Information"}% | Details |

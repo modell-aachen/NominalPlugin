@@ -6,14 +6,14 @@
 | Created | date | 10 | %GMTIME{"$epoch"}% | Time of creation | M H |
 | Changed | date | 10 | %GMTIME{"$epoch"}% | Time of most recent change | H |
 | Closed | date | 10 | | | H |
-| Status | select+values | | %MAKETEXT{"open"}%=open,%MAKETEXT{"closed"}%=closed,%MAKETEXT{"deleted"}%=deleted | Status | |
+| Status | select2+values | 15 | %MAKETEXT{"open"}%=open,%MAKETEXT{"closed"}%=closed,%MAKETEXT{"deleted"}%=deleted | Status | |
 | Title | text | 95 | | Title | M |
 | AssignedTo | user | 20 | | Assigned to | M |
 | Description | taskeditor | 50 | | Description | |
 | DueDate | date2 | 10 | | Due | |
 | Informees | user+multi | 50 | | Persons to notify on changes | |
-| Prioritize | select+values | | %MAKETEXT{"no"}%=No,%MAKETEXT{"yes"}%=Yes | High priority | |
-| Type | select+values | | %MAKETEXT{"Task"}%=Task,%MAKETEXT{"Decision"}%=Decision,%MAKETEXT{"Information"}%=Information | Type | |
+| Prioritize | select2+values | 15 | %MAKETEXT{"no"}%=No,%MAKETEXT{"yes"}%=Yes | High priority | |
+| Type | select2+values | 15 | %MAKETEXT{"Task"}%=Task,%MAKETEXT{"Decision"}%=Decision,%MAKETEXT{"Information"}%=Information | Type | |
 
    * Set ALLOWTOPICCHANGE = AdminUser
    * Set NOWYSIWYG = 1

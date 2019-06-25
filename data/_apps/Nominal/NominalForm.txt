@@ -1,14 +1,14 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="pending" date="1467041478" format="1.1" reprev="1" version="2"}%
 | *Name* | *Type* | *Size* | *Values* | *Tool Message* | *Attritbutes* |
 | TopicTitle | text | 50 | | | M |
-| Type | select+values | 1 | %MAKETEXT{"Process KPI"}%=pkpi,%MAKETEXT{"Corporate KPI"}%=ckpi | Type | |
+| Type | select2+values | 50 | %MAKETEXT{"Process KPI"}%=pkpi,%MAKETEXT{"Corporate KPI"}%=ckpi | Type | |
 | Unit | text | 50 | | | |
 | Description | editor | | | | |
 | Responsible | user | 50 | | | |
 | MeasurementWho | user | 50 | | | |
 | RelatedProcess | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=source;skin=text;limit=20 | RelatedProcess | displayTopic="%WEB%.NominalAjaxHelper" displaySection="source_init" |
 | RelatedKPI | select2 | 50 | %SCRIPTURL{"view"}%/%WEB%/NominalAjaxHelper?section=kpi;skin=text;limit=20 | RelatedKPI | displayTopic="%WEB%.NominalAjaxHelper" displaySection="kpi_init" |
-| Cycle | select+values | 1 | %MAKETEXT{"quarterly"}%=quarterly,%MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"weekly"}%=weekly,%MAKETEXT{"daily"}%=daily | Cycle | |
+| Cycle | select2+values | 50 | %MAKETEXT{"quarterly"}%=quarterly,%MAKETEXT{"monthly"}%=monthly,%MAKETEXT{"weekly"}%=weekly,%MAKETEXT{"daily"}%=daily | Cycle | |
 | EligibleViewer | user+multi | 50  | | | |
 | Private | acl | 1 | %MAKETEXT{"protected"}%=private | visible only for participants and nominal creator |  |  |
 
